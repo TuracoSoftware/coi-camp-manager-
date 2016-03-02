@@ -17,7 +17,7 @@
     <ul class="sidebar-menu">
       <li class="header">Functions</li>
       <!-- Optionally, you can add icons to the links -->
-      <li class="active"><a href="#"><i class="fa fa-home"></i> <span>Home</span></a></li>
+      <li class="active"><a href="{{ URL::to('/administrator')}}"><i class="fa fa-home"></i> <span>Home</span></a></li>
       <li class="treeview">
         <a href="#"><i class="fa fa-calendar-check-o"></i> <span>Registration</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">

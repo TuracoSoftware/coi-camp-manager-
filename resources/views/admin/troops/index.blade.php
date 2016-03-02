@@ -2,21 +2,18 @@
 
 @section('content')
 
-<div class="container">
-    <br>
-    <div class="row col-md-offset-1">
-        <div class="col-md-10 col-md-offset-1">
+<section class="content-wrapper">
 
             @if($notroop)
-            <div class="mar-12">
+            <section class="content-header">
               <a class="btn btn-small btn-info" href="{{ URL::to('troop/create') }}">
                 <i class="fa fa-plus-square-o"></i> Register Troop
               </a>
-            </div>
+            </section>
             <br>
             @endif
             <div class="panel panel-default">
-                <div class="panel-heading">Current Information</div>
+                <div class="panel-heading">All Troops</div>
 
                 <div class="panel-body">
                     <table class="table table-hover">
@@ -54,7 +51,5 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+  </section>
 @endsection

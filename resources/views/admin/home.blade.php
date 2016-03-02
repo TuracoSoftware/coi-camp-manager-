@@ -4,7 +4,7 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-      Welcome to the Admin Area
+      Welcome to the Admin Area.
   </section>
 
   <!-- Main content -->
