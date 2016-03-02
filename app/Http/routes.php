@@ -50,12 +50,11 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::auth();
 
-    Route::get('/', function() {
-      return view('home');
-    });
+    Route::get('/', 'TroopController@troop_home');
 
     Route::group(['prefix' => 'administrator'], function()
     {
+        Route::get('/', 'TroopController@troop_home');
         Route::resource('troop', 'TroopController');
         Route::resource('scout', 'ScoutController');
         Route::resource('sclass', 'SclassController');
@@ -68,9 +67,9 @@ Route::group(['middleware' => 'web'], function () {
     });
 
 
-    Route::get('/administrator', function () {
+    /*Route::get('/administrator', function () {
     return view('admin.home');
-    });
+    });*/
 
     Route::get('/administrator/test', function () {
       return view('admin.troop.view');

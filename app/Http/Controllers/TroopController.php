@@ -45,6 +45,20 @@ class TroopController extends Controller
 
   }
 
+  public function troop_home(){
+
+    $troops = 0;
+    // this will return the last seven troops
+    $troops = Troop::latest()->take(7)->get();
+    if(Auth::user()->type == 'admin')
+      return view('admin.home')
+            ->with('troops',$troops);
+
+    return view('admin.home')
+            ->with('troops',$troops);
+
+  }
+
   public function addscout($id){
 
       return 'working on this function';
