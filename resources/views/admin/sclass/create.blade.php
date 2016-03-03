@@ -78,7 +78,7 @@
                         <input name="size" type="text" class="form-control" id="size">
                         <br>
                         <button type="submit" class="btn btn-default">
-                          <i class="fa fa-check"></i> Register Class
+                          <i class="fa fa-check"></i> Create Class
                         </button>
                       </form>
                     </div>

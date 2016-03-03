@@ -1,16 +1,15 @@
 @extends('admin.index')
 
 @section('content')
-<div class="container">
-    <br>
-    <div class="row col-md-offset-1">
-        <div class="col-md-10 col-md-offset-1">
 
-            <div class="mar-12">
+<section class="content-wrapper">
+
+
+            <section class="content-header">
               <a class="btn btn-small btn-info" href="{{ URL::to('sclass/create') }}">
                 <i class="fa fa-plus-square-o"></i> New Class
               </a>
-            </div><br>
+            </section><br>
 
             <div class="panel panel-default">
                 <div class="panel-heading">Current Information</div>
@@ -53,7 +52,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+</section>
 @stop
