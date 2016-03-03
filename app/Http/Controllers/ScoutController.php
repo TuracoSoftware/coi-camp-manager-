@@ -139,6 +139,12 @@ class ScoutController extends Controller
 					unset($sclasses[$key]);
 				}
 			}
+			/*foreach($sclasses as $key => $val) {
+				if($val->size < $val->scouts()->count() ){
+					unset($sclasses[$key]);
+				}
+			}*/
+
 
 			if(count($sclasses) > 0)
 			foreach($sclasses as $sclass) {

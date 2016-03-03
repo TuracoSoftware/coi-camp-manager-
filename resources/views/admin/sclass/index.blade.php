@@ -26,6 +26,7 @@
                           <td>Fee</td>
                           <td>Duration</td>
                           <td>Day</td>
+                          <td>Size</td>
                         </tr>
                       </thead>
                       <tbody>
@@ -37,6 +38,7 @@
                             <td>{{ $value->fee }}</td>
                             <td>{{ $value->duration }}</td>
                             <td>{{ $value->day }}</td>
+                            <td>{{ $value->size }}</td>
 
                             <td>
                               <a class="btn btn-small btn-info" href="{{ URL::to('sclass/' . $value->id . '/edit') }}">

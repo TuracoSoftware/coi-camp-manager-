@@ -29,6 +29,9 @@
                           <option value="7">Scoutcraft</option>
                           <option value="8">STEAM</option>
                           <option value="9">High Adventure</option>
+                          <option value="10">Callahan Village</option>
+                          <option value="11">Special Programs</option>
+
                         </select>
                         <br>
                         <label for="description">Description:</label>
@@ -70,6 +73,9 @@
                         @if($errors->first('min_age'))
                           <span class="error">{{$errors->first('min_age')}}</span>
                         @endif
+                        <br>
+                        <label for="size">Size:</label>
+                        <input name="size" type="text" class="form-control" id="size">
                         <br>
                         <button type="submit" class="btn btn-default">
                           <i class="fa fa-check"></i> Register Class

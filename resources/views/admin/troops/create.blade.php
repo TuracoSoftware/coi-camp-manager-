@@ -36,7 +36,19 @@
                         <select name="council" class ="form-control" id="council">
                           <option value="Blue Ridge Council">Blue Ridge Council</option>
                           <option value="Indian Waters Council">Indian Waters Council</option>
-                          <option value="Palmetto Council">Palmetto Council</option>
+                          <option value="Palmetto Area Council">Palmetto Area Council</option>
+                          <option value="Coastal Carolina Council">Costal Carolina Council</option>
+                          <option value="Pee Dee Area Council">Pee Dee Area Council</option>
+                          <option value="Daniel Boone Council">Daniel Boone Council</option>
+                          <option value="Mecklenburg County Council">Mecklenburg Council</option>
+                          <option value="Central North Carolina Council">Central North Carolina Council</option>
+                          <option value="Piedmont Council">Piedmont Council</option>
+                          <option value="Occoneechee Council">Occoneechee Council</option>
+                          <option value="Tuscarora Council">Tuscarora Council</option>
+                          <option value="Cape Fear Council">Cape Fear Council</option>
+                          <option value="East Carolina Council">East Carolina Council</option>
+                          <option value="Old Hickory Council">Old Hickory Council</option>
+                          <option value="Out of Council">Other Council</option>
                         </select>
                         <br>
                         <label for="week">Week Attending Camp</label>

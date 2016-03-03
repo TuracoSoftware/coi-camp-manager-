@@ -172,6 +172,9 @@
                 <span class="error">{{$errors->first('min_age')}}</span>
               @endif
               <br>
+              <label for="size">Size:</label>
+              <input name="size" type="text" class="form-control" id="size" value="{{ $size }}" >
+              <br>
               <button type="submit" class="btn btn-default">
                 <i class="fa fa-check"></i> Save
               </button>

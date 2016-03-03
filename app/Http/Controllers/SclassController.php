@@ -46,6 +46,7 @@ class SclassController extends Controller
               ->with('department', $sclass->department)
               ->with('fee', $sclass->fee)
               ->with('duration', $sclass->duration)
+              ->with('size', $sclass->size)
               ->with('min_age', $sclass->min_age);
 
     return redirect()->to('sclass');
@@ -75,6 +76,7 @@ class SclassController extends Controller
               $sclass->day = $request->input('day');
               $sclass->department = $request->input('department');
               $sclass->fee = $request->input('fee');
+              $sclass->size = $request->input('size');
               $sclass->duration = $request->input('duration');
 
               $sclass->save();
@@ -139,6 +141,7 @@ class SclassController extends Controller
             $sclass->department = $request->input('department');
             $sclass->fee = $request->input('fee');
             $sclass->day = $request->input('day');
+            $sclass->size = $request->input('size');
     		    $sclass->duration = $request->input('duration');
 
     		    $sclass->save();
