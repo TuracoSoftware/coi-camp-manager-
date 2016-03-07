@@ -1,5 +1,7 @@
-/* 
-	Dylan Wilcox
+/* Simple script created by -- cesarherreralic
+   you can find me on 
+   http://fiverr.com/cesarherreralic
+   email: cesarherreralic@gmail.com
 */
 
 $(document).ready(function(){

@@ -92,7 +92,9 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted credit" align="center">Copyright &copy 2015-2016 <a href="http://www.turaco.io">Turaco Software,</a> All rights reservered.<p>
+        <p class="text-muted credit" align="center">Questions or Comments? Contact Camp Director
+          <a href="mailto:Rbajan@campoldindian.com"><strong>Ryan Bajan</strong></a> | Copyright &copy 2015-2016 
+          <a href="http://www.turaco.io">Turaco Software,</a> All rights reservered.</p>
       <div>
     </footer>
 

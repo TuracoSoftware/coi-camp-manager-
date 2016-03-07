@@ -378,7 +378,7 @@ class ScoutController extends Controller
 			$scout->classes()->attach($mo79);
 		}
 
-		$tu79 = $request->input('tu25');
+		$tu79 = $request->input('tu79');
 		
 		if($tu79 != 'Free'){
 			$scout->classes()->attach($tu79);
@@ -453,34 +453,40 @@ class ScoutController extends Controller
 
 	public function update($id, Request $request)
     {
-      $rules = array(
-        'firstname'    =>   'required'
-      );
+		$rules = array(
+		'firstname'    =>   'required'
+		);
 
-      $scout = Scout::find($id);
+		$scout = Scout::find($id);
 
-      if( $scout ){
-        if($scout->troop_id == Auth::user()->troop->id || Auth::user()->type == 'admin' ){ // if troop's user is me or im the admin
+      	$auth_user_troop_id = '';
+		if(Auth::user()->type != 'admin')
+			$auth_user_troop_id = Auth::user()->troop->id;
+		else
+			$auth_user_troop_id = $scout->troop_id;
 
-          $validator = Validator::make($request->all(), $rules);
+		if( $scout ){
+			if($scout->troop_id == $auth_user_troop_id || Auth::user()->type == 'admin' ){ // if troop's user is me or im the admin
 
-          if($validator->fails()) {
-            return redirect()->back()->withErrors($validator->messages());
-          } else {
-              $scout->firstname = $request->input('firstname');
-              $scout->lastname = $request->input('lastname');
-              $scout->age = $request->input('age');
-              if(!empty($scout->troop_id)){
-              	$scout->troop_id = $scout->troop_id;
-              }else{
-              	$scout->troop_id = $request->input('troop_id');
-              }
-              $scout->save();
-              return redirect()->to('scout');
-          }
+			  $validator = Validator::make($request->all(), $rules);
 
-        }
-      }
+			  if($validator->fails()) {
+			    return redirect()->back()->withErrors($validator->messages());
+			  } else {
+			      $scout->firstname = $request->input('firstname');
+			      $scout->lastname = $request->input('lastname');
+			      $scout->age = $request->input('age');
+			      if(!empty($scout->troop_id)){
+			      	$scout->troop_id = $scout->troop_id;
+			      }else{
+			      	$scout->troop_id = $request->input('troop_id');
+			      }
+			      $scout->save();
+			      return redirect()->to('scout');
+			  }
+
+			}
+		}
 
     }
 
