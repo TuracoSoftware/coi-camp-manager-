@@ -13,7 +13,7 @@
             <form action="{{ url('scout/'.$id) }}" method="POST">
               {!! csrf_field() !!}
               <input name="_method" type="hidden" value="PUT">
-              
+
               <label for="scoutfirstname">Scout First Name:</label>
               <input name="firstname" type="text" class ="form-control" id="scoutfirstname" value="{{ $firstname }}">
               <br>
@@ -45,7 +45,7 @@
                  @if($age == 15)
                   <option value="15" selected>15</option>
                 @else
-                  <option value="15">11</option>
+                  <option value="15">15</option>
                 @endif
                  @if($age == 16)
                   <option value="16" selected>16</option>

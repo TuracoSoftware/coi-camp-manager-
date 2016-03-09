@@ -40,7 +40,7 @@
                   {{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old:</strong>
                   <div class="troop-buttons">
                     <a href="{{ URL::to('scout/' . $scout->id . '/schedule') }}"><i class="fa fa-edit"> Edit Schedule</i></a> |
-                    <a href="{{ URL::to('pdf/'.$scout->id) }}" target="_blank"><i class="fa fa-print"> Print Schedule</i></a> |
+                    <a href="{{ URL::to('scout-pint-view/'.$scout->id) }}" target="_blank"><i class="fa fa-print"> Print Schedule</i></a> |
                     <a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"> Edit Scout</i></a> |
                     <a type="button" href="#" onclick="open_modal('Are you sure?', '{{ url('scout/'.$scout->id) }}', true, 'DELETE')">
                       <i class="fa fa-trash"> Delete Scout</i>
