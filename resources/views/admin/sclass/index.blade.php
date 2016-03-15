@@ -11,21 +11,23 @@
               </a>
             </section><br>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Current Information</div>
+            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-header">Current Classes</h3>
+                </div>
 
-                <div class="panel-body">
-
-                    <table class="table table-hover">
+                <div class="box-body">
+                    <table id="class_table" class="table table-bordered table-hover">
                       <thead>
                         <tr>
-                          <td>Class Name</td>
-                          <td>Description</td>
-                          <td>Min Age</td>
-                          <td>Fee</td>
-                          <td>Duration</td>
-                          <td>Day</td>
-                          <td>Size</td>
+                          <th>Class Name</th>
+                          <th>Description</th>
+                          <th>Min Age</th>
+                          <th>Fee</th>
+                          <th>Duration</th>
+                          <th>Day</th>
+                          <th>Size</th>
+                          <th>Options</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -54,4 +56,29 @@
             </div>
 
 </section>
+
+<!-- Scripts Required for DataTable -->
+
+<!-- jQuery 2.1.4 -->
+<script src="{{ asset ("../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
+<!-- DataTables -->
+<script src="{{ asset ("../resources/assets/admin/plugins/datatables/jquery.dataTables.min.js") }}"></script>
+<script src="{{  asset("../resources/assets/admin/plugins/datatables/dataTables.bootstrap.min.js") }}"></script>
+<!-- SlimScroll -->
+<script src="{{ asset ("../resources/assets/admin/plugins/slimScroll/jquery.slimscroll.min.js") }}"></script>
+<!-- FastClick -->
+<script src="{{ asset ("../resources/assets/admin/plugins/fastclick/fastclick.js") }}"></script>
+
+<script>
+  $(function () {
+    $('#class_table').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
 @stop

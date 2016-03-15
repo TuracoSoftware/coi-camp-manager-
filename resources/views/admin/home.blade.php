@@ -25,7 +25,7 @@
           <div class="icon">
             <i class="fa fa-users"></i>
           </div>
-          <a href="#" class="small-box-footer">View All Scouts <i class="fa fa-arrow-circle-right"></i></a>
+          <a href="{{ URL::to('/scout') }}" class="small-box-footer">View All Scouts <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -41,7 +41,7 @@
           <div class="icon">
             <i class="fa fa-bank"></i>
           </div>
-          <a href="#" class="small-box-footer">View All Troops <i class="fa fa-arrow-circle-right"></i></a>
+          <a href={{ URL::to('/troop') }} class="small-box-footer">View All Troops <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->

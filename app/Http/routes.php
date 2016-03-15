@@ -46,11 +46,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::put('/scout/{id}/schedule', 'ScoutController@update_schedule');
     Route::post('/scout/search', 'ScoutController@search_by_name');
 
-    Route::get('pdf/{id}', 'PdfController@invoice');
+    Route::get('scout_print_view/{id}', 'PdfController@scout_print');
 
     Route::auth();
 
-    //Route::get('/', 'TroopController@troop_home');
     Route::get('/', function () {
       return view('welcome');
     });
@@ -69,23 +68,11 @@ Route::group(['middleware' => 'web'], function () {
 
     });
 
-
-    /*Route::get('/administrator', function () {
-    return view('admin.home');
-    });*/
-
     Route::get('/administrator/test', function () {
       return view('admin.troop.view');
     });
 
     Route::get('/home', 'HomeController@index');
-    // Route::get('/home', function(){
-    //     return view('welcome');
-    // });
-
-  /*  Route::get('/troop', function() {
-      return view('troop');
-    });*/
 
     Route::get('/sessionregistration', function() {
       return view('sessionregistration');
@@ -95,5 +82,4 @@ Route::group(['middleware' => 'web'], function () {
       return view('scoutregistration');
     });
 
-    //Route::post('/troopregistration', 'TroopController@store');
 });

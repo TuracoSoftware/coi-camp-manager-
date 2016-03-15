@@ -23,7 +23,7 @@
                         <input name="lastname" type="text" class="form-control" id="lastname">
                         <br>
                         <label for"phone">Scoutmaster Phone:</label>
-                        <input name="phone" type="text" class="form-control" id="phone">
+                        <input name="phone" type="text" class="form-control" id="phone" data-inputmask='"mask": "(999) 999-9999"' data-mask>
                         <br>
                         <label for"email">Scoutmaster Email:</label>
                         <input name="email" type="text" class="form-control" value="{{ Auth::user()->email }}" id="email">
@@ -71,4 +71,14 @@
         </div>
     </div>
 </div>
+<!-- InputMask -->
+<script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.js") }}"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+<script>
+  $(function () {
+    $("[data-mask]").inputmask();
+  });
+</script>
 @endsection

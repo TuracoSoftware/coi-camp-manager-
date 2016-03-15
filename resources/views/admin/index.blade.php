@@ -16,6 +16,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset("../resources/assets/admin/bootstrap/css/bootstrap.min.css") }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset("../resources/assets/admin/plugins/datatables/dataTables.bootstrap.css") }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
@@ -73,9 +75,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset ("../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ asset ("../resources/assets/admin/bootstrap/js/bootstrap.min.js") }}"></script>
+    <!-- DataTables -->
+    <script src="{{ asset ("../resources/assets/admin/plugins/datatables/jquery.dataTables.min.js") }}"></script>
+    <script src="{{  asset("../resources/assets/admin/plugins/datatables/dataTables.bootstrap.min.js") }}"></script>
+    <!-- SlimScroll -->
+    <script src="{{ asset ("../resources/assets/admin/plugins/slimScroll/jquery.slimscroll.min.js") }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset ("../resources/assets/admin/plugins/fastclick/fastclick.js") }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset ("../resources/assets/admin/dist/js/app.min.js") }}"></script>
-
+    <!-- Custom JS -->
     <script src="{{ URL::asset('../resources/assets/js/script.js') }}"></script>
 
     @section('custom_scripts')

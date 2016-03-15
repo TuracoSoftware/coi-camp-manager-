@@ -20,10 +20,8 @@ class ScoutController extends Controller
 	public function index() {
 
 		if(Auth::user()->type == 'admin'){
+			$troop = Troop::all();
 			$scout = Scout::all();
-
-			// return view('scouts.index')
-		 //      ->with('scouts',$scout);
 
 			return view('admin.scouts.index')
 		      ->with('scouts',$scout);
@@ -37,7 +35,7 @@ class ScoutController extends Controller
 
 			return view('scouts.index')
 		    	  ->with('scouts',$scout);
-		    
+
 		}
 
 
@@ -63,17 +61,18 @@ class ScoutController extends Controller
 		                    	->whereIn('troop_id', $troops)
 		                    	->get();
 		    }else
+
 		    	$scout = [];
 
 			return view('scouts.index')
 		    	  ->with('scouts',$scout);
-		    
+
 		}
 
 	}
 
 	public function search_by_name(Request $request){
-		
+
 		$name = $request->input('name');
 
 		if(Auth::user()->type == 'admin'){
@@ -132,7 +131,7 @@ class ScoutController extends Controller
 			$fr79 = NULL;
 
 			$sclasses = $scout->classes;
-			
+
 			//this foreach remove all classes that have min_age > than scout's age
 			foreach($sclasses as $key => $val) {
 				if($val->min_age > $scout->age){
@@ -303,31 +302,31 @@ class ScoutController extends Controller
 		/*saving only 9 - 12 */
 
 		$mo912 = $request->input('mo912');
-		
+
 		if($mo912 != 'Free'){
 			$scout->classes()->attach($mo912);
 		}
 
 		$tu912 = $request->input('tu912');
-		
+
 		if($tu912 != 'Free'){
 			$scout->classes()->attach($tu912);
 		}
 
 		$we912 = $request->input('we912');
-		
+
 		if($we912 != 'Free'){
 			$scout->classes()->attach($we912);
 		}
 
 		$th912 = $request->input('th912');
-		
+
 		if($th912 != 'Free'){
 			$scout->classes()->attach($th912);
 		}
 
 		$fr912 = $request->input('fr912');
-		
+
 		if($fr912 != 'Free'){
 			$scout->classes()->attach($fr912);
 		}
@@ -338,31 +337,31 @@ class ScoutController extends Controller
 		/*saving only 2 - 5 */
 
 		$mo25 = $request->input('mo25');
-		
+
 		if($mo25 != 'Free'){
 			$scout->classes()->attach($mo25);
 		}
 
 		$tu25 = $request->input('tu25');
-		
+
 		if($tu25 != 'Free'){
 			$scout->classes()->attach($tu25);
 		}
 
 		$we25 = $request->input('we25');
-		
+
 		if($we25 != 'Free'){
 			$scout->classes()->attach($we25);
 		}
 
 		$th25 = $request->input('th25');
-		
+
 		if($th25 != 'Free'){
 			$scout->classes()->attach($th25);
 		}
 
 		$fr25 = $request->input('fr25');
-		
+
 		if($fr25 != 'Free'){
 			$scout->classes()->attach($fr25);
 		}
@@ -373,31 +372,31 @@ class ScoutController extends Controller
 		/*saving only 7 - 9 */
 
 		$mo79 = $request->input('mo79');
-		
+
 		if($mo79 != 'Free'){
 			$scout->classes()->attach($mo79);
 		}
 
 		$tu79 = $request->input('tu79');
-		
+
 		if($tu79 != 'Free'){
 			$scout->classes()->attach($tu79);
 		}
 
 		$we79 = $request->input('we79');
-		
+
 		if($we79 != 'Free'){
 			$scout->classes()->attach($we79);
 		}
 
 		$th79 = $request->input('th79');
-		
+
 		if($th79 != 'Free'){
 			$scout->classes()->attach($th79);
 		}
 
 		$fr79 = $request->input('fr79');
-		
+
 		if($fr79 != 'Free'){
 			$scout->classes()->attach($fr79);
 		}
@@ -545,7 +544,7 @@ class ScoutController extends Controller
 
 
     public function destroy($id) {
-      
+
       $current_user = Auth::user();
       //check if user is logged in
       if ( $current_user ){

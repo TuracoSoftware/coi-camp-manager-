@@ -33,17 +33,16 @@
               </div>
             </div>
 
-
             @foreach($scouts as $key => $scout)
               <div class="panel panel-default">
                 <div class="panel-heading">
                   {{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old:</strong>
                   <div class="troop-buttons">
-                    <a href="{{ URL::to('scout/' . $scout->id . '/schedule') }}"><i class="fa fa-edit"> Edit Schedule</i></a> |
-                    <a href="{{ URL::to('scout-pint-view/'.$scout->id) }}" target="_blank"><i class="fa fa-print"> Print Schedule</i></a> |
-                    <a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"> Edit Scout</i></a> |
+                    <a href="{{ URL::to('scout/' . $scout->id . '/schedule') }}"><i class="fa fa-edit"></i><span> Edit Schedule</span></a> |
+                    <a href="{{ URL::to('scout_print_view/'.$scout->id) }}" target="_blank"><i class="fa fa-print"></i><span> Print Schedule</span></a> |
+                    <a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"></i><span> Edit Scout</span></a> |
                     <a type="button" href="#" onclick="open_modal('Are you sure?', '{{ url('scout/'.$scout->id) }}', true, 'DELETE')">
-                      <i class="fa fa-trash"> Delete Scout</i>
+                      <i class="fa fa-trash"></i><span> Delete Scout</span>
                     </a>
                   </div>
                 </div>

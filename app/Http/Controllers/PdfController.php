@@ -11,16 +11,16 @@ use App\Http\Controllers\Controller;
 class PdfController extends Controller
 {
     //
-	public function invoice($id) 
+	public function scout_print($id)
     {
 
         $scout = Scout::find($id);
         $earnings = $scout->totalfee();
-        $view =  \View::make('pdf.invoice', compact('scout', 'earnings'))->render();
+        $view =  \View::make('pdf.scoutschedule', compact('scout', 'earnings'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('invoice');
     }
- 
+
 
 }
