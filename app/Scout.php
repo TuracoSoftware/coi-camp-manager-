@@ -15,6 +15,10 @@ class Scout extends Model
       return $this->belongsToMany('App\Sclass', 'scout_sclass', 'scout_id', 'sclass_id');
     }
 
+    public function classExists($id) {
+      return $this->belongsToMany('App\Sclass', 'scout_sclass', 'scout_id', 'sclass_id')->where('sclass_id', $id)->count() >= 1;
+    }
+
     public function totalfee(){
 
       $my_classes = $this->belongsToMany('App\Sclass', 'scout_sclass', 'scout_id', 'sclass_id')->groupBy('id')->get();

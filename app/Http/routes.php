@@ -46,7 +46,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::put('/scout/{id}/schedule', 'ScoutController@update_schedule');
     Route::post('/scout/search', 'ScoutController@search_by_name');
 
+    /*PDF views*/
     Route::get('scout_print_view/{id}', 'PdfController@scout_print');
+    Route::get('roster_print_view/{sclass_id}/{week}', 'PdfController@roster_print');
 
     Route::auth();
 
@@ -65,6 +67,10 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::get('week/{id}', 'ScoutController@week');
         Route::get('troop/{id}/addscout', 'TroopController@addscout');
+
+        Route::get('roster', 'RosterController@index');
+        Route::post('roster', 'RosterController@generate');
+
 
     });
 

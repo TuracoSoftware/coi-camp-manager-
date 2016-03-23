@@ -16,8 +16,8 @@
               
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  {{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old:</strong>
-                  <a href="{{ URL::to('pdf/'.$scout->id) }}" target="_blank"><i class="fa fa-print"> Print Schedule</i></a> |
+                  {{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old</strong>
+                  <a href="{{ URL::to('scout_print_view/'.$scout->id) }}" target="_blank"><i class="fa fa-print"> Print Schedule</i></a> |
                   <a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"> Edit Scout</i></a>
                 </div>
                 <div class="panel-body">

@@ -15,7 +15,7 @@
               -->
                 <div class="panel panel-default">
                 <div class="panel-heading">
-                  {{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old</strong> - Troop {{ $scout->troop->troop }}
+                  {{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old</strong> - @if(!empty($scout->troop)) Troop {{ $scout->troop->troop }} @endif
                 </div>
                 <div class="panel-body">
                   <table class="table table-hover">

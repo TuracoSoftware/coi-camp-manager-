@@ -1,9 +1,3 @@
-/* Simple script created by -- cesarherreralic
-   you can find me on 
-   http://fiverr.com/cesarherreralic
-   email: cesarherreralic@gmail.com
-*/
-
 $(document).ready(function(){
 
 
@@ -89,7 +83,7 @@ $(document).ready(function(){
 
 	custom_on_change('fr', 'friday');
 	custom_on_change_down('fr', 'friday');
-	
+
 
 
 });

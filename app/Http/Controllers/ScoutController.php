@@ -20,7 +20,6 @@ class ScoutController extends Controller
 	public function index() {
 
 		if(Auth::user()->type == 'admin'){
-			$troop = Troop::all();
 			$scout = Scout::all();
 
 			return view('admin.scouts.index')
@@ -138,11 +137,7 @@ class ScoutController extends Controller
 					unset($sclasses[$key]);
 				}
 			}
-			/*foreach($sclasses as $key => $val) {
-				if($val->size < $val->scouts()->count() ){
-					unset($sclasses[$key]);
-				}
-			}*/
+
 
 
 			if(count($sclasses) > 0)
@@ -233,6 +228,56 @@ class ScoutController extends Controller
 			$sclasses_we79 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->get();
 			$sclasses_th79 = Sclass::where('day', 'Thursday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->get();
 			$sclasses_fr79 = Sclass::where('day', 'Friday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->get();
+
+
+			foreach($sclasses_mo912 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_mo912[$key]);
+			foreach($sclasses_tu912 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_tu912[$key]);
+			foreach($sclasses_we912 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_we912[$key]);
+			foreach($sclasses_th912 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_th912[$key]);
+			foreach($sclasses_fr912 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_fr912[$key]);
+
+			foreach($sclasses_mo25 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_mo25[$key]);
+			foreach($sclasses_tu25 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_tu25[$key]);
+			foreach($sclasses_we25 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_we25[$key]);
+			foreach($sclasses_th25 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_th25[$key]);
+			foreach($sclasses_fr25 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_fr25[$key]);
+
+			foreach($sclasses_mo79 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_mo79[$key]);
+			foreach($sclasses_tu79 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_tu79[$key]);
+			foreach($sclasses_we79 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_we79[$key]);
+			foreach($sclasses_th79 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_th79[$key]);
+			foreach($sclasses_fr79 as $key => $val)
+				if(!$scout->classExists($val->id) )
+					if($val->count_scouts() >= $val->size) unset($sclasses_fr79[$key]);
+
 
 			$context = array(
 				'mo912' => $mo912,

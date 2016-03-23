@@ -36,6 +36,7 @@
         <a href="#"><i class="fa fa-gears"></i> <span>Setup</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
           <li class="active"><a href="{{ URL::to('/sclass') }}"><i class="fa fa-calendar-check-o"></i> <span>Classes</span></a></li>
+          <li class="active"><a href="{{ URL::to('/administrator/roster/') }}"><i class="fa fa-calendar-check-o"></i> <span>Rosters</span></a></li>
         </ul>
       </li>
     </ul><!-- /.sidebar-menu -->

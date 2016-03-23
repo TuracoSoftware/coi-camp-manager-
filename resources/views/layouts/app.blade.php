@@ -89,14 +89,14 @@
 
     @yield('content')
     @include('modals.modalyn')
-
+    <!-- You shouldnt see this
     <footer class="footer">
       <div class="container">
         <p class="text-muted credit" align="center">Questions or Comments? Contact Camp Director
-          <a href="mailto:Rbajan@campoldindian.com"><strong>Ryan Bajan</strong></a> | Copyright &copy 2015-2016 
+          <a href="mailto:Rbajan@campoldindian.com"><strong>Ryan Bajan</strong></a> | Copyright &copy 2015-2016
           <a href="http://www.turaco.io">Turaco Software,</a> All rights reservered.</p>
       <div>
-    </footer>
+    </footer> -->
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
