@@ -49,6 +49,7 @@ class ScoutController extends Controller
 			$scout = Scout::whereIn('troop_id', $troops)->get();
 
 			return view('admin.scouts.index')
+					->with('week', $id)
 		      ->with('scouts',$scout);
 
 		}else{

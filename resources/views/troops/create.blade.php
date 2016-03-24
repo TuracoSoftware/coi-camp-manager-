@@ -20,10 +20,10 @@
                         @endif
                         <br>
                         <label for="lastname">Scoutmaster Last Name:</label>
-                        <input name="lastname" type="text" class="form-control" id="lastname">
+                        <input type="text" class="form-control" id="lastname">
                         <br>
                         <label for"phone">Scoutmaster Phone:</label>
-                        <input name="phone" type="text" class="form-control" id="phone" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                        <input type="text" class="form-control" pattern="^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$" id="phone">
                         <br>
                         <label for"email">Scoutmaster Email:</label>
                         <input name="email" type="text" class="form-control" value="{{ Auth::user()->email }}" id="email">
@@ -71,14 +71,23 @@
         </div>
     </div>
 </div>
+<!-- jQuery -->
+<script src="{{ asset ("../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
+<!-- Select2 -->
+<script src="{{ asset ("../resources/assets/admin/plugins/select2/select2.full.min.js") }}"></script>
+<!-- Bootstrap 3.3.5 -->
+<script src="{{ asset ("../resources/assets/admin/bootstrap/js/bootstrap.min.js") }}"></script>
 <!-- InputMask -->
 <script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.js") }}"></script>
-<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>
+<script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.extensions.js") }}"></script>
 
 <script>
-  $(function () {
-    $("[data-mask]").inputmask();
+$(function () {
+  $(".select2").select2();
+
+  $("[data-mask]").inputmask();
+
   });
 </script>
 @endsection

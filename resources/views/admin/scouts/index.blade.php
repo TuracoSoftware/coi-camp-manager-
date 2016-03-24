@@ -1,203 +1,82 @@
 @extends('admin.index')
 
 @section('content')
-<div class="container">
-    <div class="row col-md-offset-1">
-        <div class="col-md-10 col-md-offset-1">
 
-            <br>
-            <div class="row">
+<section class="content-wrapper">
 
-              <!-- New Scout button -->
-              <div class="col-md-4">
-                <div class="mar-12">
-                  <a class="btn btn-small btn-info" href="{{ URL::to('administrator/scout/create') }}">
-                    <i class="fa fa-plus-square-o"></i> New Scout
-                  </a>
-                </div>
-              </div>
+  <section class="content-header">
 
-              <!-- Search form -->
-              <div class="col-md-8">
-                <div class="mar-12">
-                  <form class="navbar-form" role="search" action="{{ URL::to('scout/search') }}" method="POST">
-                    <div class="input-group">
-                        {!! csrf_field() !!}
-                        <input type="text" class="form-control" placeholder="Search a Scout" name="name">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+    <h2 class="page-header">Week {{ $week }}</h2>
+      <!-- New Scout button -->
+      <a class="btn btn-small btn-info" href="{{ URL::to('administrator/scout/create') }}">
+        <i class="fa fa-plus-square-o"></i> New Scout
+     </a>
+     
+  </section>
 
-
-            </div>
-
-
+  <section class="content">
+    <div class="box box-default">
+      <div class="box-header with-border">
+        <h3 class="box-title">All Scouts</h3>
+      </div>
+      <div class="box-body">
+        <table id="scout_table" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Troop</th>
+              <th>Council</th>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Age</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
             @foreach($scouts as $key => $scout)
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  {{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old</strong>
-                  <a href="{{ URL::to('scout/' . $scout->id . '/schedule') }}"><i class="fa fa-edit"> Edit Schedule</i></a> |
-                  <a href="{{ URL::to('scout_print_view/'.$scout->id) }}" target="_blank"><i class="fa fa-print"> Print Schedule</i></a> |
-                  <a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"> Edit Scout</i></a> |
-                  <a type="button" href="#" onclick="open_modal('are you sure?', '{{ url('scout/'.$scout->id) }}', true, 'DELETE')">
-                    <i class="fa fa-trash"> Delete Scout</i>
-                  </a>
-                </div>
-                <div class="panel-body">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <td>Time</td>
-                        <td>Monday</td>
-                        <td>Tuedsay</td>
-                        <td>Wednesday</td>
-                        <td>Thursday</td>
-                        <td>Friday</td>
-                      </tr>
-                    </thead>
-                    <tr>
-                      <td>9:00am-12:00pm</td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Thursday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Thursday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-                         {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2:000pm-5:00pm</td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->name }}
-                        @else
-                            @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['PM Only'])->first()->name ))
-                              {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['PM Only'])->first()->name }}
-                            @else
-                              Free
-                            @endif
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['AM & PM'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['AM & PM'])->first()->name }}
-                        @else
-                          @if(!empty( $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['PM Only'])->first()->name ))
-                            {{ $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['PM Only'])->first()->name }}
-                          @else
-                            Free
-                          @endif
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['AM & PM'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['AM & PM'])->first()->name }}
-                        @else
-                          @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['PM Only'])->first()->name ))
-                            {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['PM Only'])->first()->name }}
-                          @else
-                            Free
-                          @endif
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Thursday')->whereIn('duration', ['AM & PM'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Thursday')->whereIn('duration', ['AM & PM'])->first()->name }}
-                        @else
-                          @if(!empty( $scout->classes->where('day', 'Thursday')->whereIn('duration', ['PM Only'])->first()->name ))
-                            {{ $scout->classes->where('day', 'Thursday')->whereIn('duration', ['PM Only'])->first()->name }}
-                          @else
-                            Free
-                          @endif
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['AM & PM'])->first()->name ))
-                         {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['AM & PM'])->first()->name }}
-                        @else
-                          @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['PM Only'])->first()->name ))
-                            {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['PM Only'])->first()->name }}
-                          @else
-                            Free
-                          @endif
-                        @endif
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>7:00pm-9:00pm</td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['Twilight'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['Twilight'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Thursday')->whereIn('duration', ['Twilight'])->first()->name ))
-                          {{ $scout->classes->where('day', 'Thursday')->whereIn('duration', ['Twilight'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                      <td>
-                        @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->name ))
-                         {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->name }}
-                        @else
-                          Free
-                        @endif
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
+            <tr>
+              <td>{{ $scout->troop->troop }}</td>
+              <td>{{ $scout->troop->council }}</td>
+              <td>{{ $scout->lastname }}</td>
+              <td>{{ $scout->firstname }}</td>
+              <td>{{ $scout->age }}</td>
+              <td>
+              <a href="{{ URL::to('scout/' . $scout->id . '/schedule') }}"><i class="fa fa-edit"> Edit Schedule</i></a> |
+              <a href="{{ URL::to('scout_print_view/'.$scout->id) }}" target="_blank"><i class="fa fa-print"> Print Schedule</i></a> |
+              <a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"> Edit Scout</i></a> |
+              <a type="button" href="#" onclick="open_modal('are you sure?', '{{ url('scout/'.$scout->id) }}', true, 'DELETE')">
+                <i class="fa fa-trash"> Delete Scout</i>
+              </a>
+            </td>
+          </tr>
             @endforeach
+            </tbody>
+          </table>
+          </div>
         </div>
-    </div>
-</div>
+      </section>
+</section>
+<!-- Scripts Required for DataTable -->
+
+<!-- jQuery 2.1.4 -->
+<script src="{{ asset ("../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
+<!-- DataTables -->
+<script src="{{ asset ("../resources/assets/admin/plugins/datatables/jquery.dataTables.min.js") }}"></script>
+<script src="{{ asset("../resources/assets/admin/plugins/datatables/dataTables.bootstrap.min.js") }}"></script>
+<!-- SlimScroll -->
+<script src="{{ asset ("../resources/assets/admin/plugins/slimScroll/jquery.slimscroll.min.js") }}"></script>
+<!-- FastClick -->
+<script src="{{ asset ("../resources/assets/admin/plugins/fastclick/fastclick.js") }}"></script>
+
+<script>
+  $(function () {
+    $('#scout_table').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
 @endsection

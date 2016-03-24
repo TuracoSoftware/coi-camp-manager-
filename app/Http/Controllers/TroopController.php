@@ -50,12 +50,16 @@ class TroopController extends Controller
     $troops = 0;
     // this will return the last seven troops
     $troops = Troop::latest()->take(7)->get();
+    $scouts = Scout::count();
+    $troop_count = Troop::count();
     if(Auth::user()->type == 'admin')
       return view('admin.home')
-            ->with('troops',$troops);
+            ->with('troops',$troops)
+            ->with('troop_count', $troop_count)
+            ->with('scouts',$scouts);
 
-    return view('admin.home')
-            ->with('troops',$troops);
+  /*  return view('admin.home')
+            ->with('troops',$troops);*/
 
   }
 
@@ -163,7 +167,7 @@ class TroopController extends Controller
           }
 
         }
-        
+
 
       }
 
@@ -205,14 +209,14 @@ class TroopController extends Controller
                 return redirect()->to('troop');
             }
         }
-      }  
+      }
 
     }
 
 
 
     public function destroy($id) {
-      
+
       $current_user = Auth::user();
       //check if user is logged in
       if ( $current_user ){
@@ -228,7 +232,7 @@ class TroopController extends Controller
             try {
               $troop->user_id = NULL;
               $troop->save();
-              foreach($troop->scouts()->get() as $scout){ 
+              foreach($troop->scouts()->get() as $scout){
                 $scout->troop_id = NULL;
                 $scout->save();
               }
