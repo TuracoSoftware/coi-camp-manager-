@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="content-wrapper">
+<section class="content-wrapper">
 
             <section class="content-header">
               <a class="btn btn-small btn-info" href="{{ URL::to('sclass/create') }}">

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Auth;
 
+// This class controls what clases are offered and when
 class SclassController extends Controller
 {
   public function __construct() {
@@ -91,10 +92,6 @@ class SclassController extends Controller
 
     }
 
-
-
-
-
 	public function create() {
 
       $current_user = Auth::user();
@@ -153,7 +150,7 @@ class SclassController extends Controller
     }
 
     public function destroy($id) {
-      
+
       $current_user = Auth::user();
       //check if user is logged in
       if ( $current_user ){

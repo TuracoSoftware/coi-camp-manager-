@@ -30,13 +30,12 @@
           <li><a href="{{ URL::to('/administrator/week/7') }}">Week 7</a></li>
         </ul>
       </li>
-      <li class="active"><a href="{{ URL::to('/troop') }}"><i class="fa fa-calendar-check-o"></i> <span>Troops</span></a></li>
-      <li class="active"><a href="{{ URL::to('/scout') }}"><i class="fa fa-calendar-check-o"></i> <span>Scouts</span></a></li>
+      <li><a href="{{ URL::to('/troop') }}"><i class="fa fa-users"></i> <span>Troops</span></a></li>
       <li class="treeview">
         <a href="#"><i class="fa fa-gears"></i> <span>Setup</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-          <li class="active"><a href="{{ URL::to('/sclass') }}"><i class="fa fa-calendar-check-o"></i> <span>Classes</span></a></li>
-          <li class="active"><a href="{{ URL::to('/administrator/roster/') }}"><i class="fa fa-calendar-check-o"></i> <span>Rosters</span></a></li>
+          <li class="active"><a href="{{ URL::to('/sclass') }}"><i class="fa fa-mortar-board"></i> <span>Classes</span></a></li>
+          <li class="active"><a href="{{ URL::to('/administrator/roster/') }}"><i class="fa fa-file"></i> <span>Rosters</span></a></li>
         </ul>
       </li>
     </ul><!-- /.sidebar-menu -->

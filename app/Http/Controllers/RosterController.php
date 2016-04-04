@@ -11,12 +11,14 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Auth;
 
+// This class controls the roster views
 class RosterController extends Controller
 {
   public function __construct() {
      $this->middleware('auth');
   }
 
+  // list all classes for the week
 	public function index(){
 
     if(Auth::user()->type == 'admin'){
@@ -31,6 +33,7 @@ class RosterController extends Controller
 
 	}
 
+  // Generate the roster options for a requested class
   public function generate(Request $request){
 
     $sclass_id = $request->input('sclass');
@@ -45,7 +48,7 @@ class RosterController extends Controller
     foreach($troops as $key => $troop) {
       $scouts_ = $troop->scouts;
       foreach($scouts_ as $key => $scout) {
-        
+
         if($scout->classExists($sclass_id)){
           $scouts[] = $scout;
         }
@@ -189,7 +192,7 @@ class RosterController extends Controller
     }
 
     public function destroy($id) {
-      
+
       $current_user = Auth::user();
       //check if user is logged in
       if ( $current_user ){

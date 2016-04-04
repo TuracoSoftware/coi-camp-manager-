@@ -16,7 +16,7 @@ class Troop extends Model
 
   public function scouts() {
 
-    return $this->hasMany('App\Scout', 'troop_id');
+    return $this->hasMany('App\Scout', 'troop_id', 'week');
 
   }
 
@@ -29,7 +29,7 @@ class Troop extends Model
   	$scouts_final = NULL;
 
   	foreach ($myScouts as $key => $value) {
-  		
+
   		$current_sclasses = $value->classes();
 
   		if(!in_array($current_sclass, $current_sclasses)){
