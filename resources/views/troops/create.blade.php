@@ -20,10 +20,10 @@
                         @endif
                         <br>
                         <label for="lastname">Scoutmaster Last Name:</label>
-                        <input type="text" class="form-control" id="lastname">
+                        <input name="lastname" type="text" class="form-control" id="lastname">
                         <br>
                         <label for"phone">Scoutmaster Phone:</label>
-                        <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="phone">
+                        <input name="phone" type="text" class="form-control" id="phone" data-inputmask='"mask": "(999) 999-9999"' data-mask>
                         <br>
                         <label for"email">Scoutmaster Email:</label>
                         <input name="email" type="text" class="form-control" value="{{ Auth::user()->email }}" id="email">
@@ -34,39 +34,20 @@
                         <label for="council">Council</label>
                         <select name="council" class ="form-control" id="council">
                           <option value="Blue Ridge Council">Blue Ridge Council</option>
-                          <option value="Alapaha Area Council">Alapaha Area Council</option>
-                          <option value="Atlant Area Council">Atlanta Area Council</option>
-                          <option value="Cape Fear Council">Cape Fear Council</option>
-                          <option value="Central Florida Council">Central Florida Council</option>
-                          <option value="Central Georgia Council">Central Georgia Council</option>
-                          <option value="Central North Carolina Council">Central North Carolina Council</option>
-                          <option value="Chattahoochee Council">Chattahoochee Council</option>
-                          <option value="Chehaw Council">Chehaw Council</object>
-                          <option value="Coastal Carolina Council">Costal Carolina Council</option>
-                          <option value="Coastal Georgia Council">Coastal Georgia Council</option>
-                          <option value="Daniel Boone Council">Daniel Boone Council</option>
-                          <option value="East Carolina Council">East Carolina Council</option>
-                          <option value="Flint River Council">Flint River Council</object>
-                          <option value="Georgia-Carolina Council">Georgia-Carolina Council</option>
-                          <option value="Gulf Coast Council">Gulf Coast Council</option>
-                          <option value="Gulf Ridge Council">Gulf Ridge Council</option>
-                          <option value="Gulf Stream Council">Gulf Stream Council</option>
                           <option value="Indian Waters Council">Indian Waters Council</option>
-                          <option value="Mecklenburg County Council">Mecklenburg Council</option>
-                          <option value="North Florida Counicl">North Florida Council</option>
-                          <option value="Northeast Georgia Council">Northeast Georgia Council</option>
-                          <option value="Northwest Georgia Council">Northwest Georgia Council</option>
-                          <option value="Occoneechee Council">Occoneechee Council</option>
-                          <option value="Old Hickory Council">Old Hickory Council</option>
                           <option value="Palmetto Area Council">Palmetto Area Council</option>
+                          <option value="Coastal Carolina Council">Costal Carolina Council</option>
                           <option value="Pee Dee Area Council">Pee Dee Area Council</option>
+                          <option value="Daniel Boone Council">Daniel Boone Council</option>
+                          <option value="Mecklenburg County Council">Mecklenburg Council</option>
+                          <option value="Central North Carolina Council">Central North Carolina Council</option>
                           <option value="Piedmont Council">Piedmont Council</option>
-                          <option value="South Florida Council">South Florida Council</option>
-                          <option value="Southwest Florida Council">Southwest Florida Council</option>
-                          <option value="Suwannee River Area Council">Suwannee River Area Council</option>
+                          <option value="Occoneechee Council">Occoneechee Council</option>
                           <option value="Tuscarora Council">Tuscarora Council</option>
-                          <option value="West Central Florida Council">West Central Florida Council</option>
-                          <option value="Out of Council">Other Council<
+                          <option value="Cape Fear Council">Cape Fear Council</option>
+                          <option value="East Carolina Council">East Carolina Council</option>
+                          <option value="Old Hickory Council">Old Hickory Council</option>
+                          <option value="Out of Council">Other Council</option>
                         </select>
                         <br>
                         <label for="week">Week Attending Camp</label>
@@ -90,23 +71,14 @@
         </div>
     </div>
 </div>
-<!-- jQuery -->
-<script src="{{ asset ("../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
-<!-- Select2 -->
-<script src="{{ asset ("../resources/assets/admin/plugins/select2/select2.full.min.js") }}"></script>
-<!-- Bootstrap 3.3.5 -->
-<script src="{{ asset ("../resources/assets/admin/bootstrap/js/bootstrap.min.js") }}"></script>
 <!-- InputMask -->
 <script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.js") }}"></script>
-<script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>
-<script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.extensions.js") }}"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
 <script>
-$(function () {
-  $(".select2").select2();
-
-  $("[data-mask]").inputmask();
-
+  $(function () {
+    $("[data-mask]").inputmask();
   });
 </script>
 @endsection

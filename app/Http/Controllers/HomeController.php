@@ -19,7 +19,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application's End User Insttuctoins
+     * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
