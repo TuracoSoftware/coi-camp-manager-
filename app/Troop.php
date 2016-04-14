@@ -20,6 +20,12 @@ class Troop extends Model
 
   }
 
+  public function scoutmasters() {
+
+    return $this->hasMany('App\Scoutmaster', 'troop_id');
+
+  }
+
   /*public function scoutsBySclassId($id) {
 
   	$myScouts = $this->hasMany('App\Scout');
@@ -29,7 +35,7 @@ class Troop extends Model
   	$scouts_final = NULL;
 
   	foreach ($myScouts as $key => $value) {
-  		
+
   		$current_sclasses = $value->classes();
 
   		if(!in_array($current_sclass, $current_sclasses)){

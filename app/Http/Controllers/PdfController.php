@@ -11,7 +11,10 @@ use App\Http\Controllers\Controller;
 
 class PdfController extends Controller
 {
-    //
+    /*
+		Takes a scout's ID and
+		Returns a PDF view for a single scout's course schedule
+		*/
 	public function scout_print($id)
     {
 
@@ -23,7 +26,9 @@ class PdfController extends Controller
         return $pdf->stream('invoice');
     }
 
-
+		/*
+		* Takes a class ID and that week and returns a roster view for the requested class
+		*/
     public function roster_print($sclass_id, $week)
     {
 
@@ -37,7 +42,7 @@ class PdfController extends Controller
         foreach($troops as $key => $troop) {
           $scouts_ = $troop->scouts;
           foreach($scouts_ as $key => $scout) {
-            
+
             if($scout->classExists($sclass_id)){
               $scouts[] = $scout;
             }

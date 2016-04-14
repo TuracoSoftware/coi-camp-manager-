@@ -12,10 +12,17 @@ class Sclass extends Model
       return $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id');
     }
 
+    public function badge() {
+      return $this->hasMany('App\Badge', 'sclass_id');
+    }
+
     public function count_scouts(){
 
-    	return $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id')->distinct('scout_id')->count('scout_id');
-
+    	return $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id')
+        ->distinct('scout_id')
+        ->distinct('sclass_id')
+        ->count('scout_id');
     }
+
 
 }

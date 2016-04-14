@@ -18,7 +18,7 @@
         <div class="small-box bg-aqua">
           <div class="inner">
             <!-- Displays total number of scouts registered for the summer -->
-            <h3>###</h3>
+            <h3>{{ $scouts }}</h3>
 
             <p>Scouts Registered</p>
           </div>
@@ -34,7 +34,7 @@
         <div class="small-box bg-yellow">
           <div class="inner">
             <!-- TODO: Displays total number of troops registered for the summer -->
-            <h3>###</h3>
+            <h3>{{ $troop_count }}</h3>
 
             <p>Troops Registered</p>
           </div>
