@@ -16,13 +16,7 @@ class Troop extends Model
 
   public function scouts() {
 
-    return $this->hasMany('App\Scout', 'troop_id');
-
-  }
-
-  public function scoutmasters() {
-
-    return $this->hasMany('App\Scoutmaster', 'troop_id');
+    return $this->hasMany('App\Scout', 'troop_id', 'week');
 
   }
 

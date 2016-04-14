@@ -36,7 +36,6 @@
         <ul class="treeview-menu">
           <li class="active"><a href="{{ URL::to('/sclass') }}"><i class="fa fa-mortar-board"></i> <span>Classes</span></a></li>
           <li class="active"><a href="{{ URL::to('/administrator/roster/') }}"><i class="fa fa-file"></i> <span>Rosters</span></a></li>
-          <li class="active"><a href="{{ URL::to('/administrator/scoutmaster') }}"><i class="fa fa-gear"></i> <span>Scoutmaster Sessions</span></a></li>
         </ul>
       </li>
     </ul><!-- /.sidebar-menu -->
