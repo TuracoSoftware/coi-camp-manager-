@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Auth;
 
-// This class controls the scout functions
 class ScoutController extends Controller
 {
 	public function __construct() {
@@ -40,32 +39,19 @@ class ScoutController extends Controller
 
 
 	}
-	// Find the scouts in a requested week and return the view
-	// TODO: Maybe move this method to its own class since its basically controlling the whole week views
+
 	public function week($id){
 
 		if(Auth::user()->type == 'admin'){
 
-			//Get the ID's of the troops for indexing the correct scouts
 			$troops = Troop::where('week_attending_camp', $id)->get()->lists('id');
 
-			//Get the troops that week for another table on the admin.scouts.index page
-			$troop = Troop::where('week_attending_camp', $id)->get();
-
-			//Get list of classes for the class stat views
-			$classes = Sclass::all();
-
-			//Finally, get the scous from the database
 			$scout = Scout::whereIn('troop_id', $troops)->get();
 
 			return view('admin.scouts.index')
-					->with('week', $id)
-					->with('troops', $troop)
-					->with('classes', $classes)
 		      ->with('scouts',$scout);
 
 		}else{
-
 			if(Auth::user()->troop){
 
 				$troops = Troop::where('week_attending_camp', $id)->get()->lists('id');
@@ -84,9 +70,6 @@ class ScoutController extends Controller
 
 	}
 
-	/* Search and return scout by name
-	* TODO: This may be removed as it's function is more easily done with JQuery's table
-	*/
 	public function search_by_name(Request $request){
 
 		$name = $request->input('name');
@@ -116,7 +99,6 @@ class ScoutController extends Controller
 
 	}
 
-	// This method controls the actual registration
 	public function schedule($id){
 
 		$scout = Scout::find($id);
@@ -129,10 +111,6 @@ class ScoutController extends Controller
 
 		if($scout->troop_id == $troop_id || Auth::user()->type == 'admin' ) // if troop's user is me or im the admin
 
-			/* This initilize's all the scout's class periods
-			* TODO: Make these assignable in a database. This will make these more dynamic and in the future
-			* allow other camps to adapt it to thier own schedules
-			*/
 			$mo912 = NULL;
 			$tu912 = NULL;
 			$we912 = NULL;
@@ -153,7 +131,7 @@ class ScoutController extends Controller
 
 			$sclasses = $scout->classes;
 
-			// Return only the classes a scout is eligable to take
+			//this foreach remove all classes that have min_age > than scout's age
 			foreach($sclasses as $key => $val) {
 				if($val->min_age > $scout->age){
 					unset($sclasses[$key]);
@@ -161,11 +139,9 @@ class ScoutController extends Controller
 			}
 
 
-			// These next statements validate a registration
+
 			if(count($sclasses) > 0)
 			foreach($sclasses as $sclass) {
-
-				// If the duration is AM Only or AM & PM set AM to the sclass name
 				if($sclass->day == 'Monday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
 					$mo912 = $sclass->name;
 				}
@@ -182,12 +158,7 @@ class ScoutController extends Controller
 					$fr912 = $sclass->name;
 				}
 
-				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-				* if a class is all day a scout gets registered all day.
-				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-				* are loaded dynamically from value a user sets so that in the future other camps can add their
-				* own constraints.
-				*/
+
 				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
 					if( $sclass->duration == 'AM & PM' )
 						$mo25 = $sclass->name;
@@ -219,7 +190,7 @@ class ScoutController extends Controller
 						$fr25 = $sclass->name;
 				}
 
-				// validate the TWilight class registrations
+
 				if($sclass->day == 'Monday' && $sclass->duration == 'Twilight'){
 					$mo79 = $sclass->name;
 				}
@@ -239,31 +210,26 @@ class ScoutController extends Controller
 
 			}
 
-			/* pull the scout classes from the database
-			* TODO: Rather than relying on a "WherIn" function there should a a duration table or something similar
-			* as mention earlier
-			*/
-			$sclasses_mo912 = Sclass::where('day', 'Monday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_tu912 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_we912 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_th912 = Sclass::where('day', 'Thursday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_fr912 = Sclass::where('day', 'Friday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
 
-			$sclasses_mo25 = Sclass::where('day', 'Monday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_tu25 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_we25 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_th25 = Sclass::where('day', 'Thursday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_fr25 = Sclass::where('day', 'Friday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
+			$sclasses_mo912 = Sclass::where('day', 'Monday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_tu912 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_we912 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_th912 = Sclass::where('day', 'Thursday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_fr912 = Sclass::where('day', 'Friday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
 
-			$sclasses_mo79 = Sclass::where('day', 'Monday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_tu79 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_we79 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_th79 = Sclass::where('day', 'Thursday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
-			$sclasses_fr79 = Sclass::where('day', 'Friday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
+			$sclasses_mo25 = Sclass::where('day', 'Monday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_tu25 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_we25 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_th25 = Sclass::where('day', 'Thursday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_fr25 = Sclass::where('day', 'Friday')->whereIn('duration', ['PM Only','AM & PM'])->where('min_age', '<=', $scout->age)->get();
 
-			/* Return on classes that are not full
-			TODO: There is a bug here becasue this logic currently can't distiguish between indiviual weeks and classes
-			Within a week
+			$sclasses_mo79 = Sclass::where('day', 'Monday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_tu79 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_we79 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_th79 = Sclass::where('day', 'Thursday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->get();
+			$sclasses_fr79 = Sclass::where('day', 'Friday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->get();
+
+
 			foreach($sclasses_mo912 as $key => $val)
 				if(!$scout->classExists($val->id) )
 					if($val->count_scouts() >= $val->size) unset($sclasses_mo912[$key]);
@@ -312,9 +278,7 @@ class ScoutController extends Controller
 				if(!$scout->classExists($val->id) )
 					if($val->count_scouts() >= $val->size) unset($sclasses_fr79[$key]);
 
-					*/
 
-			// Classes prepared and ready to be sent to the form
 			$context = array(
 				'mo912' => $mo912,
 				'tu912' => $tu912,
@@ -572,29 +536,29 @@ class ScoutController extends Controller
 
 	public function create() {
 
-    $current_user = Auth::user();
+      $current_user = Auth::user();
 
-    //check if user is logged in
-    if ( $current_user ){
-
-
-
-  	if(Auth::user()->type == 'admin'){
-    		return view('admin.scouts.create');
-    	}else{
-    		if ( $current_user->troop )
-    			return view('scouts.create');
-    	}
+      //check if user is logged in
+      if ( $current_user ){
 
 
+
+    	if(Auth::user()->type == 'admin'){
+      		return view('admin.scouts.create');
+      	}else{
+      		if ( $current_user->troop )
+      			return view('scouts.create');
+      	}
+
+
+
+      }
+      return redirect()->to('login');
+      // return view('login');
 
     }
-    return redirect()->to('login');
-    // return view('login');
 
-  }
-
-  public function store(Request $request) {
+    public function store(Request $request) {
 		$rules = array(
 		'firstname'    =>   'required'
 		);
@@ -652,5 +616,6 @@ class ScoutController extends Controller
       }
       return view('login');
     }
+
 
 }

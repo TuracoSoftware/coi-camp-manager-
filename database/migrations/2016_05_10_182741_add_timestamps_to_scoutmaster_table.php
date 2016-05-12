@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ScoutmasterSession extends Migration
+class AddTimestampsToScoutmasterTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,9 @@ class ScoutmasterSession extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('scoutmasters', function(Blueprint $table) {
+          $table->timestamps();
+        });
     }
 
     /**

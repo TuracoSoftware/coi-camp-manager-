@@ -10,7 +10,7 @@ class ScoutmasterSession extends Model
 
   public function scoutmasters() {
 
-    return $this->belongsToMany('App\Scoutmaster', 'scoutmaster_session', 'scoutmaster_id', 'scoutmastersession_id');
+    return $this->belongsToMany('App\Scoutmaster', 'scoutmaster_session_registration', 'scoutmaster_session_id', 'scoutmaster_id');
 
   }
 }

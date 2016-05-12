@@ -13,7 +13,7 @@
       <div class="col-md-10 col-md-offset-1">
 
           <div class="panel-body">
-            
+
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     @if(!empty($sclass))
@@ -25,7 +25,6 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th></th>
                           <th>Name</th>
                           <th>Troop</th>
                           <th>Council</th>
@@ -87,19 +86,19 @@
                         <td>10</td>
                       </tr>
                       @endforeach
-                      
+
                     </table>
                   </div>
                 </div>
-            
+
 
             <span>Number of Scouts: {{ $scouts_count }}</span>
           </div>
 
       </div>
     </div>
-    
-                
+
+
 
   </body>
 </html>

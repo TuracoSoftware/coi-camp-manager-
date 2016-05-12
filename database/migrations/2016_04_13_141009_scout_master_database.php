@@ -15,9 +15,9 @@ class ScoutMasterDatabase extends Migration
       Schema::create('scoutmasters', function (Blueprint $table) {
 
           $table->increments('id');
-          $table->string('firstname')->unsigned()->nullable();
-          $table->string('lastname')->unsigned()->nullable();
-
+          $table->string('firstname')->nullable();
+          $table->string('lastname')->nullable();
+          $table->unsignedInteger('troop_id');
           $table->foreign('troop_id')->references('id')->on('troops');
 
       });
@@ -30,6 +30,6 @@ class ScoutMasterDatabase extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('scoutmasters');
     }
 }

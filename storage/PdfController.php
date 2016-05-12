@@ -37,7 +37,7 @@ class PdfController extends Controller
         foreach($troops as $key => $troop) {
           $scouts_ = $troop->scouts;
           foreach($scouts_ as $key => $scout) {
-
+            
             if($scout->classExists($sclass_id)){
               $scouts[] = $scout;
             }
@@ -51,7 +51,6 @@ class PdfController extends Controller
         $view =  \View::make('pdf.roster', compact('final_scouts', 'week', 'sclass', 'scouts_count'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-				$pdf->setPaper('a4', 'landscape');
         return $pdf->stream('roster');
 
 

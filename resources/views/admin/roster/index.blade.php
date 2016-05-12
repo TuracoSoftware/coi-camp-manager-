@@ -51,14 +51,14 @@
             </div>
         </div>
     </div>
-  
+
   @if(!empty($final_scouts))
     <div class="row col-md-offset-1">
       <div class="col-md-10 col-md-offset-1">
 
           <div class="panel-body">
             <div class="form">
-                
+
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     @if(!empty($sclass))
@@ -129,7 +129,7 @@
                     </table>
                   </div>
                 </div>
-            
+
 
             </div>
             <span>Number of Scouts: {{ $scouts_count }}</span>

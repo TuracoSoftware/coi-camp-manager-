@@ -102,7 +102,7 @@
                 <tr>
                   <td>{{ $class->day }}</td>
                   <td>{{ $class->name }}</td>
-                  <td>{{ $class->count_scouts() }}</td>
+                  <td>{{ $class->count_scouts($class->id, $week) }}</td>
                   <td>Actions</td>
                 </tr>
                 @endforeach

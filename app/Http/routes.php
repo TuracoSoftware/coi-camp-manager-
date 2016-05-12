@@ -40,7 +40,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('scout', 'ScoutController');
     Route::resource('sclass', 'SclassController');
     Route::resource('session', 'SessionController');
-    Route::resource('scoutmaster', "ScooutMasterController");
+    Route::resource('scoutmaster', "ScoutMasterController");
     Route::resource('scout_class', 'Scout_Class_Controller');
 
     Route::get('/scout/{id}/schedule', 'ScoutController@schedule');

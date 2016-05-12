@@ -4,51 +4,103 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Scoutmaster Regstration</div>
 
-                  <div class="panel-body">
-                    <div class="form">
 
-                      <form action="{{ url('troop') }}"  method="POST">
-                        {!! csrf_field() !!}
+            <div class="row">
 
-                        <label for="firstname">Scoutmaster First Name:</label>
-                        <input name="firstname" type="text" class="form-control" id="firstname" required="required">
-                        @if($errors->first('firstname'))
-                          <span class="error">First Name is required</span>
-                        @endif
-                        <br>
-                        <label for="lastname">Scoutmaster Last Name:</label>
-                        <input name ="lastname" type="text" class="form-control" id="lastname">
-                        <br>
-                        <button type="submit" class="btn btn-default">
-                          <i class="fa fa-check"></i> Register Scoutmaster
-                        </button>
-                      </form>
-                    </div>
+              <!-- New Scout button -->
+              <div class="col-md-4">
+                <div class="mar-12">
+                  <a class="btn btn-small btn-info" href="{{ URL::to('scoutmaster/create') }}">
+                    <i class="fa fa-plus-square-o"></i> New Scoutmaster
+                  </a>
                 </div>
+              </div>
+
+              <!-- Search form
+              <div class="col-md-8">
+                <div class="mar-12">
+                  <form class="navbar-form" role="search" action="{{ URL::to('scout/search') }}" method="POST">
+                    <div class="input-group">
+                        {!! csrf_field() !!}
+                        <input type="text" class="form-control" placeholder="Search a Scout" name="name">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+              </div> -->
             </div>
+
+            @foreach($scoutmasters as $key => $scoutmaster)
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  {{ $scoutmaster->lastname }}, {{ $scoutmaster->firstname }}</strong>
+                  <div class="troop-buttons">
+                    <a href="{{ URL::to('scoutmaster/' . $scoutmaster->id . '/schedule') }}"><i class="fa fa-edit"></i><span> Edit Schedule</span></a> |
+                    <a href="{{ URL::to('scoutmaster_print_view/'.$scoutmaster->id) }}" target="_blank"><i class="fa fa-print"></i><span> Print Schedule</span></a> |
+                    <a href="{{ URL::to('scoutmaster/' . $scoutmaster->id . '/edit') }}"><i class="fa fa-user"></i><span> Edit Scout</span></a> |
+                    <a type="button" href="#" onclick="open_modal('Are you sure?', '{{ url('scout/'.$scoutmaster->id) }}', true, 'DELETE')">
+                      <i class="fa fa-trash"></i><span> Delete Scout</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <td>Time</td>
+                        <td>Monday</td>
+                        <td>Tuedsay</td>
+                        <td>Wednesday</td>
+                        <td>Thursday</td>
+                        <td>Friday</td>
+                      </tr>
+                    </thead>
+                    <tr>
+                      <td>Session</td>
+                      <td>
+                        @if(!empty( $scoutmaster->classes->where('day', 'Monday') ))
+                          {{ $scoutmaster->classes->where('day', 'Monday') }}
+                        @else
+                          Free
+                        @endif
+                      </td>
+                      <td>
+                        @if(!empty( $scoutmaster->classes->where('day', 'Monday') ))
+                          {{ $scoutmaster->classes->where('day', 'Monday') }}
+                        @else
+                          Free
+                        @endif
+                      </td>
+                      <td>
+                        @if(!empty( $scoutmaster->classes->where('day', 'Monday') ))
+                          {{ $scoutmaster->classes->where('day', 'Monday') }}
+                        @else
+                          Free
+                        @endif
+                      </td>
+                      <td>
+                        @if(!empty( $scoutmaster->classes->where('day', 'Monday') ))
+                          {{ $scoutmaster->classes->where('day', 'Monday') }}
+                        @else
+                          Free
+                        @endif
+                      </td>
+                      <td>
+                        @if(!empty( $scoutmaster->classes->where('day', 'Monday') ))
+                          {{ $scoutmaster->classes->where('day', 'Monday') }}
+                        @else
+                          Free
+                        @endif
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            @endforeach
         </div>
     </div>
 </div>
-<!-- jQuery -->
-<script src="{{ asset ("../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
-<!-- Select2 -->
-<script src="{{ asset ("../resources/assets/admin/plugins/select2/select2.full.min.js") }}"></script>
-<!-- Bootstrap 3.3.5 -->
-<script src="{{ asset ("../resources/assets/admin/bootstrap/js/bootstrap.min.js") }}"></script>
-<!-- InputMask -->
-<script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.js") }}"></script>
-<script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>
-<script src="{{ asset("../resources/assets/admin/plugins/input-mask/jquery.inputmask.extensions.js") }}"></script>
-
-<script>
-$(function () {
-  $(".select2").select2();
-
-  $("[data-mask]").inputmask();
-
-  });
-</script>
 @endsection

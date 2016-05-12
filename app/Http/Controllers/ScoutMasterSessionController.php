@@ -14,6 +14,23 @@ class ScoutMasterSessionController extends Controller
   }
 
   public function index(){
-    
+    if(Auth::user()->type == 'admin'){
+      $scoutmaster = Scoutmaster::all();
+
+      return view('admin.scoutmaster.index')
+        ->with('scoutmasters',$scoutmaster);
+
+    }else{
+			if(Auth::user()->troop)
+		  		$scoutmaster = Scoutmaster::where('troop_id', Auth::user()->troop->id)
+		                    	->get();
+		    else
+		    	$scoutmaster = [];
+
+			return view('scoutmaster.index')
+		    	  ->with('scoutmasters',$scoutmaster);
+
+		}
+
   }
 }

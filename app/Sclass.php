@@ -12,38 +12,26 @@ class Sclass extends Model
       return $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id');
     }
 
-    public function count_scouts(){
+    public function count_scouts($id, $week){
 
-    	return $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id')
-        ->distinct('scout_id')
-        ->distinct('sclass_id')
-        ->count('scout_id');
+      $sclass = $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id')->where('sclass_id',$id)->get();
 
-    }
-    /*
-    * Method to count all scouts via the week requested
-    */
-    public function count_scouts_by_week($id){
+      $troops = Troop::where('week_attending_camp', $week)->get();
 
-    	$my_scouts = $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id')
-        ->distinct('scout_id')
-        ->distinct('sclass_id')
-        ->get();
+      $scouts = [];
 
-      $sum = 0.0;
-
-        if(!empty($my_scouts)){                // If class is not not emtpy
-          foreach($my_scouts as $scout){
-            if($scout->troop->week == $id){    // If the class's scout getting counted is in the requested week (found by going through Troop)
-             $sum++;
-            }
+      foreach($troops as $key => $troop) {
+        $scouts_ = $troop->scouts;
+        foreach($scouts_ as $key => $scout) {
+          if($scout->classExists($sclass_id)){
+            $scouts[] = $scout;
           }
         }
-        return $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id', 'App\Troop', 'troop_week')
-          ->distinct('scout_id')
-          ->distinct('sclass_id')
-          ->where('troop_week', $id)
-          ->count('scout_id');
-    }
+      }
+      //remove duplicates
+      $final_scouts = array_unique($scouts);
 
+      return $week;
+
+      }
 }
