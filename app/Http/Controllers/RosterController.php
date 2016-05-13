@@ -11,14 +11,12 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Auth;
 
-// This class controls the roster views
 class RosterController extends Controller
 {
   public function __construct() {
      $this->middleware('auth');
   }
 
-  // list all classes for the week
 	public function index(){
 
     if(Auth::user()->type == 'admin'){
@@ -33,7 +31,6 @@ class RosterController extends Controller
 
 	}
 
-  // Generate the roster options for a requested class
   public function generate(Request $request){
 
     $sclass_id = $request->input('sclass');

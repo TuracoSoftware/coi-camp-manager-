@@ -488,7 +488,6 @@ class ScoutController extends Controller
 
 	}
 
-
 	public function edit($id){
 
 		$scout = Scout::find($id);
