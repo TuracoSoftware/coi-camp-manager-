@@ -3,17 +3,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>PDF Roster</title>
-
-    <link rel="stylesheet" href="{{ URL::asset('../resources/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('../resources/assets/css/style.css') }}">
+    <style>
+      @page rooster {
+        size: A4 portrait;
+        margin: 2cm;
+      }
+      .rooster-page {
+        page: rooster;
+        page-break-after: always;
+      }
+    </style>
   </head>
   <body>
-    <div class="row col-md-offset-1">
-      <div class="col-md-10 col-md-offset-1">
-
-          <div class="panel-body">
-
-                <div class="panel panel-default">
+    <div class="rooster-page">
                   <div class="panel-heading">
                     @if(!empty($sclass))
                       {{ $sclass->name }} -  Week {{ $week }}
@@ -21,7 +23,7 @@
                     <br>
                   </div>
                   <div class="panel-body">
-                    <table class="table">
+                    <table border="1" class="table">
                       <thead>
                         <tr>
                           <th>Name</th>
@@ -29,8 +31,7 @@
                           <th>Council</th>
                         </tr>
                       </thead>
-
-                      @foreach($final_scouts as $key => $scout)
+                      @foreach($scouts as $key => $scout)
                       <tr>
                         <td>
                           {{ $scout->firstname }} {{ $scout->lastname }}
@@ -47,19 +48,9 @@
                         </td>
                       </tr>
                       @endforeach
-
                     </table>
                   </div>
-                </div>
-
-
             <span>Number of Scouts: {{ $scouts_count }}</span>
-          </div>
-
-      </div>
     </div>
-
-
-
   </body>
 </html>
