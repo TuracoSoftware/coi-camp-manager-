@@ -43,9 +43,14 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('scoutmaster', "ScoutMasterController");
     Route::resource('scout_class', 'Scout_Class_Controller');
 
+    /*Scout controls*/
     Route::get('/scout/{id}/schedule', 'ScoutController@schedule');
     Route::put('/scout/{id}/schedule', 'ScoutController@update_schedule');
     Route::post('/scout/search', 'ScoutController@search_by_name');
+
+    /*Scoutmaster controls*/
+    Route::get('/scoutmaster/{id}/schedule', 'ScoutMasterController@schedule');
+    Route::put('/scoutmaster/{id}/schedule', 'ScoutMasterController@update_schedule');
 
     /*PDF views*/
     Route::get('scout_print_view/{id}', 'PdfController@scout_print');

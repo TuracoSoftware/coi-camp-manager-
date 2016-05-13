@@ -40,7 +40,7 @@
                   <div class="troop-buttons">
                     <a href="{{ URL::to('scoutmaster/' . $scoutmaster->id . '/schedule') }}"><i class="fa fa-edit"></i><span> Edit Schedule</span></a> |
                     <a href="{{ URL::to('scoutmaster_print_view/'.$scoutmaster->id) }}" target="_blank"><i class="fa fa-print"></i><span> Print Schedule</span></a> |
-                    <a href="{{ URL::to('scoutmaster/' . $scoutmaster->id . '/edit') }}"><i class="fa fa-user"></i><span> Edit Scout</span></a> |
+                    <a href="{{ URL::to('scoutmaster/' . $scoutmaster->id . '/edit') }}"><i class="fa fa-user"></i><span> Edit Scoutmaster</span></a> |
                     <a type="button" href="#" onclick="open_modal('Are you sure?', '{{ url('scout/'.$scoutmaster->id) }}', true, 'DELETE')">
                       <i class="fa fa-trash"></i><span> Delete Scout</span>
                     </a>
