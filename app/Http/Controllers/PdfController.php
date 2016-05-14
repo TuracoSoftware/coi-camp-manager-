@@ -36,18 +36,26 @@ class PdfController extends Controller
     }
 
 		public function roster_print_week($week, $day) {
-			$sclasses = Sclass::where('day','Monday')->get();
-			$pdf = NULL;
+			$total = array();
+			$sclasses = Sclass::where('day', $day)->get();
+			$scouts_count = NULL;
+			$total_num_scouts = array();
+			$count = 0;
+			$i = 0;
 			foreach($sclasses as $key=>$class) {
 				$scouts = $this->get_scout_per_class($class->id,$week);
+				$total[$count] = $scouts;
+				$count++;
 				$scouts_count = count($scouts);
-				$sclass = $class;
-				$view = \View::make('pdf.roster', compact('scouts', 'week', 'sclass', 'scouts_count'))->render();
-				$pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
+				$total_num_scouts[$i] = $scouts_count;
+				$i++;
 			}
-			return $pdf->stream('roster');
 
+	  	$view = \View::make('pdf.roster_day', compact('total', 'sclasses', 'week', 'total_num_scouts'))->render();
+			$pdf = \App::make('dompdf.wrapper');
+			$pdf->loadHTML($view);
+
+			return $pdf->stream('roster_day');
 		}
 
 		public function get_scout_per_class($sclass_id, $week) {
