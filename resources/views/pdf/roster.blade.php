@@ -31,7 +31,7 @@
                         </td>
                         <td>
                           @if($scout->troop->council == 'Blue Ridge Council')
-                            brc
+                            BRC
                           @else
                             {{ $scout->troop->council }}
                           @endif

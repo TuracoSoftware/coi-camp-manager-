@@ -8,7 +8,7 @@
         size: A4 portrait;
         margin: 2cm;
       }
-      .panel-break {
+      .page-break {
         page: rooster;
         page-break-after: always;
       }
@@ -19,6 +19,7 @@
     <div class="page-break">
       <div class="panel-heading">
         {{ $sclasses[$i]->name }} -  Week {{ $week }}
+        <div><span>Department: {{ $sclasses[$i]->department }}</span></div>
       </div>
       <div class="panel-body">
         <table border="1" class="table">
@@ -39,7 +40,7 @@
               </td>
               <td>
                 @if($scout->troop->council == 'Blue Ridge Council')
-                  brc
+                  BRC
                 @else
                   {{ $scout->troop->council }}
                 @endif
@@ -49,6 +50,9 @@
         </table>
       </div>
       <span>Number of Scouts: {{ $total_num_scouts[$i] }}</span>
+      <div>
+        <p>Director's Signature:_______________________________________________________</p>
+        <p>Staff Member's Signature:_______________________________________________________</p>
     </div>
     @endfor
   </body>

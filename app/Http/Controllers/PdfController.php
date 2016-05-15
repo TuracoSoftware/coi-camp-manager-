@@ -37,7 +37,7 @@ class PdfController extends Controller
 
 		public function roster_print_week($week, $day) {
 			$total = array();
-			$sclasses = Sclass::where('day', $day)->get();
+			$sclasses = Sclass::where('day', $day)->orderBy('department', 'asc')->orderBy('name', 'asc')->get();
 			$scouts_count = NULL;
 			$total_num_scouts = array();
 			$count = 0;
@@ -60,7 +60,7 @@ class PdfController extends Controller
 
 		public function get_scout_per_class($sclass_id, $week) {
 			$sclass = Sclass::find($sclass_id);
-			$troops = Troop::where('week_attending_camp', $week)->get();
+			$troops = Troop::where('week_attending_camp', $week)->orderBy('troop', 'asc')->get();
 			$scouts = [];
 
 	    foreach($troops as $key => $troop) {
