@@ -12,6 +12,22 @@
         <i class="fa fa-plus-square-o"></i> New Scout
      </a>
 
+     <!-- Roster print dropdown menu -->
+     <div class="btn-group">
+       <button type="button" class="btn btn-success">Roster Print</button>
+       <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+         <span class="caret"></span>
+         <span class="sr-only">Toggle Dropdown</span>
+       </button>
+       <ul class="dropdown-menu" role="menu">
+         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Monday') }}" target="_blank"><i class="fa fa-print"> Monday's Rosters</i></a></li>
+         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Tuesday') }}" target="_blank"><i class="fa fa-print"> Tueday's Rosters</i></a></li>
+         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Wednesday') }}" target="_blank"><i class="fa fa-print"> Wednesday's Rosters</i></a></li>
+         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Thursday') }}" target="_blank"><i class="fa fa-print"> Thursday's Rosters</i></a></li>
+         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Friday') }}" target="_blank"><i class="fa fa-print"> Friday's Rosters</i></a></li>
+       </ul>
+     </div>
+
   </section>
 
   <section class="content">
@@ -103,10 +119,22 @@
                   <td>{{ $class->day }}</td>
                   <td>{{ $class->name }}</td>
                   <td>{{ $class->count_scouts($class->id, $week) }}</td>
-                  <td>Actions</td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-success">Actions</button>
+                      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ URL::to('roster_print_view/' . $class->id . '/' . $week) }}"><i class="fa fa-print">Print Roster</i></a></li>
+                      </ul>
+                    </div>
+                </td>
                 </tr>
-                @endforeach
-              </tbody>
+                </tbody>
+                </div>
+              @endforeach
             </table>
           </div>
         </div>

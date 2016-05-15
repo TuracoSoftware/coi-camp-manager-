@@ -56,8 +56,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('scout_print_view/{id}', 'PdfController@scout_print');
     Route::get('roster_print_view/{sclass_id}/{week}', 'PdfController@roster_print');
 
-    Route::get('PdfTest/{week}/{day}', 'PdfController@roster_print_week');
-
     Route::auth();
 
     Route::get('/', function () {
@@ -79,7 +77,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('roster', 'RosterController@index');
         Route::post('roster', 'RosterController@generate');
 
-
+        Route::get('AllRosters/{week}/{day}', 'PdfController@roster_print_week');
     });
 
     Route::get('/administrator/test', function () {

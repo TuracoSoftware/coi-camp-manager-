@@ -3,16 +3,6 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>PDF Roster</title>
-    <style>
-      @page rooster {
-        size: A4 portrait;
-        margin: 2cm;
-      }
-      .rooster-page {
-        page: rooster;
-        page-break-after: always;
-      }
-    </style>
   </head>
   <body>
     <div class="rooster-page">
