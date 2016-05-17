@@ -82,6 +82,14 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('roster', 'RosterController@generate');
 
         Route::get('AllRosters/{week}/{day}', 'PdfController@roster_print_week');
+
+        Route::resource('display_users', 'UserController@display_all');
+        Route::get('create_user', function() {
+          return view('admin.users.create');
+        });
+        Route::get('edit_users', function() {
+          return view('admin.users.edit');
+        });
     });
 
     Route::get('/administrator/test', function () {
