@@ -20,17 +20,17 @@
                         <br>
                         <label for="department">Department:</label>
                         <select name="department" class="form-control" id="department">
-                          <option value="1">Aquatics</option>
-                          <option value="2">Civil Development</option>
-                          <option value="3">Ecology and Conservation</option>
-                          <option value="4">Field Sports</option>
-                          <option value="5">First Aid</option>
-                          <option value="6">Handicraft</option>
-                          <option value="7">Scoutcraft</option>
-                          <option value="8">STEAM</option>
-                          <option value="9">High Adventure</option>
-                          <option value="10">Callahan Village</option>
-                          <option value="11">Special Programs</option>
+                          <option value="Aquatics">Aquatics</option>
+                          <option value="Civil Development">Civil Development</option>
+                          <option value="Ecology and Conservation">Ecology and Conservation</option>
+                          <option value="Field Sports">Field Sports</option>
+                          <option value="First Aid">First Aid</option>
+                          <option value="Handicraft">Handicraft</option>
+                          <option value="Scoutcraft">Scoutcraft</option>
+                          <option value="STEAM">STEAM</option>
+                          <option value="High Adventure">High Adventure</option>
+                          <option value="Callahan Village<">Callahan Village</option>
+                          <option value="Special Programs">Special Programs</option>
 
                         </select>
                         <br>
