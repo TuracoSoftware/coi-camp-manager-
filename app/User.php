@@ -25,9 +25,13 @@ class User extends Authenticatable
     ];
 
     public function troop() {
-    
+
         return $this->hasOne('App\Troop');
 
+    }
+
+    public function staff() {
+      return $this->hasOne('App\Staff');
     }
 
 }

@@ -56,6 +56,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('scout_print_view/{id}', 'PdfController@scout_print');
     Route::get('roster_print_view/{sclass_id}/{week}', 'PdfController@roster_print');
 
+    Route::get('staff', function() {
+      return view('staff.index');
+    });
+
     Route::auth();
 
     Route::get('/', function () {
