@@ -174,7 +174,7 @@
                         @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->name ))
                           {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->name }}
                         @else
-                          Free
+                          Family Night
                         @endif
                       </td>
                       <td>
@@ -188,7 +188,7 @@
                         @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->name ))
                          {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->name }}
                         @else
-                          Free
+                          Campfire
                         @endif
                       </td>
                     </tr>

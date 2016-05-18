@@ -59,7 +59,7 @@
                     @if (Auth::check())
                     <li><a href="{{ URL::to('/troop') }}">Troop Registration</a></li>
                     <li><a href="{{ url('/scout') }}">Scout Registration</a></li>
-                    <li><a href="{{ URL::to('/scoutmaster')}}">Scoutmaster</a></li>
+                    <!-- <li><a href="{{ URL::to('/scoutmaster')}}">Scoutmaster</a></li> -->
                     @if (Auth::user()->type =='admin' )
                     <li><a href="{{ url('/sclass') }}">Classes</a></li>
                     @endif

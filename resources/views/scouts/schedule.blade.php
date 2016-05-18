@@ -234,7 +234,7 @@
                       </td>
                       <td>
                         <select name="we79" class ="form-control" id="we79">
-                          <option value="Free">Free</option>
+                          <option value="Free">Family Night</option>
                           @foreach($sclasses_we79 as $key => $sclass_we79)
                             @if(!empty($we79))
                               @if($sclass_we79->name == $we79)
@@ -266,7 +266,7 @@
                       </td>
                       <td>
                         <select name="fr79" class ="form-control" id="fr79">
-                          <option value="Free">Free</option>
+                          <option value="Free">Campfire</option>
                           @foreach($sclasses_fr79 as $key => $sclass_fr79)
                             @if(!empty($fr79))
                               @if($sclass_fr79->name == $fr79)

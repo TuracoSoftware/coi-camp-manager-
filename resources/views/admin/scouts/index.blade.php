@@ -118,7 +118,7 @@
                 <tr>
                   <td>{{ $class->day }}</td>
                   <td>{{ $class->name }}</td>
-                  <td>{{ $class->count_scouts($class->id, $week) }}</td>
+                  <td>{{ $class->count_scouts_week($week) }}</td>
                   <td>
                     <div class="btn-group">
                       <button type="button" class="btn btn-success">Actions</button>
@@ -132,9 +132,9 @@
                     </div>
                 </td>
                 </tr>
+                @endforeach
                 </tbody>
                 </div>
-              @endforeach
             </table>
           </div>
         </div>
