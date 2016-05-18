@@ -54,8 +54,9 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost:3306'),
-            'database'  => env('DB_DATABASE', 'coiregistration'),
+            'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
+            'host'      => env('DB_HOST', 'localhost:8889'),
+            'database'  => env('DB_DATABASE', 'camp_data'),
             'username'  => env('DB_USERNAME', 'root'),
             'password'  => env('DB_PASSWORD', 'root'),
             'charset'   => 'utf8',

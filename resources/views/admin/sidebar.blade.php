@@ -35,7 +35,8 @@
         <a href="#"><i class="fa fa-gears"></i> <span>Setup</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
           <li class="active"><a href="{{ URL::to('/sclass') }}"><i class="fa fa-mortar-board"></i> <span>Classes</span></a></li>
-          <li class="active"><a href="{{ URL::to('/administrator/roster/') }}"><i class="fa fa-file"></i> <span>Rosters</span></a></li>
+          <li class="active"><a href="{{ URL::to('/administrator/roster/') }}"><i class="fa fa-clipboard"></i> <span>Rosters</span></a></li>
+          <li class="active"><a href="{{URL::to('/administrator/meritbadge')}}"><i class="fa fa-tasks"></i><span>Merit Badges</span></a></li>
         </ul>
       </li>
     </ul><!-- /.sidebar-menu -->

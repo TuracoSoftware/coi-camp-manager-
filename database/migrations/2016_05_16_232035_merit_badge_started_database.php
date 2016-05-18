@@ -13,10 +13,11 @@ class MeritBadgeStartedDatabase extends Migration
     public function up()
     {
       Schema::create('merit_badge_started', function (Blueprint $table) {
-        $table->increments('id');
-        $table->string('name');
+        $table->integer('id')->increments();
         $table->integer('scout_id')->unsigned();
+        $table->integer('meritbadge_id')->unsigned();
 
+        $table->foreign('meritbadge_id')->references('id')->on('scouts');
         $table->foreign('scout_id')->references('id')->on('scouts');
       });
     }

@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Requirement extends Model
 {
-    public function badge(){
-      return $this->belongsToMany('App\Badge', 'badge_id');
+    public function meritbadge(){
+      $this->belongsTo('App\MeritBadge','meritbadge_id');
+      
     }
 }
