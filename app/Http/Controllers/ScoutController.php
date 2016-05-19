@@ -261,10 +261,7 @@ class ScoutController extends Controller
 			$sclasses_th79 = Sclass::where('day', 'Thursday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
 			$sclasses_fr79 = Sclass::where('day', 'Friday')->whereIn('duration', ['Twilight'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
 
-			/* Return on classes that are not full
-			TODO: There is a bug here becasue this logic currently can't distiguish between indiviual weeks and classes
-			Within a week
-			foreach($sclasses_mo912 as $key => $val)
+			/*foreach($sclasses_mo912 as $key => $val)
 				if(!$scout->classExists($val->id) )
 					if($val->count_scouts() >= $val->size) unset($sclasses_mo912[$key]);
 			foreach($sclasses_tu912 as $key => $val)
@@ -310,9 +307,9 @@ class ScoutController extends Controller
 					if($val->count_scouts() >= $val->size) unset($sclasses_th79[$key]);
 			foreach($sclasses_fr79 as $key => $val)
 				if(!$scout->classExists($val->id) )
-					if($val->count_scouts() >= $val->size) unset($sclasses_fr79[$key]);
+					if($val->count_scouts() >= $val->size) unset($sclasses_fr79[$key]);*/
 
-					*/
+
 
 			// Classes prepared and ready to be sent to the form
 			$context = array(

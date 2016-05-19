@@ -36,9 +36,9 @@
         <ul class="treeview-menu">
           <li class="active"><a href="{{ URL::to('/sclass') }}"><i class="fa fa-mortar-board"></i> <span>Classes</span></a></li>
           <!--make the connections to the right place-->
-          <li class="active"><a href="{{ URL::to('/administrator/display_users') }}"><i class="fa fa-mortar-board"></i> <span>Edit Users</span></a></li>
+          <li class="active"><a href="{{ URL::to('/administrator/users') }}"><i class="fa fa-mortar-board"></i> <span>Users</span></a></li>
           <!--make the connections to the right place-->
-          <li class="active"><a href="{{ URL::to('/adminsitrator/display_staff') }}"><i class="fa fa-mortar-board"></i> <span>Edit Staff</span></a></li>
+          <li class="active"><a href="{{ URL::to('/administrator/staff') }}"><i class="fa fa-mortar-board"></i> <span>Staff</span></a></li>
         </ul>
       </li>
     </ul><!-- /.sidebar-menu -->

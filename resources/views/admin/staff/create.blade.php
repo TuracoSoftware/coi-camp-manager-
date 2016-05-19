@@ -6,19 +6,16 @@
     <div class="row col-md-offset-1">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">User Registration</div>
+                <div class="panel-heading">Staff Registration</div>
 
                   <div class="panel-body">
                     <div class="form">
 
-                      <form action="{{ url('administrator/users') }}"  method="POST">
+                      <form action="{{ url('administrator/staff') }}"  method="POST">
                         {!! csrf_field() !!}
 
                         <label for="name">Name:</label>
-                        <input name="name" type="text" class="form-control" id="name" required="required">
-                        @if($errors->first('firstname'))
-                          <span class="error">The user's name is required</span>
-                        @endif
+                        <input name="name" type="text" class="form-control" id="name">
                         <br>
                         <label for="email">Email:</label>
                         <input name="email" type="text" class="form-control" id="email">
@@ -26,15 +23,16 @@
                         <label for"password">Password:</label>
                         <input name="password" type="password" class="form-control" id="password">
                         <br>
-                        <label for="type">Type:</label>
-                        <select name="type" class="form-control" id="type">
-                          <option value="NULL">None</option>
-                          <option value="admin">Admin</option>
-                          <option value="staff">Staff</option>
-                        </select>
+
+                        <label for="description">Description (Classes teaching):</label>
+                        <input name="description" type="text" class="form-control" id="description">
                         <br>
+                        <label for="department">Department:</label>
+                        <input name="department" type="text" class="form-control" id="department">
+                        <br>
+
                         <button type="submit" class="btn btn-default">
-                          <i class="fa fa-check"></i> Register User
+                          <i class="fa fa-check"></i> Register Staff member
                         </button>
                       </form>
                     </div>
