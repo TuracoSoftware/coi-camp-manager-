@@ -35,7 +35,10 @@
         <a href="#"><i class="fa fa-gears"></i> <span>Setup</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
           <li class="active"><a href="{{ URL::to('/sclass') }}"><i class="fa fa-mortar-board"></i> <span>Classes</span></a></li>
-          <li class="active"><a href="{{ URL::to('/administrator/roster/') }}"><i class="fa fa-file"></i> <span>Rosters</span></a></li>
+          <!--make the connections to the right place-->
+          <li class="active"><a href="{{ URL::to('/administrator/users') }}"><i class="fa fa-mortar-board"></i> <span>Users</span></a></li>
+          <!--make the connections to the right place-->
+          <li class="active"><a href="{{ URL::to('/administrator/staff') }}"><i class="fa fa-mortar-board"></i> <span>Staff</span></a></li>
         </ul>
       </li>
     </ul><!-- /.sidebar-menu -->
