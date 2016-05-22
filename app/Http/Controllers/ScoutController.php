@@ -121,7 +121,6 @@ class ScoutController extends Controller
 
 		$scout = Scout::find($id);
 		$week = $scout->troop->week_attending_camp;
-		echo $week;
 		if($scout) //if scout exists
 
 			$troop_id = NULL;

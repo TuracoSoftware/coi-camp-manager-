@@ -57,9 +57,7 @@ class StaffController extends Controller
   }
 
   public function store(Request $request) {
-    $rules = array(
-      'description'  =>  'required'
-    );
+    $rules = array();
     $current_user = Auth::user();
 		//check if user is logged in
 		$validator = Validator::make($request->all(), $rules);

@@ -26,30 +26,31 @@
             <thead>
               <tr>
                 <th>MeritBadge Name</th>
-                <th>Description</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($meritbadges as $key => $meritbadge)
+              @foreach($meritbadges as $key=>$meritbadge)
               <tr>
-                <td>{{$meritbadges->meritbadge->name}}</td>
-                <td>{{$meritbadges->meritbadge->description}}</td>
+                <td>{{$meritbadge->name}}</td>
                 <td>
                   <div class="btn-group">
                     <button type="button" class="btn btn-success">Actions</button>
-                    <button type="button" class="btn btn-success dropdown-toggle"data-toggle="dropdown">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                       <span class="caret"></span>
-                      <span class="sr-only">Toggle Dropdown</span>"
+                      <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu"role="menu">
                       <li><a href="{{URL::to('meritbadge/' . $meritbadge->id . '/edit')}}">
                         <i class="fa fa-pencil-square-o"></i>Edit Merit Badge</a>
                       </li>
+                    </ul>
                   </div>
                 </td>
               </tr>
               @endforeach
             </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </section>
