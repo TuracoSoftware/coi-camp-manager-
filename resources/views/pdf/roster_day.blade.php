@@ -5,8 +5,8 @@
     <title>PDF Roster</title>
     <style>
       @page rooster {
-        size: A4 horizontal;
-        margin: 2cm;
+        size: A4 landscape;
+        margin: 5cm;
       }
       .page-break {
         page: rooster;
