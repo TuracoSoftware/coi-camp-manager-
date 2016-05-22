@@ -27,7 +27,9 @@
             <span class="hidden-xs">{{ Auth::user()->name }}</span>
           </a>
           <ul class="dropdown-menu">
-            <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+            <div class="pull-right">
+              <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+            </div>
           </ul>
         </li>
       </ul>

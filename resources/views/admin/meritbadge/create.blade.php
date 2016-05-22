@@ -38,6 +38,14 @@
                               <textarea type="requirements" class="form-control" rows="3" placeholder="1a ..."></textarea>
                             </div>
 
+
+                            <div class="form-group">
+                              <label for="exampleInputFile">Image Input</label>
+                              <input type="file" id="exampleInputFile">
+
+                              <p class="help-block">Put in a picture of the Merit Bage here</p>
+                            </div>
+
                             <div class="box-footer">
                               <button type="submit" class="btn btn-default">Cancel</button>
                               <button type="submit" class="btn btn-info pull-right">Make Merit Badge</button>

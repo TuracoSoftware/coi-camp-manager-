@@ -12,26 +12,27 @@
       </a>
 
     </section>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">All Merit Badges</div>
 
-    <section class="content">
-      <div class="nav-tabs-custom">
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#all_meritbadges" data-toggle="tab">All MeritBadges</a></li>
-            <li><a href="#all_requirements" data-toggle="tab">All Requirements</a></li>
-          </ul>
-        </div>
-      <div class="tab-content">
-        <div class="tab-pane-active" id="all-meritbadges">
-          <table id="meritbadge_table" class="table table-bordered table-hovered">
+      <div class="panel-body">
+          <table id="meritbadge_table" class="table table-hover">
             <thead>
               <tr>
-                <th>MeritBadge Name</th>
+                <th>Picture</th>
+                <th>Merit Badge Name</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               @foreach($meritbadges as $key=>$meritbadge)
               <tr>
+                <td>
+                  <img src="{{ asset("../resources/assets/img/{$meritbadge->path_name}.jpg") }}" alt="" width="50" hight="50"/>
+                </td>
                 <td>{{$meritbadge->name}}</td>
+
                 <td>
                   <div class="btn-group">
                     <button type="button" class="btn btn-success">Actions</button>
@@ -52,7 +53,30 @@
           </table>
         </div>
       </div>
-    </section>
   </section>
 
+    <!-- Scripts Required for DataTable -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="{{ asset ("../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
+    <!-- DataTables -->
+    <script src="{{ asset ("../resources/assets/admin/plugins/datatables/jquery.dataTables.min.js") }}"></script>
+    <script src="{{ asset("../resources/assets/admin/plugins/datatables/dataTables.bootstrap.min.js") }}"></script>
+    <!-- SlimScroll -->
+    <script src="{{ asset ("../resources/assets/admin/plugins/slimScroll/jquery.slimscroll.min.js") }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset ("../resources/assets/admin/plugins/fastclick/fastclick.js") }}"></script>
+
+    <script>
+      $(function () {
+        $('#meritbadge_table').DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>
 @endsection

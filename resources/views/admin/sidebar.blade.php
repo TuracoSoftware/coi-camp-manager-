@@ -37,7 +37,6 @@
           <li class="active"><a href="{{ URL::to('/sclass') }}"><i class="fa fa-mortar-board"></i> <span>Classes</span></a></li>
           <li class="active"><a href="{{ URL::to('/administrator/users') }}"><i class="fa fa-mortar-board"></i> <span>Users</span></a></li>
           <li class="active"><a href="{{ URL::to('/administrator/staff') }}"><i class="fa fa-mortar-board"></i> <span>Staff</span></a></li>
-          <li class="active"><a href="{{ URL::to('/administrator/roster/') }}"><i class="fa fa-clipboard"></i> <span>Rosters</span></a></li>
           <li class="active"><a href="{{URL::to('/administrator/meritbadge')}}"><i class="fa fa-tasks"></i><span>Merit Badges</span></a></li>
         </ul>
       </li>
