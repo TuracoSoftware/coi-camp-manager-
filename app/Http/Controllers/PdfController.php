@@ -28,6 +28,8 @@ class PdfController extends Controller
     {
 				$scouts = $this->get_scout_per_class($sclass_id, $week);
 
+				$sclass = Sclass::find($sclass_id);
+
         $scouts_count = count($scouts);
         $view =  \View::make('pdf.roster', compact('scouts', 'week', 'sclass', 'scouts_count'))->render();
         $pdf = \App::make('dompdf.wrapper');
@@ -54,7 +56,7 @@ class PdfController extends Controller
 	  	$view = \View::make('pdf.roster_day', compact('total', 'sclasses', 'week', 'total_num_scouts'))->render();
 			$pdf = \App::make('dompdf.wrapper');
 			$pdf->loadHTML($view);
-
+			$pdf->setPaper('a4', 'landscape');
 			return $pdf->stream('roster_day');
 		}
 

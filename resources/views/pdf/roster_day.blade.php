@@ -6,7 +6,7 @@
     <style>
       @page rooster {
         size: A4 landscape;
-        margin: 2cm;
+        margin: 5cm;
       }
       .page-break {
         page: rooster;
