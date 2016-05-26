@@ -3,21 +3,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{{ $scout->lastname }}, {{ $scout->firstname }}</title>
-
-    <link rel="stylesheet" href="{{ URL::asset('../resources/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('../resources/assets/css/style.css') }}">
-  </head>
   <body>
 
                 <h1>{{ $scout->lastname }}, {{ $scout->firstname }}</h1><br>
-                <!--
-                <h4>Total fee due at camp: {{ $earnings }} $</h4>
-              -->
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <strong>{{ $scout->age }} Years Old</strong> -  @if(!empty($scout->troop)) Troop {{ $scout->troop->troop }} @endif
+                    <strong>{{ $scout->age }} Years Old</strong>@if(!empty($scout->troop)) Troop {{ $scout->troop->troop }} @endif
                   </div>
-                  <table class="table">
+                  <table class="table" border=1 aline=left>
                     <thead>
                       <tr>
                         <th>Time</th>
@@ -167,6 +160,14 @@
                       </tr>
                     </tbody>
                   </table>
+                  <br />
+                  <?php
+                    $price = 0;
+                    foreach($scout->classes as $key=>$class) {
+                      $price += $class->fee;
+                    }
+                    echo "Total fee due: ".$price;
+                  ?>
                 </div>
 
   </body>
