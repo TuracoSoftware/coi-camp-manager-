@@ -49,9 +49,10 @@
           @endforeach
         </table>
       </div>
-      <span>Number of Scouts: {{ $total_num_scouts[$i] }}</span>
+      <span>Number of Scouts: {{ $sclasses[$i]->count_scouts_week($week) }}</span>
       <div>
         <p>Director's Signature:_______________________________________________________</p>
+        <br>
         <p>Staff Member's Signature:_______________________________________________________</p>
     </div>
   </div>

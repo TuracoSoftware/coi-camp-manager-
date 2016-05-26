@@ -16,7 +16,7 @@
         <div class="small-box bg-aqua">
           <div class="inner">
             <!-- Displays total number of scouts registered for the summer -->
-            <h3>{{ $scouts }}</h3>
+            <h3>{{ $scout_count }}</h3>
 
             <p>Scouts Registered</p>
           </div>

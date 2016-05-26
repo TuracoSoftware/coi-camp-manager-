@@ -71,7 +71,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['prefix' => 'administrator'], function()
     {
-        Route::get('/', 'TroopController@troop_home');
+        Route::get('/', 'HomeController@admin_home');
         Route::resource('troop', 'TroopController');
         Route::resource('scout', 'ScoutController');
         Route::resource('sclass', 'SclassController');
