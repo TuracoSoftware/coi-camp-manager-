@@ -10,6 +10,8 @@ use Auth;
 use App\User;
 use App\Staff;
 use Validator;
+use App\Scout;
+use App\Sclass;
 
 class StaffController extends Controller
 {
@@ -41,7 +43,13 @@ class StaffController extends Controller
       $sMem->save();
     }
     $staff = Staff::all();
-    return view('admin.staff.index')->with('staff', $staff);
+    if(Auth::user()->type == 'admin' || Auth::user()->type == 'director') {
+      return view('admin.staff.index')->with('staff', $staff);
+    } elseif(Auth::user()->type == 'staff') {
+      return view('staff.index')->with('staff', $staff);
+    } else {
+      return view('welcome');
+    }
     /*$staff = Staff::all();
     return view('admin.staff.index')
               ->with('staff', $staff);*/
@@ -192,4 +200,1108 @@ class StaffController extends Controller
                 ->with('staff', $staff);
     }
   }
+
+  public function roster($id){
+    if(Auth::user()->type == 'staff') {
+      $staff = Staff::find(Auth::user()->id);
+    }
+
+    return view('staff.roster')
+        ->with('week', $id)
+        ->with('classes', $classes)
+        ->with('scouts', $staff);
+  }
+
+  public function schedule($id, $week) {
+    $staff = Staff::find($id);
+
+    if(Auth::user()->type == 'admin' || Auth::user()->type == 'director')
+    {
+      $mo912 = NULL;
+			$tu912 = NULL;
+			$we912 = NULL;
+			$th912 = NULL;
+			$fr912 = NULL;
+
+			$mo25 = NULL;
+			$tu25 = NULL;
+			$we25 = NULL;
+			$th25 = NULL;
+			$fr25 = NULL;
+
+			$mo79 = NULL;
+			$tu79 = NULL;
+			$we79 = NULL;
+			$th79 = NULL;
+			$fr79 = NULL;
+      if($week == '1') {
+      $sclasses = $staff->classes1;
+      foreach($sclasses as $sclass) {
+
+				// If the duration is AM Only or AM & PM set AM to the sclass name
+				if($sclass->day == 'Monday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+					$mo912 = $sclass->name;
+				}
+				if($sclass->day == 'Tuesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+					$tu912 = $sclass->name;
+				}
+				if($sclass->day == 'Wednesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+					$we912 = $sclass->name;
+				}
+				if($sclass->day == 'Thursday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+					$th912 = $sclass->name;
+				}
+				if($sclass->day == 'Friday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+					$fr912 = $sclass->name;
+				}
+
+				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
+				* if a class is all day a staff gets registered all day.
+				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
+				* are loaded dynamically from value a user sets so that in the future other camps can add their
+				* own constraints.
+				*/
+				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+					if( $sclass->duration == 'AM & PM' )
+						$mo25 = $sclass->name;
+					else if( $sclass->duration == 'PM Only' && $mo25 == NULL)
+						$mo25 = $sclass->name;
+				}
+				if($sclass->day == 'Tuesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+					if( $sclass->duration == 'AM & PM' )
+						$tu25 = $sclass->name;
+					else if( $sclass->duration == 'PM Only' && $tu25 == NULL)
+						$tu25 = $sclass->name;
+				}
+				if($sclass->day == 'Wednesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+					if( $sclass->duration == 'AM & PM' )
+						$we25 = $sclass->name;
+					else if( $sclass->duration == 'PM Only' && $we25 == NULL)
+						$we25 = $sclass->name;
+				}
+				if($sclass->day == 'Thursday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+					if( $sclass->duration == 'AM & PM' )
+						$th25 = $sclass->name;
+					else if( $sclass->duration == 'PM Only' && $th25 == NULL)
+						$th25 = $sclass->name;
+				}
+				if($sclass->day == 'Friday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+					if( $sclass->duration == 'AM & PM' )
+						$fr25 = $sclass->name;
+					else if( $sclass->duration == 'PM Only' && $fr25 == NULL)
+						$fr25 = $sclass->name;
+				}
+
+				// validate the TWilight class registrations
+				if($sclass->day == 'Monday' && $sclass->duration == 'Twilight'){
+					$mo79 = $sclass->name;
+				}
+				if($sclass->day == 'Tuesday' && $sclass->duration == 'Twilight'){
+					$tu79 = $sclass->name;
+				}
+				if($sclass->day == 'Wednesday' && $sclass->duration == 'Twilight'){
+					$we79 = $sclass->name;
+				}
+				if($sclass->day == 'Thursday' && $sclass->duration == 'Twilight'){
+					$th79 = $sclass->name;
+				}
+				if($sclass->day == 'Friday' && $sclass->duration == 'Twilight'){
+					$fr79 = $sclass->name;
+				}
+      }
+    }elseif ($week == '2') {
+        $sclasses = $staff->classes2;
+        foreach($sclasses as $sclass) {
+
+  				// If the duration is AM Only or AM & PM set AM to the sclass name
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$mo912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$tu912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$we912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$th912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$fr912 = $sclass->name;
+  				}
+
+  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
+  				* if a class is all day a staff gets registered all day.
+  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
+  				* are loaded dynamically from value a user sets so that in the future other camps can add their
+  				* own constraints.
+  				*/
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$mo25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $mo25 == NULL)
+  						$mo25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$tu25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $tu25 == NULL)
+  						$tu25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$we25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $we25 == NULL)
+  						$we25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$th25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $th25 == NULL)
+  						$th25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$fr25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $fr25 == NULL)
+  						$fr25 = $sclass->name;
+  				}
+
+  				// validate the TWilight class registrations
+  				if($sclass->day == 'Monday' && $sclass->duration == 'Twilight'){
+  					$mo79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && $sclass->duration == 'Twilight'){
+  					$tu79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && $sclass->duration == 'Twilight'){
+  					$we79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && $sclass->duration == 'Twilight'){
+  					$th79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && $sclass->duration == 'Twilight'){
+  					$fr79 = $sclass->name;
+  				}
+        }
+      }elseif ($week == '3') {
+        $sclasses = $staff->classes3;
+        foreach($sclasses as $sclass) {
+
+  				// If the duration is AM Only or AM & PM set AM to the sclass name
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$mo912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$tu912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$we912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$th912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$fr912 = $sclass->name;
+  				}
+
+  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
+  				* if a class is all day a staff gets registered all day.
+  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
+  				* are loaded dynamically from value a user sets so that in the future other camps can add their
+  				* own constraints.
+  				*/
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$mo25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $mo25 == NULL)
+  						$mo25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$tu25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $tu25 == NULL)
+  						$tu25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$we25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $we25 == NULL)
+  						$we25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$th25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $th25 == NULL)
+  						$th25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$fr25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $fr25 == NULL)
+  						$fr25 = $sclass->name;
+  				}
+
+  				// validate the TWilight class registrations
+  				if($sclass->day == 'Monday' && $sclass->duration == 'Twilight'){
+  					$mo79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && $sclass->duration == 'Twilight'){
+  					$tu79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && $sclass->duration == 'Twilight'){
+  					$we79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && $sclass->duration == 'Twilight'){
+  					$th79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && $sclass->duration == 'Twilight'){
+  					$fr79 = $sclass->name;
+  				}
+        }
+      }elseif ($week == '4') {
+        $sclasses = $staff->classes4;
+        foreach($sclasses as $sclass) {
+
+  				// If the duration is AM Only or AM & PM set AM to the sclass name
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$mo912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$tu912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$we912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$th912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$fr912 = $sclass->name;
+  				}
+
+  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
+  				* if a class is all day a staff gets registered all day.
+  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
+  				* are loaded dynamically from value a user sets so that in the future other camps can add their
+  				* own constraints.
+  				*/
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$mo25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $mo25 == NULL)
+  						$mo25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$tu25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $tu25 == NULL)
+  						$tu25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$we25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $we25 == NULL)
+  						$we25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$th25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $th25 == NULL)
+  						$th25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$fr25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $fr25 == NULL)
+  						$fr25 = $sclass->name;
+  				}
+
+  				// validate the TWilight class registrations
+  				if($sclass->day == 'Monday' && $sclass->duration == 'Twilight'){
+  					$mo79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && $sclass->duration == 'Twilight'){
+  					$tu79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && $sclass->duration == 'Twilight'){
+  					$we79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && $sclass->duration == 'Twilight'){
+  					$th79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && $sclass->duration == 'Twilight'){
+  					$fr79 = $sclass->name;
+  				}
+        }
+      }elseif ($week == '5') {
+        $sclasses = $staff->classes5;
+        foreach($sclasses as $sclass) {
+
+  				// If the duration is AM Only or AM & PM set AM to the sclass name
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$mo912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$tu912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$we912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$th912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$fr912 = $sclass->name;
+  				}
+
+  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
+  				* if a class is all day a staff gets registered all day.
+  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
+  				* are loaded dynamically from value a user sets so that in the future other camps can add their
+  				* own constraints.
+  				*/
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$mo25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $mo25 == NULL)
+  						$mo25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$tu25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $tu25 == NULL)
+  						$tu25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$we25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $we25 == NULL)
+  						$we25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$th25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $th25 == NULL)
+  						$th25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$fr25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $fr25 == NULL)
+  						$fr25 = $sclass->name;
+  				}
+
+  				// validate the TWilight class registrations
+  				if($sclass->day == 'Monday' && $sclass->duration == 'Twilight'){
+  					$mo79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && $sclass->duration == 'Twilight'){
+  					$tu79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && $sclass->duration == 'Twilight'){
+  					$we79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && $sclass->duration == 'Twilight'){
+  					$th79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && $sclass->duration == 'Twilight'){
+  					$fr79 = $sclass->name;
+  				}
+        }
+      }elseif ($week == '6') {
+        $sclasses = $staff->classes6;
+        foreach($sclasses as $sclass) {
+
+  				// If the duration is AM Only or AM & PM set AM to the sclass name
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$mo912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$tu912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$we912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$th912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$fr912 = $sclass->name;
+  				}
+
+  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
+  				* if a class is all day a staff gets registered all day.
+  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
+  				* are loaded dynamically from value a user sets so that in the future other camps can add their
+  				* own constraints.
+  				*/
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$mo25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $mo25 == NULL)
+  						$mo25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$tu25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $tu25 == NULL)
+  						$tu25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$we25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $we25 == NULL)
+  						$we25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$th25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $th25 == NULL)
+  						$th25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$fr25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $fr25 == NULL)
+  						$fr25 = $sclass->name;
+  				}
+
+  				// validate the TWilight class registrations
+  				if($sclass->day == 'Monday' && $sclass->duration == 'Twilight'){
+  					$mo79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && $sclass->duration == 'Twilight'){
+  					$tu79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && $sclass->duration == 'Twilight'){
+  					$we79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && $sclass->duration == 'Twilight'){
+  					$th79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && $sclass->duration == 'Twilight'){
+  					$fr79 = $sclass->name;
+  				}
+        }
+      }elseif ($week == '7') {
+        $sclasses = $staff->classes7;
+        foreach($sclasses as $sclass) {
+
+  				// If the duration is AM Only or AM & PM set AM to the sclass name
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$mo912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$tu912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$we912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$th912 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'AM Only' || $sclass->duration == 'AM & PM')){
+  					$fr912 = $sclass->name;
+  				}
+
+  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
+  				* if a class is all day a staff gets registered all day.
+  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
+  				* are loaded dynamically from value a user sets so that in the future other camps can add their
+  				* own constraints.
+  				*/
+  				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$mo25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $mo25 == NULL)
+  						$mo25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$tu25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $tu25 == NULL)
+  						$tu25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$we25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $we25 == NULL)
+  						$we25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$th25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $th25 == NULL)
+  						$th25 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
+  					if( $sclass->duration == 'AM & PM' )
+  						$fr25 = $sclass->name;
+  					else if( $sclass->duration == 'PM Only' && $fr25 == NULL)
+  						$fr25 = $sclass->name;
+  				}
+
+  				// validate the TWilight class registrations
+  				if($sclass->day == 'Monday' && $sclass->duration == 'Twilight'){
+  					$mo79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Tuesday' && $sclass->duration == 'Twilight'){
+  					$tu79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Wednesday' && $sclass->duration == 'Twilight'){
+  					$we79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Thursday' && $sclass->duration == 'Twilight'){
+  					$th79 = $sclass->name;
+  				}
+  				if($sclass->day == 'Friday' && $sclass->duration == 'Twilight'){
+  					$fr79 = $sclass->name;
+  				}
+        }
+      }
+
+      $sclasses_mo912 = Sclass::where('day', 'Monday')->whereIn('duration', ['AM Only','AM & PM'])->orderBy('name', 'asc')->get();
+			$sclasses_tu912 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['AM Only','AM & PM'])->orderBy('name', 'asc')->get();
+			$sclasses_we912 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['AM Only','AM & PM'])->orderBy('name', 'asc')->get();
+			$sclasses_th912 = Sclass::where('day', 'Thursday')->whereIn('duration', ['AM Only','AM & PM'])->orderBy('name', 'asc')->get();
+			$sclasses_fr912 = Sclass::where('day', 'Friday')->whereIn('duration', ['AM Only','AM & PM'])->orderBy('name', 'asc')->get();
+
+			$sclasses_mo25 = Sclass::where('day', 'Monday')->whereIn('duration', ['PM Only','AM & PM'])->orderBy('name', 'asc')->get();
+			$sclasses_tu25 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['PM Only','AM & PM'])->orderBy('name', 'asc')->get();
+			$sclasses_we25 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['PM Only','AM & PM'])->orderBy('name', 'asc')->get();
+			$sclasses_th25 = Sclass::where('day', 'Thursday')->whereIn('duration', ['PM Only','AM & PM'])->orderBy('name', 'asc')->get();
+			$sclasses_fr25 = Sclass::where('day', 'Friday')->whereIn('duration', ['PM Only','AM & PM'])->orderBy('name', 'asc')->get();
+
+			$sclasses_mo79 = Sclass::where('day', 'Monday')->whereIn('duration', ['Twilight'])->orderBy('name', 'asc')->get();
+			$sclasses_tu79 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->orderBy('name', 'asc')->get();
+			$sclasses_we79 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->orderBy('name', 'asc')->get();
+			$sclasses_th79 = Sclass::where('day', 'Thursday')->whereIn('duration', ['Twilight'])->orderBy('name', 'asc')->get();
+			$sclasses_fr79 = Sclass::where('day', 'Friday')->whereIn('duration', ['Twilight'])->orderBy('name', 'asc')->get();
+
+      $context = array(
+				'mo912' => $mo912,
+				'tu912' => $tu912,
+				'we912' => $we912,
+				'th912' => $th912,
+				'fr912' => $fr912,
+
+				'mo25' => $mo25,
+				'tu25' => $tu25,
+				'we25' => $we25,
+				'th25' => $th25,
+				'fr25' => $fr25,
+
+				'mo79' => $mo79,
+				'tu79' => $tu79,
+				'we79' => $we79,
+				'th79' => $th79,
+				'fr79' => $fr79,
+
+				'sclasses_mo912' => $sclasses_mo912,
+				'sclasses_tu912' => $sclasses_tu912,
+				'sclasses_we912' => $sclasses_we912,
+				'sclasses_th912' => $sclasses_th912,
+				'sclasses_fr912' => $sclasses_fr912,
+
+				'sclasses_mo25' => $sclasses_mo25,
+				'sclasses_tu25' => $sclasses_tu25,
+				'sclasses_we25' => $sclasses_we25,
+				'sclasses_th25' => $sclasses_th25,
+				'sclasses_fr25' => $sclasses_fr25,
+
+				'sclasses_mo79' => $sclasses_mo79,
+				'sclasses_tu79' => $sclasses_tu79,
+				'sclasses_we79' => $sclasses_we79,
+				'sclasses_th79' => $sclasses_th79,
+				'sclasses_fr79' => $sclasses_fr79,
+			);
+
+			if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
+				return view('admin.staff.schedule', $context)
+		          ->with('id', $staff->id)
+		          ->with('staff', $staff)
+              ->with('week', $week);
+			}
+    }
+    return redirect()->to('home');
+  }
+
+  public function update_schedule($id, Request $request){
+
+		$staff = Staff::find($id);
+    $week = $request->input('week');
+
+    if($week == '1') {
+      foreach ($staff->classes1 as $key=>$sclass){
+        $staff->classes1()->detach($sclass->id);
+      }
+
+		$mo912 = $request->input('mo912');
+		if($mo912 != 'Free'){
+      $staff->classes1()->attach($mo912);
+		}
+		$tu912 = $request->input('tu912');
+		if($tu912 != 'Free'){
+			$staff->classes1()->attach($tu912);
+		}
+		$we912 = $request->input('we912');
+		if($we912 != 'Free'){
+			$staff->classes1()->attach($we912);
+		}
+		$th912 = $request->input('th912');
+		if($th912 != 'Free'){
+			$staff->classes1()->attach($th912);
+		}
+		$fr912 = $request->input('fr912');
+		if($fr912 != 'Free'){
+			$staff->classes1()->attach($fr912);
+		}
+
+		$mo25 = $request->input('mo25');
+		if($mo25 != 'Free'){
+			$staff->classes1()->attach($mo25);
+		}
+		$tu25 = $request->input('tu25');
+		if($tu25 != 'Free'){
+			$staff->classes1()->attach($tu25);
+		}
+		$we25 = $request->input('we25');
+		if($we25 != 'Free'){
+			$staff->classes1()->attach($we25);
+		}
+		$th25 = $request->input('th25');
+		if($th25 != 'Free'){
+			$staff->classes1()->attach($th25);
+		}
+		$fr25 = $request->input('fr25');
+		if($fr25 != 'Free'){
+			$staff->classes1()->attach($fr25);
+		}
+
+		$mo79 = $request->input('mo79');
+		if($mo79 != 'Free'){
+			$staff->classes1()->attach($mo79);
+		}
+		$tu79 = $request->input('tu79');
+		if($tu79 != 'Free'){
+			$staff->classes1()->attach($tu79);
+		}
+		$we79 = $request->input('we79');
+		if($we79 != 'Free'){
+			$staff->classes1()->attach($we79);
+		}
+		$th79 = $request->input('th79');
+		if($th79 != 'Free'){
+			$staff->classes1()->attach($th79);
+		}
+		$fr79 = $request->input('fr79');
+		if($fr79 != 'Free'){
+			$staff->classes1()->attach($fr79);
+		}
+  }elseif ($week == '2') {
+      foreach ($staff->classes2 as $key=>$sclass){
+        $staff->classes2()->detach($sclass->id);
+      }
+
+      $mo912 = $request->input('mo912');
+  		if($mo912 != 'Free'){
+        $staff->classes2()->attach($mo912);
+  		}
+  		$tu912 = $request->input('tu912');
+  		if($tu912 != 'Free'){
+  			$staff->classes2()->attach($tu912);
+  		}
+  		$we912 = $request->input('we912');
+  		if($we912 != 'Free'){
+  			$staff->classes2()->attach($we912);
+  		}
+  		$th912 = $request->input('th912');
+  		if($th912 != 'Free'){
+  			$staff->classes2()->attach($th912);
+  		}
+  		$fr912 = $request->input('fr912');
+  		if($fr912 != 'Free'){
+  			$staff->classes2()->attach($fr912);
+  		}
+
+  		$mo25 = $request->input('mo25');
+  		if($mo25 != 'Free'){
+  			$staff->classes2()->attach($mo25);
+  		}
+  		$tu25 = $request->input('tu25');
+  		if($tu25 != 'Free'){
+  			$staff->classes2()->attach($tu25);
+  		}
+  		$we25 = $request->input('we25');
+  		if($we25 != 'Free'){
+  			$staff->classes2()->attach($we25);
+  		}
+  		$th25 = $request->input('th25');
+  		if($th25 != 'Free'){
+  			$staff->classes2()->attach($th25);
+  		}
+  		$fr25 = $request->input('fr25');
+  		if($fr25 != 'Free'){
+  			$staff->classes2()->attach($fr25);
+  		}
+
+  		$mo79 = $request->input('mo79');
+  		if($mo79 != 'Free'){
+  			$staff->classes2()->attach($mo79);
+  		}
+  		$tu79 = $request->input('tu79');
+  		if($tu79 != 'Free'){
+  			$staff->classes2()->attach($tu79);
+  		}
+  		$we79 = $request->input('we79');
+  		if($we79 != 'Free'){
+  			$staff->classes2()->attach($we79);
+  		}
+  		$th79 = $request->input('th79');
+  		if($th79 != 'Free'){
+  			$staff->classes2()->attach($th79);
+  		}
+  		$fr79 = $request->input('fr79');
+  		if($fr79 != 'Free'){
+  			$staff->classes2()->attach($fr79);
+  		}
+    }elseif ($week == '3') {
+      foreach ($staff->classes3 as $key=>$sclass){
+        $staff->classes3()->detach($sclass->id);
+      }
+
+      $mo912 = $request->input('mo912');
+  		if($mo912 != 'Free'){
+        $staff->classes3()->attach($mo912);
+  		}
+  		$tu912 = $request->input('tu912');
+  		if($tu912 != 'Free'){
+  			$staff->classes3()->attach($tu912);
+  		}
+  		$we912 = $request->input('we912');
+  		if($we912 != 'Free'){
+  			$staff->classes3()->attach($we912);
+  		}
+  		$th912 = $request->input('th912');
+  		if($th912 != 'Free'){
+  			$staff->classes3()->attach($th912);
+  		}
+  		$fr912 = $request->input('fr912');
+  		if($fr912 != 'Free'){
+  			$staff->classes3()->attach($fr912);
+  		}
+
+  		$mo25 = $request->input('mo25');
+  		if($mo25 != 'Free'){
+  			$staff->classes3()->attach($mo25);
+  		}
+  		$tu25 = $request->input('tu25');
+  		if($tu25 != 'Free'){
+  			$staff->classes3()->attach($tu25);
+  		}
+  		$we25 = $request->input('we25');
+  		if($we25 != 'Free'){
+  			$staff->classes3()->attach($we25);
+  		}
+  		$th25 = $request->input('th25');
+  		if($th25 != 'Free'){
+  			$staff->classes3()->attach($th25);
+  		}
+  		$fr25 = $request->input('fr25');
+  		if($fr25 != 'Free'){
+  			$staff->classes3()->attach($fr25);
+  		}
+
+  		$mo79 = $request->input('mo79');
+  		if($mo79 != 'Free'){
+  			$staff->classes3()->attach($mo79);
+  		}
+  		$tu79 = $request->input('tu79');
+  		if($tu79 != 'Free'){
+  			$staff->classes3()->attach($tu79);
+  		}
+  		$we79 = $request->input('we79');
+  		if($we79 != 'Free'){
+  			$staff->classes3()->attach($we79);
+  		}
+  		$th79 = $request->input('th79');
+  		if($th79 != 'Free'){
+  			$staff->classes3()->attach($th79);
+  		}
+  		$fr79 = $request->input('fr79');
+  		if($fr79 != 'Free'){
+  			$staff->classes3()->attach($fr79);
+  		}
+    }elseif ($week == '4') {
+      foreach ($staff->classes4 as $key=>$sclass){
+        $staff->classes4()->detach($sclass->id);
+      }
+
+      $mo912 = $request->input('mo912');
+  		if($mo912 != 'Free'){
+        $staff->classes4()->attach($mo912);
+  		}
+  		$tu912 = $request->input('tu912');
+  		if($tu912 != 'Free'){
+  			$staff->classes4()->attach($tu912);
+  		}
+  		$we912 = $request->input('we912');
+  		if($we912 != 'Free'){
+  			$staff->classes4()->attach($we912);
+  		}
+  		$th912 = $request->input('th912');
+  		if($th912 != 'Free'){
+  			$staff->classes4()->attach($th912);
+  		}
+  		$fr912 = $request->input('fr912');
+  		if($fr912 != 'Free'){
+  			$staff->classes4()->attach($fr912);
+  		}
+
+  		$mo25 = $request->input('mo25');
+  		if($mo25 != 'Free'){
+  			$staff->classes4()->attach($mo25);
+  		}
+  		$tu25 = $request->input('tu25');
+  		if($tu25 != 'Free'){
+  			$staff->classes4()->attach($tu25);
+  		}
+  		$we25 = $request->input('we25');
+  		if($we25 != 'Free'){
+  			$staff->classes4()->attach($we25);
+  		}
+  		$th25 = $request->input('th25');
+  		if($th25 != 'Free'){
+  			$staff->classes4()->attach($th25);
+  		}
+  		$fr25 = $request->input('fr25');
+  		if($fr25 != 'Free'){
+  			$staff->classes4()->attach($fr25);
+  		}
+
+  		$mo79 = $request->input('mo79');
+  		if($mo79 != 'Free'){
+  			$staff->classes4()->attach($mo79);
+  		}
+  		$tu79 = $request->input('tu79');
+  		if($tu79 != 'Free'){
+  			$staff->classes4()->attach($tu79);
+  		}
+  		$we79 = $request->input('we79');
+  		if($we79 != 'Free'){
+  			$staff->classes4()->attach($we79);
+  		}
+  		$th79 = $request->input('th79');
+  		if($th79 != 'Free'){
+  			$staff->classes4()->attach($th79);
+  		}
+  		$fr79 = $request->input('fr79');
+  		if($fr79 != 'Free'){
+  			$staff->classes4()->attach($fr79);
+  		}
+    }elseif ($week == '5') {
+      foreach ($staff->classes5 as $key=>$sclass){
+        $staff->classes5()->detach($sclass->id);
+      }
+
+      $mo912 = $request->input('mo912');
+  		if($mo912 != 'Free'){
+        $staff->classes5()->attach($mo912);
+  		}
+  		$tu912 = $request->input('tu912');
+  		if($tu912 != 'Free'){
+  			$staff->classes5()->attach($tu912);
+  		}
+  		$we912 = $request->input('we912');
+  		if($we912 != 'Free'){
+  			$staff->classes5()->attach($we912);
+  		}
+  		$th912 = $request->input('th912');
+  		if($th912 != 'Free'){
+  			$staff->classes5()->attach($th912);
+  		}
+  		$fr912 = $request->input('fr912');
+  		if($fr912 != 'Free'){
+  			$staff->classes5()->attach($fr912);
+  		}
+
+  		$mo25 = $request->input('mo25');
+  		if($mo25 != 'Free'){
+  			$staff->classes5()->attach($mo25);
+  		}
+  		$tu25 = $request->input('tu25');
+  		if($tu25 != 'Free'){
+  			$staff->classes5()->attach($tu25);
+  		}
+  		$we25 = $request->input('we25');
+  		if($we25 != 'Free'){
+  			$staff->classes5()->attach($we25);
+  		}
+  		$th25 = $request->input('th25');
+  		if($th25 != 'Free'){
+  			$staff->classes5()->attach($th25);
+  		}
+  		$fr25 = $request->input('fr25');
+  		if($fr25 != 'Free'){
+  			$staff->classes5()->attach($fr25);
+  		}
+
+  		$mo79 = $request->input('mo79');
+  		if($mo79 != 'Free'){
+  			$staff->classes5()->attach($mo79);
+  		}
+  		$tu79 = $request->input('tu79');
+  		if($tu79 != 'Free'){
+  			$staff->classes5()->attach($tu79);
+  		}
+  		$we79 = $request->input('we79');
+  		if($we79 != 'Free'){
+  			$staff->classes5()->attach($we79);
+  		}
+  		$th79 = $request->input('th79');
+  		if($th79 != 'Free'){
+  			$staff->classes5()->attach($th79);
+  		}
+  		$fr79 = $request->input('fr79');
+  		if($fr79 != 'Free'){
+  			$staff->classes5()->attach($fr79);
+  		}
+    }elseif ($week == '6') {
+      foreach ($staff->classes6 as $key=>$sclass){
+        $staff->classes6()->detach($sclass->id);
+      }
+
+      $mo912 = $request->input('mo912');
+  		if($mo912 != 'Free'){
+        $staff->classes6()->attach($mo912);
+  		}
+  		$tu912 = $request->input('tu912');
+  		if($tu912 != 'Free'){
+  			$staff->classes6()->attach($tu912);
+  		}
+  		$we912 = $request->input('we912');
+  		if($we912 != 'Free'){
+  			$staff->classes6()->attach($we912);
+  		}
+  		$th912 = $request->input('th912');
+  		if($th912 != 'Free'){
+  			$staff->classes6()->attach($th912);
+  		}
+  		$fr912 = $request->input('fr912');
+  		if($fr912 != 'Free'){
+  			$staff->classes6()->attach($fr912);
+  		}
+
+  		$mo25 = $request->input('mo25');
+  		if($mo25 != 'Free'){
+  			$staff->classes6()->attach($mo25);
+  		}
+  		$tu25 = $request->input('tu25');
+  		if($tu25 != 'Free'){
+  			$staff->classes6()->attach($tu25);
+  		}
+  		$we25 = $request->input('we25');
+  		if($we25 != 'Free'){
+  			$staff->classes6()->attach($we25);
+  		}
+  		$th25 = $request->input('th25');
+  		if($th25 != 'Free'){
+  			$staff->classes6()->attach($th25);
+  		}
+  		$fr25 = $request->input('fr25');
+  		if($fr25 != 'Free'){
+  			$staff->classes6()->attach($fr25);
+  		}
+
+  		$mo79 = $request->input('mo79');
+  		if($mo79 != 'Free'){
+  			$staff->classes6()->attach($mo79);
+  		}
+  		$tu79 = $request->input('tu79');
+  		if($tu79 != 'Free'){
+  			$staff->classes6()->attach($tu79);
+  		}
+  		$we79 = $request->input('we79');
+  		if($we79 != 'Free'){
+  			$staff->classes6()->attach($we79);
+  		}
+  		$th79 = $request->input('th79');
+  		if($th79 != 'Free'){
+  			$staff->classes6()->attach($th79);
+  		}
+  		$fr79 = $request->input('fr79');
+  		if($fr79 != 'Free'){
+  			$staff->classes6()->attach($fr79);
+  		}
+    }elseif ($week == '7') {
+      foreach ($staff->classes7 as $key=>$sclass){
+        $staff->classes7()->detach($sclass->id);
+      }
+
+      $mo912 = $request->input('mo912');
+  		if($mo912 != 'Free'){
+        $staff->classes7()->attach($mo912);
+  		}
+  		$tu912 = $request->input('tu912');
+  		if($tu912 != 'Free'){
+  			$staff->classes7()->attach($tu912);
+  		}
+  		$we912 = $request->input('we912');
+  		if($we912 != 'Free'){
+  			$staff->classes7()->attach($we912);
+  		}
+  		$th912 = $request->input('th912');
+  		if($th912 != 'Free'){
+  			$staff->classes7()->attach($th912);
+  		}
+  		$fr912 = $request->input('fr912');
+  		if($fr912 != 'Free'){
+  			$staff->classes7()->attach($fr912);
+  		}
+
+  		$mo25 = $request->input('mo25');
+  		if($mo25 != 'Free'){
+  			$staff->classes7()->attach($mo25);
+  		}
+  		$tu25 = $request->input('tu25');
+  		if($tu25 != 'Free'){
+  			$staff->classes7()->attach($tu25);
+  		}
+  		$we25 = $request->input('we25');
+  		if($we25 != 'Free'){
+  			$staff->classes7()->attach($we25);
+  		}
+  		$th25 = $request->input('th25');
+  		if($th25 != 'Free'){
+  			$staff->classes7()->attach($th25);
+  		}
+  		$fr25 = $request->input('fr25');
+  		if($fr25 != 'Free'){
+  			$staff->classes7()->attach($fr25);
+  		}
+
+  		$mo79 = $request->input('mo79');
+  		if($mo79 != 'Free'){
+  			$staff->classes7()->attach($mo79);
+  		}
+  		$tu79 = $request->input('tu79');
+  		if($tu79 != 'Free'){
+  			$staff->classes7()->attach($tu79);
+  		}
+  		$we79 = $request->input('we79');
+  		if($we79 != 'Free'){
+  			$staff->classes7()->attach($we79);
+  		}
+  		$th79 = $request->input('th79');
+  		if($th79 != 'Free'){
+  			$staff->classes7()->attach($th79);
+  		}
+  		$fr79 = $request->input('fr79');
+  		if($fr79 != 'Free'){
+  			$staff->classes7()->attach($fr79);
+  		}
+    }
+	 return redirect()->to('staff');
+	}
 }

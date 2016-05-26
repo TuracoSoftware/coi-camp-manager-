@@ -30,7 +30,7 @@
                             <td>{{ $value->name }}</td>
                             <td>{{ $value->description }}</td>
                             <td>{{ $value->min_age }}</td>
-
+                            if(Auth::user()->type == 'admin' || Auth::user()->type == 'director')
                             <td>
                               <a class="btn btn-small btn-info" href="{{ URL::to('sclass/' . $value->id . '/edit') }}">
                                 <i class="fa fa-edit"></i> Edit</a>
@@ -38,6 +38,7 @@
                                   <i class="fa fa-trash"></i> Delete
                               </a>
                             </td>
+                            endif
                           </tr>
                         @endforeach
                       </tbody>

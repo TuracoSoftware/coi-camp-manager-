@@ -1,4 +1,4 @@
-@extends('admin.index')
+@extends('layouts.index')
 
 @section('content')
 <section class="content-wrapper">

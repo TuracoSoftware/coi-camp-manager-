@@ -12,6 +12,28 @@ class Sclass extends Model
       return $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id');
     }
 
+    public function staff1() {
+      return $this->belongsToMany('App\Staff', 'staff_sclass_1', 'staff_id', 'sclass_id');
+    }
+    public function staff2() {
+      return $this->belongsToMany('App\Staff', 'staff_sclass_2', 'staff_id', 'sclass_id');
+    }
+    public function staff3() {
+      return $this->belongsToMany('App\Staff', 'staff_sclass_3', 'staff_id', 'sclass_id');
+    }
+    public function staff4() {
+      return $this->belongsToMany('App\Staff', 'staff_sclass_4', 'staff_id', 'sclass_id');
+    }
+    public function staff5() {
+      return $this->belongsToMany('App\Staff', 'staff_sclass_5', 'staff_id', 'sclass_id');
+    }
+    public function staff6() {
+      return $this->belongsToMany('App\Staff', 'staff_sclass_6', 'staff_id', 'sclass_id');
+    }
+    public function staff7() {
+      return $this->belongsToMany('App\Staff', 'staff_sclass_7', 'staff_id', 'sclass_id');
+    }
+
     public function count_scouts(){
 
     	return $this->belongsToMany('App\Scout', 'scout_sclass', 'sclass_id', 'scout_id')->distinct('scout_id')->count('scout_id');

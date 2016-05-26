@@ -1,4 +1,4 @@
-@extends('admin.index')
+@extends('layouts.index')
 
 @section('content')
 <div class="container">
@@ -13,7 +13,7 @@
             <form action="{{ url('scout/'.$scout->id.'/schedule') }}" method="POST">
               {!! csrf_field() !!}
               <input name="_method" type="hidden" value="PUT">
-              
+
               <div class="panel panel-default">
                 <div class="panel-heading">
                   {{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old</strong>
@@ -288,9 +288,9 @@
 
               <br><input class="btn btn-default" type="submit" value="Submit">
             </form>
-            
+
             <div class="ampm_classes hidden">
-              
+
             <!-- ampm classes that start on monday -->
             @foreach($sclasses_mo912 as $key => $sclass_mo912)
               @if($sclass_mo912->duration == 'AM & PM')

@@ -1,15 +1,15 @@
-@extends('admin.index')
+@extends('layouts.index')
 
 @section('content')
 
 <section class="content-wrapper">
-
+          @if(Auth::user()->type == 'admin')
             <section class="content-header">
               <a class="btn btn-small btn-info" href="{{ URL::to('sclass/create') }}">
                 <i class="fa fa-plus-square-o"></i> New Class
               </a>
             </section><br>
-
+            @endif
             <div class="box">
                 <div class="box-header">
                   <h3 class="box-header">Current Classes</h3>
@@ -26,7 +26,9 @@
                           <th>Duration</th>
                           <th>Day</th>
                           <th>Size</th>
+                          @if(Auth::user()->type == 'admin')
                           <th>Options</th>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
@@ -39,7 +41,7 @@
                             <td>{{ $value->duration }}</td>
                             <td>{{ $value->day }}</td>
                             <td>{{ $value->size }}</td>
-
+                            @if(Auth::user()->type == 'admin')
                             <td>
                               <a class="btn btn-small btn-info" href="{{ URL::to('sclass/' . $value->id . '/edit') }}">
                                 <i class="fa fa-edit"></i> Edit</a>
@@ -47,6 +49,7 @@
                                   <i class="fa fa-trash"></i> Delete
                               </a>
                             </td>
+                            @endif
                           </tr>
                         @endforeach
                       </tbody>

@@ -4,12 +4,19 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
-@if (Auth::user()->type == 'admin')
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="_token" content="{{ csrf_token() }}">
-    <title>Camp Old Indian Adminstration</title>
+    @if (Auth::user()->type == 'admin')
+    <title>Camp Old Indian Admin</title>
+    @elseif (Auth::user()->type == 'staff')
+    <title>Camp Old Indian Staff</title>
+    @elseif (Auth::user()->type == 'director')
+    <title>Camp Old Indian Director</title>
+    @else
+      <p>You are not authorized to view this resource. <a href="{{ URL::to('/home') }}">Return home.</a></p>
+    @endif
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -60,16 +67,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-      <!-- Main Header -->
-      @include('admin.header')
+      @include('layouts.header')
       <!-- Left side column. contains the logo and sidebar -->
-      @include('admin.sidebar')
+      @include('layouts.sidebar')
       <!-- Content Wrapper. Contains page content -->
       @yield('content')
       <!-- Model for opening a delete confirm window -->
-      @include('admin.modalyn')
+      @include('layouts.modalyn')
       <!-- Main Footer -->
-      @include('admin.footer')
+      @include('layouts.footer')
     </div>
 
     <!-- REQUIRED JS SCRIPTS -->
@@ -98,7 +104,4 @@ scratch. This page gets rid of all links and provides the needed markup only.
          user experience. Slimscroll is required when using the
          fixed layout. -->
   </body>
-  @else
-  <p>You are not authorized to view this resource. <a href="{{ URL::to('/home') }}">Return home.</a></p>
-  @endif
 </html>

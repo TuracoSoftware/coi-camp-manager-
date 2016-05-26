@@ -1,41 +1,24 @@
-@extends('layouts.index')
+@extends('admin.index')
 
 @section('content')
 
 <section class="content-wrapper">
-
   <section class="content-header">
-
-    <h2 class="page-header">Week {{ $week }}</h2>
-      <!-- New Scout button -->
-      <a class="btn btn-small btn-info" href="{{ URL::to('administrator/scout/create') }}">
-        <i class="fa fa-plus-square-o"></i> New Scout
-     </a>
-
-     <!-- Roster print dropdown menu -->
-     <div class="btn-group">
-       <button type="button" class="btn btn-success">Roster Print</button>
-       <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-         <span class="caret"></span>
-         <span class="sr-only">Toggle Dropdown</span>
-       </button>
-       <ul class="dropdown-menu" role="menu">
-         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Monday') }}" target="_blank"><i class="fa fa-print"> Monday's Rosters</i></a></li>
-         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Tuesday') }}" target="_blank"><i class="fa fa-print"> Tueday's Rosters</i></a></li>
-         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Wednesday') }}" target="_blank"><i class="fa fa-print"> Wednesday's Rosters</i></a></li>
-         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Thursday') }}" target="_blank"><i class="fa fa-print"> Thursday's Rosters</i></a></li>
-         <li><a href="{{ URL::to('administrator/AllRosters/' . $week . '/Friday') }}" target="_blank"><i class="fa fa-print"> Friday's Rosters</i></a></li>
-       </ul>
-     </div>
-
+    <h2 class="page-header">Roster</h2>
   </section>
 
   <section class="content">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#all_scouts" data-toggle="tab">All Scouts</a></li>
-          <li><a href="#all_troops" data-toggle="tab">All Troops</a></li>
           <li><a href="#all_classes" data-toggle="tab">All Classes</a></li>
+          <li><a href="#week1" data-toggle="tab">Week 1</a></li>
+          <li><a href="#week2" data-toggle="tab">Week 2</a></li>
+          <li><a href="#week3" data-toggle="tab">Week 3</a></li>
+          <li><a href="#week4" data-toggle="tab">Week 4</a></li>
+          <li><a href="#week5" data-toggle="tab">Week 5</a></li>
+          <li><a href="#week6" data-toggle="tab">Week 6</a></li>
+          <li><a href="#week7" data-toggle="tab">Week 7</a></li>
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="all_scouts">
@@ -66,15 +49,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ URL::to('scout/' . $scout->id . '/schedule') }}"><i class="fa fa-edit"> Edit Schedule</i></a></li>
                         <li><a href="{{ URL::to('scout_print_view/'.$scout->id) }}" target="_blank"><i class="fa fa-print"> Print Schedule</i></a></li>
-                        <li><a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"> Edit Scout</i></a></li>
-                        @if(Auth::user()->type == 'admin')
                         <li class="divider"></li>
-                        <li><a href="#" onclick="open_modal('Are you sure?', '{{ url('scout/'.$scout->id) }}', true, 'DELETE')">
-                          <i class="fa fa-trash"> Delete Scout</i>
-                        </a></li>
-                        @endif
                       </ul>
                     </div>
                   </td>
@@ -83,30 +59,6 @@
                 </tbody>
               </table>
             </div>
-          <div class="tab-pane" id="all_troops">
-            <table id="troop_table" class="table table-bordered table-hover">
-              <thead>
-                <th>Troop</th>
-                <th>Council</th>
-                <th>Scoutmaster Name</th>
-                <th>Scoutmaster Phone</th>
-                <th>Scoutmaster Email</th>
-                <th>Actions</th>
-              </thead>
-              <tbody>
-                @foreach($troops as $key => $troop)
-                <tr>
-                  <td>{{ $troop->troop }}</td>
-                  <td>{{ $troop->council }}</td>
-                  <td>{{ $troop->scout_master_last_name }}, {{ $troop->scout_master_first_name }}</td>
-                  <td>{{ $troop->scout_master_phone }}</td>
-                  <td>{{ $troop->scout_master_email }}</td>
-                  <td>Actions</td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
           <div class="tab-pane" id="all_classes">
             <table id="classes_table" class="table table-bordered table-hover">
               <thead>

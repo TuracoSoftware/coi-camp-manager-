@@ -1,8 +1,8 @@
-@extends('admin.index')
+@extends('layouts.index')
 
 @section('content')
 <section class="content-wrapper">
-            @if(true)
+            @if(Auth::user()->type == 'admin')
             <section class="content-header">
               <a class="btn btn-small btn-info" href="{{ URL::to('administrator/staff/create') }}">
                 <i class="fa fa-plus-square-o"></i> Create Staff Member
@@ -21,7 +21,12 @@
                           <td>Email</td>
                           <td>Description</td>
                           <td>Department</td>
-                          <td>Edit</td>
+                          @if(Auth::user()->type == 'admin')
+                          <td>Edit Profile</td>
+                          @endif
+                          @if(Auth::user()->type == 'admin' || Auth::user()->type == 'director')
+                          <td>Edit Schedule</td>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
@@ -31,12 +36,32 @@
                             <td> {{ $value->user->email }} </td>
                             <td> {{ $value->description }} </td>
                             <td> {{ $value->department }} </td>
+                            @if(Auth::user()->type == 'admin')
                             <td>
                               <a class="btn btn-small btn-info" href="{{ URL::to('administrator/staff/' . $value->id . '/edit') }}">
-                                <i class="fa fa-edit"></i> Edit</a>
-                              <!--<a type="button" class="btn btn-small btn-danger" href="#" onclick="open_modal('Are you sure?', '{{ url('administrator/staff/'.$value->id) }}', true, 'DELETE')">
-                                <i class="fa fa-trash"></i> Delete</a>-->
+                                <i class="fa fa-edit"></i> Edit Profile</a>
                             </td>
+                            @endif
+                            @if(Auth::user()->type == 'admin' || Auth::user()->type == 'director')
+                            <td>
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-success">Edit Schedule</button>
+                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                  <span class="caret"></span>
+                                  <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="{{ URL::to('/staff/'.$value->id.'/1/schedule') }}" target="_blank"><i class="fa fa-edit"> Week 1</i></a></li>
+                                  <li><a href="{{ URL::to('/staff/'.$value->id.'/2/schedule') }}" target="_blank"><i class="fa fa-edit"> Week 2</i></a></li>
+                                  <li><a href="{{ URL::to('/staff/'.$value->id.'/3/schedule') }}" target="_blank"><i class="fa fa-edit"> Week 3</i></a></li>
+                                  <li><a href="{{ URL::to('/staff/'.$value->id.'/4/schedule') }}" target="_blank"><i class="fa fa-edit"> Week 4</i></a></li>
+                                  <li><a href="{{ URL::to('/staff/'.$value->id.'/5/schedule') }}" target="_blank"><i class="fa fa-edit"> Week 5</i></a></li>
+                                  <li><a href="{{ URL::to('/staff/'.$value->id.'/6/schedule') }}" target="_blank"><i class="fa fa-edit"> Week 6</i></a></li>
+                                  <li><a href="{{ URL::to('/staff/'.$value->id.'/7/schedule') }}" target="_blank"><i class="fa fa-edit"> Week 7</i></a></li>
+                                </ul>
+                              </div>
+                            </td>
+                            @endif
                           </tr>
                         @endforeach
                       </tbody>

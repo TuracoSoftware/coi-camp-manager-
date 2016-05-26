@@ -1,12 +1,10 @@
-@extends('admin.index')
+@extends('layouts.index')
 
 @section('content')
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-      <h1>Welcome {{ Auth::user()->name }}!
-        <small>{{ Auth::user()->type }}</small>
-      </h1>
+      <h1>Welcome {{ Auth::user()->name }}!</h1>
   </section>
 
   <!-- Main content -->

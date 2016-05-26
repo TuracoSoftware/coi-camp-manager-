@@ -22,17 +22,17 @@ class TroopController extends Controller
 
     $troops = 0;
 
-    if(Auth::user()->type == 'admin')
+    if(Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff')
       $troops = Troop::all();
     else
       $troops = Troop::where('user_id', Auth::id())
                         ->get();
 
     $notroop = False;
-    if($troops === 0 || count($troops) == 0 || Auth::user()->type == 'admin')
+    if($troops === 0 || count($troops) == 0 || Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff')
       $notroop = True;
 
-    if(Auth::user()->type == 'admin'){
+    if(Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff'){
       return view('admin.troops.index')
             ->with('troops',$troops)
             ->with('notroop',$notroop);

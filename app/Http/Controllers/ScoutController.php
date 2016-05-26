@@ -44,7 +44,7 @@ class ScoutController extends Controller
 	// TODO: Maybe move this method to its own class since its basically controlling the whole week views
 	public function week($id){
 
-		if(Auth::user()->type == 'admin'){
+		if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
 
 			//Get the ID's of the troops for indexing the correct scouts
 			$troops = Troop::where('week_attending_camp', $id)->get()->lists('id');
@@ -514,7 +514,6 @@ class ScoutController extends Controller
 		          ->with('lastname', $scout->lastname)
 		          ->with('age', $scout->age)
 		          ->with('troop_id', $scout->troop_id);
-
 			}else{
 
 			  	return view('scouts.edit')

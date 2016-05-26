@@ -1,4 +1,4 @@
-@extends('admin.index')
+@extends('layouts.index')
 
 @section('content')
 
@@ -36,7 +36,7 @@
                             <td>{{ $value->scout_master_first_name }} {{ $value->scout_master_last_name }}</td>
                             <td>{{ $value->scout_master_phone }}</td>
                             <td>{{ $value->scout_master_email }}</td>
-
+                            @if(Auth::user()->type == 'admin' || Auth::user()->type == 'director')
                             <td>
                               <a class="btn btn-small btn-info" href="{{ URL::to('administrator/troop/' . $value->id . '/edit') }}">
                                 <i class="fa fa-edit"></i> Edit</a>
@@ -45,6 +45,7 @@
                               <a class="btn btn-small btn-info" href="{{ URL::to('administrator/troop/' . $value->id . '/addscout') }}">
                                 <i class="fa fa-edit"></i> Add scout</a>
                             </td>
+                            @endif
                           </tr>
                         @endforeach
                       </tbody>

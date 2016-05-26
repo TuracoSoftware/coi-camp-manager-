@@ -6,12 +6,12 @@
     <div class="row col-md-offset-1">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Staff Registration</div>
+                <div class="panel-heading">Director Registration</div>
 
                   <div class="panel-body">
                     <div class="form">
 
-                      <form action="{{ url('administrator/staff') }}"  method="POST">
+                      <form action="{{ url('administrator/director') }}"  method="POST">
                         {!! csrf_field() !!}
 
                         <label for="name">Name:</label>
@@ -24,7 +24,7 @@
                         <input name="password" type="password" class="form-control" id="password">
                         <br>
 
-                        <label for="description">Description (Classes teaching):</label>
+                        <label for="description">Description:</label>
                         <input name="description" type="text" class="form-control" id="description">
                         <br>
                         <label for="department">Department:</label>
@@ -32,7 +32,7 @@
                         <br>
 
                         <button type="submit" class="btn btn-default">
-                          <i class="fa fa-check"></i> Register Staff member
+                          <i class="fa fa-check"></i> Register Director
                         </button>
                       </form>
                     </div>

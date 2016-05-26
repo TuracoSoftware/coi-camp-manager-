@@ -3,13 +3,13 @@
 @section('content')
 <section class="content-wrapper">
             <section class="content-header">
-              <h2>Staff</h2>
+              <h2>Directors</h2>
             </section>
             <br>
             <div class="panel panel-default">
-                <div class="panel-heading">All Staff</div>
+                <div class="panel-heading">All Directors</div>
                 <div class="panel-body">
-                    <table id="staff_table" class="table table-hover">
+                    <table id="director_table" class="table table-hover">
                       <thead>
                         <tr>
                           <td>Name</td>
@@ -19,7 +19,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($staff as $key=>$value)
+                        @foreach($director as $key=>$value)
                           <tr>
                             <td> {{ $value->user->name }} </td>
                             <td> {{ $value->user->email }} </td>
@@ -47,7 +47,7 @@
 
   <script>
     $(function () {
-      $('#staff_table').DataTable({
+      $('#director_table').DataTable({
         "paging": true,
         "lengthChange": true,
         "searching": true,
@@ -57,4 +57,4 @@
       });
     });
   </script>
-  @endsection
+@endsection

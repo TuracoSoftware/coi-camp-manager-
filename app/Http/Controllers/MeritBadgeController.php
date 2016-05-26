@@ -57,4 +57,68 @@ class MeritBadgeController extends Controller
         ->with('meritbadges',$meritbadge);
       }
 }
+public function update($id, Request $request)
+{
+  /*$editables = array(
+    'name',
+    'email',
+    'new_password',
+    'type'
+  );
+  $user = User::find($id);
+  if(Auth::user()->type == 'admin' ){
+    $validator = Validator::make($request->all());
+
+    if($validator->fails()) {
+      return redirect()->back()->withErrors($validator->messages());
+    } else {
+      foreach($editables as $key=>$value) {
+        if($value == 'new_password') {
+          if($request->input($value) == $request->input('confirm_password')) {
+            $user->password = $request->input(bcrypt($value));
+          }
+        } else if(!($value==NULL)) {
+          $user->$value = $request->input($value);
+        }
+      }
+      $user->save();
+      return view('admin.staff.staff');
+      }
+  }*/
+  $staff = Staff::find($id);
+  $user = $staff->user;
+  $rules = array();
+  $validator = Validator::make($request->all(), $rules);
+  if($validator->fails()) {
+    return redirect()->back()->withErrors($validator->messages());
+  } else {
+      if($request->input('name')) {
+        $user->name = $request->input('name');
+      }
+      if($request->input('email')) {
+        $user->email = $request->input('email');
+      }
+      if($request->input('new_password')) {
+        if($request->input('new_password') == $request->input('confirm_password')) {
+          $user->password = $request->input(bcrypt('new_password'));
+        }
+      }
+      if($request->input('type')) {
+        $user->type = $request->input('type');
+      }
+      $user->save();
+
+      if($request->input('description')) {
+        $staff->description = $request->input('description');
+      }
+      if($request->input('department')) {
+        $staff->department = $request->input('department');
+      }
+      $staff->save();
+
+      $staff = Staff::all();
+      return view('admin.staff.index')
+                ->with('staff', $staff);
+  }
+}
 }

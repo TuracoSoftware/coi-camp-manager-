@@ -1,4 +1,4 @@
-@includes('admin.index')
+@includes('layouts.index')
 
 @section('content')
 <h1>
