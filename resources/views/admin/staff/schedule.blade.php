@@ -3,7 +3,7 @@
 @section('content')
 <section class="content-wrapper">
   <section class="content-header">
-        <h2 class="page-header">Staff Schedule Editing</h2>
+    <h2 class="page-header">Staff Schedule Editing</h2>
   </section>
   <section class="content">
     <div class="nave-tabs-custom">

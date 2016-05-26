@@ -568,27 +568,35 @@ class ScoutController extends Controller
     }
 
 	public function create() {
-
     $current_user = Auth::user();
+		$troops = Troop::all();
+		$maxPos = NULL;
+		$max = NULL;
+		for ($i = 0; $i < count($troops)-1; $i++) {
+			$max = $troops[$i]->troop;
+			$maxPos = $i;
+			for ($j = $i+1; $j < count($troops); $j++) {
+				if ($max < $troops[$j]->troop) {
+					$max = $troops[$j]->troop;
+					$maxPos = $j;
+					$temp = $troops[$i];
+					$troops[$i] = $troops[$j];
+					$troops[$j] = $temp;
+				}
+			}
+		}
 
     //check if user is logged in
-    if ( $current_user ){
-
-
-
-  	if(Auth::user()->type == 'admin'){
-    		return view('admin.scouts.create');
-    	}else{
-    		if ( $current_user->troop )
-    			return view('scouts.create');
+    if ($current_user) {
+  		if (Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff') {
+				return view('admin.scouts.create')
+								->with('troops', $troops);
+    	} else {
+					if ($current_user->troop)
+    				return view('scouts.create');
     	}
-
-
-
     }
     return redirect()->to('login');
-    // return view('login');
-
   }
 
   public function store(Request $request) {
@@ -613,9 +621,10 @@ class ScoutController extends Controller
 		    $scout->age = $request->input('age');
 		    if(Auth::user()->type != 'admin')
 		    	$scout->troop_id = Auth::user()->troop->id;
-
+				if(Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff')
+					$scout->troop_id = $request->input('troop');
 		    $scout->save();
-		    return redirect()->to('scout');
+				return redirect()->to('scout/create');
 		}
 
     }
