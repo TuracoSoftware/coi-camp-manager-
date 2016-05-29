@@ -16,16 +16,14 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
 
     /**
      * Return the currect view based on what type of user is attempting to access a system
      */
-    public function index()
-    {
+    public function index() {
         if(Auth::user()->type == 'admin') {
             return redirect()->to('/administrator');
         } elseif (Auth::user()->type == 'director') {

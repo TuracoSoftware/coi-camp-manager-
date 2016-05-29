@@ -1,0 +1,64 @@
+This is a rolling list of stuff that needs to get done. As you complete tasks,
+replace the '-' with your initials. As you notice things that need to be done
+in the application, please add them to this list so we don't forget that it
+needs to be done
+
+================================================================================
+*
+* GENERAL PROGRAM TASKS
+*
+================================================================================
+- Advancement tab is added to the main sidebar
+- An admin can get an advancement report for any scout out of any troop
+  -Table of troops given via a week, click to expand scouts,
+  then view advancement off of a scout
+- Staff members & Merit badge advancement
+  - Staff member logs in and sees classes assigned to him
+  - Staff member checks off requiremtents done by each scout
+  - Staff member submits his advancement are director
+  - Staff member can manually add scouts to his class not on his e roster
+- Directors & Merit badge advancement
+- Registration pages load very slowly. Do some research into ways to make it load
+  faster and more efficiently
+
+================================================================================
+*
+* SPECIFIC PROGRAM TASKS
+*
+================================================================================
+
+********************FRONT (USER) END********************************************
+- Improve dashboard with pictures and images
+- Add data mask to 'Troop Registration Page' phone number
+  -This should cover both the create and edit functions
+-Fix the 'Edit Troop' button and form to include all of the troops available
+-Fix scout registration buttons on the remote server
+  -Access the remote server via FTP User: coiregistration Pass: (same as used to login to the admin panel)
+
+*********************ADMIN PANEL************************************************
+**** General notes
+- Establish some sort of continutiy in the urls throughout the application
+- Make sure there is consistancy in all of the font awsosome (fa) icons
+****Admin Home Page
+- Estimated total fees should show an estimate of how many fees will be collected
+  bases on the fees of all the scouts will pay to camp for merit badges with fees
+- Do something with unique visitors
+- Paperwork Status
+  - This box will show the staff that still need to do their paperwork on that day
+- Recent troop registrations
+  - Last day actually shows last day
+  - Last 3 days actually shows last 3 days
+  - Recent should be added and show the last 7
+****Registration page
+
+****Troops Page
+- Rename to all troops
+- Make it sortable
+- Add a scout directly to a troop
+
+****User Management tab
+- Create a tab called 'User Management'
+  -In this page house the current 'Users' & 'Staff' tabs
+
+****Classes page
+- This class setup page needs some major TLC

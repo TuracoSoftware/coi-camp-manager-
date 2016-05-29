@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
 use App\Scout;
 use App\Troop;
 use App\Sclass;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 class PdfController extends Controller
 {
@@ -88,7 +89,8 @@ class PdfController extends Controller
 			      }
 					}
 			}
-			$final_scouts = array_unique($scouts);
+
+			$final_scouts = array_unique($scouts); 		// Remove any unessary duplications
 			return $scouts;
 		}
 }

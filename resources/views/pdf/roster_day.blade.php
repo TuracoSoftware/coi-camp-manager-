@@ -39,11 +39,7 @@
                 {{ $scout->troop->troop }}
               </td>
               <td>
-                @if($scout->troop->council == 'Blue Ridge Council')
-                  BRC
-                @else
-                  {{ $scout->troop->council }}
-                @endif
+                {{ $scout->troop->council }}
               </td>
             </tr>
           @endforeach
