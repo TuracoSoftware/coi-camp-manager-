@@ -19,7 +19,7 @@ class PdfController extends Controller
 	*/
 	public function scout_print($id) {
     $scout = Scout::find($id);						// Get the scout whos ID was supplied
-    // TODO: $fee = $scout->totalfee();		// modify Sclass model to get this to work
+    $fee = $scout->totalfee();	         	// modify Sclass model to get this to work
 
     $view =  \View::make('pdf.scoutschedule', compact('scout', 'fee'))->render(); 		// make a view compatible with domPDF
     $pdf = \App::make('dompdf.wrapper');	// create a pdf
@@ -93,4 +93,15 @@ class PdfController extends Controller
 			$final_scouts = array_unique($scouts); 		// Remove any unessary duplications
 			return $scouts;
 		}
+
+    public function troop_print($id) {
+      $troop = Troop::find($id);
+      $scouts = $troop->scouts;
+
+      $view =  \View::make('pdf.troop_roster', compact('troop', 'scouts'))->render(); 		// make a view compatible with domPDF
+      $pdf = \App::make('dompdf.wrapper');	// create a pdf
+      $pdf->loadHTML($view);								// load the HTML into the pdf
+
+     	return $pdf->stream('invoice');				// return the pdf
+    }
 }

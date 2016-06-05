@@ -1,9 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.index')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+<div class="content-wrapper">
+  <div class="content">
             <div class="panel panel-default">
                 <div class="panel-heading">Troop Editing</div>
 
@@ -94,14 +93,13 @@
                           @endif
                         </select>
                         <br>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-defualt btn-success">
                           <i class="fa fa-save"></i>  Save
                         </button>
                       </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+          </div>
 </div>
 @endsection

@@ -1,14 +1,13 @@
 @extends('layouts.index')
 
 @section('content')
-<div class="container">
-    <br>
-    <div class="row col-md-offset-1">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Troop Editing</div>
-
-                  <div class="panel-body">
+        <div class="content-wrapper">
+            <div class="content-header">
+            </div>
+                  <div class="content">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Edit Troop</div>
+                    <div class="panel-body">
                     <div class="form">
                       <form method="POST" action="{{ url('troop/'.$id) }}" >
                         {!! csrf_field() !!}
@@ -100,9 +99,8 @@
                         </button>
                       </form>
                     </div>
+                  </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 @endsection

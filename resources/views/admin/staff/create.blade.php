@@ -1,10 +1,8 @@
 @extends('layouts.index')
 
 @section('content')
-<div class="container">
-    <br>
-    <div class="row col-md-offset-1">
-        <div class="col-md-10 col-md-offset-1">
+<section class="content-wrapper">
+  <section class="content">
             <div class="panel panel-default">
                 <div class="panel-heading">Staff Registration</div>
 
@@ -38,7 +36,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+      </section>
+</section>
 @endsection

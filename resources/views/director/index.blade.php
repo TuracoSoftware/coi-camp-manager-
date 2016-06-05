@@ -6,7 +6,8 @@
               <h2>Directors</h2>
             </section>
             <br>
-            <div class="panel panel-default">
+            <div class="content">
+            <div class="panel panel-defualt">
                 <div class="panel-heading">All Directors</div>
                 <div class="panel-body">
                     <table id="director_table" class="table table-hover">
@@ -31,6 +32,7 @@
                     </table>
                 </div>
             </div>
+          </div>
   </section>
 
   <!-- Scripts Required for DataTable -->

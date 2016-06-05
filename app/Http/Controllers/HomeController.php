@@ -31,7 +31,7 @@ class HomeController extends Controller
         } elseif (Auth::user()->type == 'staff') {
             return redirect()->to('/staff');
         } else {
-            return view('home');
+            return redirect()->to('/troop');
         }
     }
 
@@ -44,16 +44,44 @@ class HomeController extends Controller
 
       $troops = 0;
       // this will return the last seven troops
-      $troops = Troop::latest()->take(7)->get();
+      $troops_1 = Troop::latest()->take(1)->get();
+      $troops_3 = Troop::latest()->take(3)->get();
+      $troops_7 = Troop::latest()->take(7)->get();
       // this will count all the scouts for the summer
       $scout_count = Scout::count();
       // this will count all the troops for the summer
       $troop_count = Troop::count();
+
+      $scouts = Scout::all();
+      $scout_classes = array();
+      $total_fee = 0;
+      foreach($scouts as $key=>$scout) {
+        $scout_classes[] = $scout->classes;
+      }
+      foreach($scout_classes as $key=>$val) {
+        foreach($val as $key=>$value) {
+          $total_fee += $value->fee;
+        }
+      }
       if(Auth::user()->type == 'admin')             // Test to see if the user is an admin
         return view('admin.home')
-              ->with('troops',$troops)              // Return troops to admin.home view
+              ->with('troops_1',$troops_1)              // Return troops to admin.home view
+              ->with('troops_3',$troops_3)
+              ->with('troops_7',$troops_7)
               ->with('troop_count', $troop_count)   // Return count of all troops to admin.home view
-              ->with('scout_count',$scout_count);        // Return count of all scouts to admin.home view
+              ->with('total_fee', $total_fee)
+              ->with('scout_count',$scout_count);    // Return count of all scouts to admin.home view
 
+    }
+
+    public function allScouts() {
+      if(Auth::user()->type == 'admin') {
+        $scouts = Scout::all();
+        return view('admin.all_scouts')
+                  ->with('scouts',$scouts);
+      }
+      else {
+        $this->admin_home();
+      }
     }
 }

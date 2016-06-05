@@ -3,14 +3,19 @@
 @section('content')
 
 <section class="content-wrapper">
-
   <section class="content-header">
 
     <h2 class="page-header">Week {{ $week }}</h2>
       <!-- New Scout button -->
+      @if(Auth::user()->type == 'admin')
       <a class="btn btn-small btn-info" href="{{ URL::to('administrator/scout/create') }}">
         <i class="fa fa-plus-square-o"></i> New Scout
-     </a>
+      </a>
+      @elseif(Auth::user()->type == 'director')
+      <a class="btn btn-small bg-purple" href="{{ URL::to('administrator/scout/create') }}">
+        <i class="fa fa-plus-square-o"></i> New Scout
+      </a>
+      @endif
 
      <!-- Roster print dropdown menu -->
      <div class="btn-group">
@@ -91,7 +96,7 @@
                 <th>Scoutmaster Name</th>
                 <th>Scoutmaster Phone</th>
                 <th>Scoutmaster Email</th>
-                <th>Actions</th>
+                <th>Profile</th>
               </thead>
               <tbody>
                 @foreach($troops as $key => $troop)
@@ -101,7 +106,9 @@
                   <td>{{ $troop->scout_master_last_name }}, {{ $troop->scout_master_first_name }}</td>
                   <td>{{ $troop->scout_master_phone }}</td>
                   <td>{{ $troop->scout_master_email }}</td>
-                  <td>Actions</td>
+                  <td><a class="btn btn-small btn-info" href="{{ URL::to('administrator/troop/profile/'.$troop->id) }}">
+                    <i class="fa fa-plus-o"></i> Troop Profile
+                  </a></td>
                 </tr>
                 @endforeach
               </tbody>

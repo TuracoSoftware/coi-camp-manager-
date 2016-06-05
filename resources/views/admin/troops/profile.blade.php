@@ -7,53 +7,40 @@
       Troop Profile
     </h1>
     <br>
-    @if(!$notroop)
-
-    @endif
-    @if($notroop)
-    <div class="mar-12">
-      <a class="btn btn-small btn-success" href="{{ URL::to('troop/create') }}">
-        <i class="fa fa-plus-square-o"></i> Register Troop
-      </a>
-    </div>
-    @endif
   </section>
 <section class="content">
   <div class="row">
-    @foreach($troops as $key=>$value)
     <div class="col-md-3">
 
-      <div class="box box-success">
+      <div class="box box-info">
         <div class="box-body box-profile">
-          <h3 class="profile-username text-center">Troop {{ $value->troop }}</h3>
+          <h3 class="profile-username text-center">Troop {{ $troop->troop }}</h3>
 
-          <p class="text-muted text-center">{{ $value->council }}</p>
+          <p class="text-muted text-center">{{ $troop->council }}</p>
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-              <b>Scoutmaster</b> <a class="pull-right">{{ $value->scout_master_first_name }} {{ $value->scout_master_last_name }}</a>
+              <b>Scoutmaster</b> <a class="pull-right">{{ $troop->scout_master_first_name }} {{ $troop->scout_master_last_name }}</a>
             </li>
             <li class="list-group-item">
-              <b>Week</b> <a class="pull-right">{{ $value->week_attending_camp }}</a>
+              <b>Week</b> <a class="pull-right">{{ $troop->week_attending_camp }}</a>
             </li>
             <li class="list-group-item">
-              <b>Phone</b> <a class="pull-right">{{ $value->scout_master_phone }}</a>
+              <b>Phone</b> <a class="pull-right">{{ $troop->scout_master_phone }}</a>
             </li>
             <li class="list-group-item">
-              <b>Email</b> <a class="pull-right">{{ $value->scout_master_email }}</a>
+              <b>Email</b> <a class="pull-right">{{ $troop->scout_master_email }}</a>
             </li>
             <li class="list-group-item">
-              <a href="{{ URL::to('troop/' . $value->id . '/edit') }}" class="btn btn-primary btn-success btn-block"><b>Edit Troop Information</b></a>
-              <a href="{{ URL::to('scout/create') }}" class="btn btn-primary btn-success btn-block"><b>New Scout</b></a>
+              <a href="{{ URL::to('troop/' . $troop->id . '/edit') }}" class="btn btn-primary btn-info btn-block"><b>Edit Troop Information</b></a>
+              <a href="{{ URL::to('scout/create') }}" class="btn btn-primary btn-info btn-block"><b>New Scout</b></a>
             </li>
           </ul>
-          <a href="{{ URL::to('troop/' . $value->id . '/roster_print') }}" class="btn btn-primary btn-success btn-block"><b>Print Troop Roster</b></a>
+          <a href="{{ URL::to('troop/' . $troop->id . '/roster_print') }}" class="btn btn-primary btn-info btn-block"><b>Print Troop Roster</b></a>
         </div>
         <!-- /.box-body -->
       </div>
-        </div>
-        @endforeach
-        @if(!$notroop)
+    </div>
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
@@ -235,8 +222,6 @@
           </div>
           <!-- /.nav-tabs-custom -->
         </div>
-        @endif
-
         <!-- /.col -->
     </div>
 </section>

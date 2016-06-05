@@ -37,18 +37,45 @@ class TroopController extends Controller
             ->with('troops',$troops)
             ->with('notroop',$notroop);
     }else{
+      if(Auth::user()->troop)
+		  		$scout = Scout::where('troop_id', Auth::user()->troop->id)
+		                    	->get();
+		    else
+		    	$scout = [];
 
       return view('troops.index')
             ->with('troops',$troops)
-            ->with('notroop',$notroop);
+            ->with('notroop',$notroop)
+            ->with('scouts',$scout);
     }
 
   }
 
-  public function addscout($id){
+  public function addScout($id){
+    $troop = Troop::find($id);
+    return view('admin.troops.add_scout')
+              ->with('troop', $troop);
+  }
 
-      return 'working on this function';
+  public function addScoutUpdate($id, Request $request) {
+    $rules = array();
 
+   $current_user = Auth::user();
+
+   $validator = Validator::make($request->all(), $rules);
+
+   if($validator->fails()) {
+       return redirect()->back()->withErrors($validator->messages());
+   } else {
+       $scout = new Scout;
+
+       $scout->firstname = $request->input('firstname');
+       $scout->lastname = $request->input('lastname');
+       $scout->age = $request->input('age');
+       $scout->troop_id = $request->$id;
+       $scout->save();
+       return redirect()->to('troop');
+   }
   }
 
 
@@ -233,5 +260,14 @@ class TroopController extends Controller
       return view('login');
     }
 
+
+    public function profile($id) {
+    $scout = Scout::where('troop_id', $id)->get();
+    $troop = Troop::find($id);
+
+    return view('admin.troops.profile')
+        ->with('troop',$troop)
+        ->with('scouts',$scout);
+    }
 
 }

@@ -1,6 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
+<div class="content-wrapper">
 <section class="content-header">
   <h1>
     User Profile
@@ -371,4 +372,5 @@
 
 </section>
 <!-- /.content -->
+<div>
 @endsection

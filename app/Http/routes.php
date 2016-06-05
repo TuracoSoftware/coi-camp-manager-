@@ -55,6 +55,7 @@ Route::group(['middleware' => 'web'], function () {
     /*PDF views*/
     Route::get('scout_print_view/{id}', 'PdfController@scout_print');
     Route::get('roster_print_view/{sclass_id}/{week}', 'PdfController@roster_print');
+    Route::get('troop/{id}/roster_print', 'PdfController@troop_print');
 
     Route::resource('staff', 'StaffController');
     Route::get('staff/roster', 'StaffController@roster');
@@ -83,12 +84,17 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('director', 'DirectorController');
 
         Route::get('week/{id}', 'ScoutController@week');
-        Route::get('troop/{id}/addscout', 'TroopController@addscout');
+        Route::resource('troop/{id}/addscout', 'TroopController@addScout');
+        Route::resource('troop/{id}/addscout/update', 'TroopController@addScoutUpdate');
+        Route::resource('all_scouts', 'HomeController@allScouts');
+
 
         Route::get('roster', 'RosterController@index');
         Route::post('roster', 'RosterController@generate');
 
         Route::get('AllRosters/{week}/{day}', 'PdfController@roster_print_week');
+
+        Route::get('troop/profile/{id}', 'TroopController@profile');
 
 
     });

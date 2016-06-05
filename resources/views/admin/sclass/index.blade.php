@@ -3,19 +3,23 @@
 @section('content')
 
 <section class="content-wrapper">
+  <section class="content-header">
+    <h3>Classes</h3>
           @if(Auth::user()->type == 'admin')
-            <section class="content-header">
               <a class="btn btn-small btn-info" href="{{ URL::to('sclass/create') }}">
                 <i class="fa fa-plus-square-o"></i> New Class
               </a>
-            </section><br>
             @endif
+          </section><br>
+
+            <div class="content">
             <div class="box">
                 <div class="box-header">
-                  <h3 class="box-header">Current Classes</h3>
+                  <h4 class="box-header">Current Classes</h4>
                 </div>
 
                 <div class="box-body">
+                  <h4>Current Classes</h4>
                     <table id="class_table" class="table table-bordered table-hover">
                       <thead>
                         <tr>
@@ -56,7 +60,7 @@
                     </table>
                 </div>
             </div>
-
+          </div>
 </section>
 
 <!-- Scripts Required for DataTable -->

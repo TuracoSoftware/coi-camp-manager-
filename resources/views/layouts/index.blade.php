@@ -14,8 +14,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>Camp Old Indian Staff</title>
     @elseif (Auth::user()->type == 'director')
     <title>Camp Old Indian Director</title>
-    @else
-      <p>You are not authorized to view this resource. <a href="{{ URL::to('/home') }}">Return home.</a></p>
     @endif
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -34,6 +32,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           apply the skin class to the body tag so the changes take effect.
     -->
     <link rel="stylesheet" href="{{ asset("../resources/assets/admin/dist/css/skins/skin-blue.min.css")}}">
+    <link rel="stylesheet" href="{{ asset("../resources/assets/admin/dist/css/skins/skin-purple.min.css")}}">
+    <link rel="stylesheet" href="{{ asset("../resources/assets/admin/dist/css/skins/skin-red.min.css")}}">
+    <link rel="stylesheet" href="{{ asset("../resources/assets/admin/dist/css/skins/skin-green-light.min.css")}}">
+    <link rel="stylesheet" href="{{ asset("../resources/assets/admin/dist/css/skins/_all-skins.min.css")}}">
 
     <link rel="stylesheet" href="{{ URL::asset('../resources/assets/css/admin_style.css') }}">
 
@@ -64,9 +66,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
   |               | sidebar-mini                            |
   |---------------------------------------------------------|
   -->
+  @if(Auth::user()->type == 'admin')
   <body class="hold-transition skin-blue sidebar-mini">
+  @elseif(Auth::user()->type == 'director')
+  <body class="hold-transition skin-purple sidebar-mini">
+  @elseif(Auth::user()->type == 'staff')
+  <body class="hold-transition skin-red sidebar-mini">
+  @else
+  <body class="hold-transition skin-green-light layout-top-nav">
+  @endif
     <div class="wrapper">
-
+    @if(Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff')
       @include('layouts.header')
       <!-- Left side column. contains the logo and sidebar -->
       @include('layouts.sidebar')
@@ -76,6 +86,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
       @include('layouts.modalyn')
       <!-- Main Footer -->
       @include('layouts.footer')
+    @else
+      @include('layouts.header')
+      <!-- Left side column. contains the logo and sidebar -->
+      @yield('content')
+      <!-- Model for opening a delete confirm window -->
+      @include('layouts.modalyn')
+      <!-- Main Footer -->
+      @include('layouts.footer')
+    @endif
+
     </div>
 
     <!-- REQUIRED JS SCRIPTS -->

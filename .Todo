@@ -40,25 +40,25 @@ needs to be done
 - Establish some sort of continutiy in the urls throughout the application
 - Make sure there is consistancy in all of the font awsosome (fa) icons
 ****Admin Home Page
-- Estimated total fees should show an estimate of how many fees will be collected
+- DONE NG Estimated total fees should show an estimate of how many fees will be collected DONE
   bases on the fees of all the scouts will pay to camp for merit badges with fees
 - Do something with unique visitors
 - Paperwork Status
   - This box will show the staff that still need to do their paperwork on that day
-- Recent troop registrations
-  - Last day actually shows last day
-  - Last 3 days actually shows last 3 days
-  - Recent should be added and show the last 7
+- DONE NG Recent troop registrations DONE
+  - DONE NG Last day actually shows last day DONE
+  - DONE NG Last 3 days actually shows last 3 days DONE
+  - DONE NG Recent should be added and show the last 7 DONE
 ****Registration page
 
-****Troops Page
-- Rename to all troops
-- Make it sortable
-- Add a scout directly to a troop
+****DONE NG Troops Page DONE
+- DONE NG Rename to all troops DONE
+- DONE NG Make it sortable DONE
+- DONE NG Add a scout directly to a troop DONE
 
 ****User Management tab
-- Create a tab called 'User Management'
-  -In this page house the current 'Users' & 'Staff' tabs
+- DONE NG Create a tab called 'User Management' DONE NG
+  -DONE NG In this page house the current 'Users' & 'Staff' tabs DONE NG
 
 ****Classes page
 - This class setup page needs some major TLC

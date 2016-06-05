@@ -36,9 +36,7 @@
                       <tr>
                         <label for="troop">Troop:</label>
                         <select name="troop" class="form-control">
-                          @foreach($troops as $key=>$troop)
                             <option value="{{ $troop->id }}">Troop {{ $troop->troop }}     Week: {{$troop->week_attending_camp}}     Council: {{$troop->council}}</option>
-                          @endforeach
                         </select>
                       </tr>
                     </table>

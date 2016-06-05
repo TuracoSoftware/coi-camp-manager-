@@ -1,10 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.index')
 
 @section('content')
-<div class="container">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <div class="panel panel-default">
+<div class="content-wrapper">
+  <div class="content">
+            <div class="panel panel-default">
         <div class="panel-heading">Scout Schedule Editing</div>
 
         <div class="panel-body">
@@ -328,7 +327,6 @@
       </div>
     </div>
   </div>
-</div>
 <!-- ~7Div0w2 -->
 @endsection
 

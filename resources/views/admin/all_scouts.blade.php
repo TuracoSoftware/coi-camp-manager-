@@ -1,43 +1,49 @@
 @extends('layouts.index')
 
 @section('content')
+
 <section class="content-wrapper">
-            @if(true)
+
             <section class="content-header">
-              <a class="btn btn-small btn-info" href="{{ URL::to('administrator/director/create') }}">
-                <i class="fa fa-plus-square-o"></i> Create Director
-              </a>
+              <h1>Scouts</h1>
             </section>
-            <div class="content">
             <br>
-            @endif
+            <div class="content">
             <div class="panel panel-default">
-                <div class="panel-heading">All Directors</div>
+                <div class="panel-heading">All Scouts</div>
 
                 <div class="panel-body">
-                    <table id="director_table" class="table table-hover">
+                    <table id="troop_table" class="table table-hover">
                       <thead>
                         <tr>
                           <td>Name</td>
+                          <td>Troop Number</td>
+                          <td>Council</td>
+                          <td>Week</td>
+                          <td>Scoutmaster Name</td>
+                          <td>Phone Number</td>
                           <td>Email</td>
-                          <td>Description</td>
-                          <td>Department</td>
-                          <td>Edit</td>
+                          @if(Auth::user()->type == 'admin' || Auth::user()->type == 'director')
+                          <td>Actions</td>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($director as $key=>$value)
+                        @foreach($scouts as $key => $scout)
                           <tr>
-                            <td> {{ $value->user->name }} </td>
-                            <td> {{ $value->user->email }} </td>
-                            <td> {{ $value->description }} </td>
-                            <td> {{ $value->department }} </td>
+                            <td>{{ $scout->lastname }}, {{ $scout->firstname }}</td>
+                            <td>{{ $scout->troop["troop"] }}</td>
+                            <td>{{ $scout->troop["council"] }}</td>
+                            <td>{{ $scout->troop["week_attending_camp"] }}</td>
+                            <td>{{ $scout->troop["scout_master_last_name"] }}, {{ $scout->troop["scout_master_first_name"] }}</td>
+                            <td>{{ $scout->troop["scout_master_phone"] }}</td>
+                            <td>{{ $scout->troop["scout_master_email"] }}</td>
+                            @if(Auth::user()->type == 'admin' || Auth::user()->type == 'director')
                             <td>
-                              <a class="btn btn-small btn-info" href="{{ URL::to('administrator/director/' . $value->id . '/edit') }}">
+                              <a class="btn btn-small btn-info" href="{{ URL::to('administrator/scout/' . $scout->id . '/edit') }}">
                                 <i class="fa fa-edit"></i> Edit</a>
-                              <!--<a type="button" class="btn btn-small btn-danger" href="#" onclick="open_modal('Are you sure?', '{{ url('administrator/director/'.$value->id) }}', true, 'DELETE')">
-                                <i class="fa fa-trash"></i> Delete</a>-->
                             </td>
+                            @endif
                           </tr>
                         @endforeach
                       </tbody>
@@ -46,7 +52,6 @@
             </div>
           </div>
   </section>
-
   <!-- Scripts Required for DataTable -->
 
   <!-- jQuery 2.1.4 -->
@@ -61,7 +66,7 @@
 
   <script>
     $(function () {
-      $('#director_table').DataTable({
+      $('#troop_table').DataTable({
         "paging": true,
         "lengthChange": true,
         "searching": true,
@@ -71,4 +76,4 @@
       });
     });
   </script>
-  @endsection
+@endsection

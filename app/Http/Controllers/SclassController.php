@@ -19,7 +19,7 @@ class SclassController extends Controller
 
 	public function index() {
 
-    if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
+    if(Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff'){
 
       $sclass = Sclass::all();
 
