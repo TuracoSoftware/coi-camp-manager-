@@ -104,4 +104,18 @@ class PdfController extends Controller
 
      	return $pdf->stream('invoice');				// return the pdf
     }
+
+    public function all_scout_schedule($week){
+      $troops = Troop::where('week_attending_camp',$week)->get();
+      $socuts = array();
+      foreach($troops as $key=>$troop) {
+        $scouts[] = $troop->scouts;
+      }
+
+      $view =  \View::make('pdf.all_scouts_schedule', compact('scouts'))->render(); 		// make a view compatible with domPDF
+      $pdf = \App::make('dompdf.wrapper');	// create a pdf
+      $pdf->loadHTML($view);								// load the HTML into the pdf
+
+     	return $pdf->stream('invoice');
+    }
 }

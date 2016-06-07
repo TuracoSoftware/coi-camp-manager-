@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-md-3">
 
-      <div class="box box-info">
+      <div class="box box-primary">
         <div class="box-body box-profile">
           <h3 class="profile-username text-center">Troop {{ $troop->troop }}</h3>
 
@@ -32,11 +32,11 @@
               <b>Email</b> <a class="pull-right">{{ $troop->scout_master_email }}</a>
             </li>
             <li class="list-group-item">
-              <a href="{{ URL::to('troop/' . $troop->id . '/edit') }}" class="btn btn-primary btn-info btn-block"><b>Edit Troop Information</b></a>
-              <a href="{{ URL::to('scout/create') }}" class="btn btn-primary btn-info btn-block"><b>New Scout</b></a>
+              <a href="{{ URL::to('troop/' . $troop->id . '/edit') }}" class="btn btn-primary btn-primary btn-block"><b>Edit Troop primaryrmation</b></a>
+              <a href="{{ URL::to('scout/create') }}" class="btn btn-primary btn-primary btn-block"><b>New Scout</b></a>
             </li>
           </ul>
-          <a href="{{ URL::to('troop/' . $troop->id . '/roster_print') }}" class="btn btn-primary btn-info btn-block"><b>Print Troop Roster</b></a>
+          <a href="{{ URL::to('troop/' . $troop->id . '/roster_print') }}" class="btn btn-primary btn-primary btn-block"><b>Print Troop Roster</b></a>
         </div>
         <!-- /.box-body -->
       </div>

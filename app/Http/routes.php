@@ -96,6 +96,8 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::get('troop/profile/{id}', 'TroopController@profile');
 
+        Route::get('scout/all_schedule/{week}', 'PdfController@all_scout_schedule');
+
 
     });
 

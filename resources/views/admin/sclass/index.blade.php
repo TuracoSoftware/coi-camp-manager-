@@ -13,13 +13,10 @@
           </section><br>
 
             <div class="content">
-            <div class="box">
-                <div class="box-header">
-                  <h4 class="box-header">Current Classes</h4>
-                </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">All Classes</div>
 
-                <div class="box-body">
-                  <h4>Current Classes</h4>
+                <div class="panel-body">
                     <table id="class_table" class="table table-bordered table-hover">
                       <thead>
                         <tr>

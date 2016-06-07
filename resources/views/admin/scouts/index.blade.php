@@ -11,6 +11,9 @@
       <a class="btn btn-small btn-info" href="{{ URL::to('administrator/scout/create') }}">
         <i class="fa fa-plus-square-o"></i> New Scout
       </a>
+      <a class="btn btn-small btn-info" href="{{ URL::to('administrator/scout/all_schedule/'.$week) }}">
+        <i class="fa fa-plus-square-o"></i> Print All Schedules
+      </a>
       @elseif(Auth::user()->type == 'director')
       <a class="btn btn-small bg-purple" href="{{ URL::to('administrator/scout/create') }}">
         <i class="fa fa-plus-square-o"></i> New Scout
@@ -52,7 +55,7 @@
                   <th>Last Name</th>
                   <th>First Name</th>
                   <th>Age</th>
-                  <th>Actions</th>
+                  <th>Schedule<th>
                 </tr>
               </thead>
               <tbody>
@@ -63,6 +66,150 @@
                   <td>{{ $scout->lastname }}</td>
                   <td>{{ $scout->firstname }}</td>
                   <td>{{ $scout->age }}</td>
+                  <td>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <td>Monday</td>
+                          <td>Tuedsay</td>
+                          <td>Wednesday</td>
+                          <td>Thursday</td>
+                          <td>Friday</td>
+                        </tr>
+                      </thead>
+                      <tr>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
+                          @else
+                            Free
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
+                          @else
+                            Free
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
+                          @else
+                            Free
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Thursday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Thursday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
+                          @else
+                            Free
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
+                           {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
+                          @else
+                            Free
+                          @endif
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->name }}
+                          @else
+                              @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['PM Only'])->first()->name ))
+                                {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['PM Only'])->first()->name }}
+                              @else
+                                Free
+                              @endif
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['AM & PM'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['AM & PM'])->first()->name }}
+                          @else
+                            @if(!empty( $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['PM Only'])->first()->name ))
+                              {{ $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['PM Only'])->first()->name }}
+                            @else
+                              Free
+                            @endif
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['AM & PM'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['AM & PM'])->first()->name }}
+                          @else
+                            @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['PM Only'])->first()->name ))
+                              {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['PM Only'])->first()->name }}
+                            @else
+                              Free
+                            @endif
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Thursday')->whereIn('duration', ['AM & PM'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Thursday')->whereIn('duration', ['AM & PM'])->first()->name }}
+                          @else
+                            @if(!empty( $scout->classes->where('day', 'Thursday')->whereIn('duration', ['PM Only'])->first()->name ))
+                              {{ $scout->classes->where('day', 'Thursday')->whereIn('duration', ['PM Only'])->first()->name }}
+                            @else
+                              Free
+                            @endif
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['AM & PM'])->first()->name ))
+                           {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['AM & PM'])->first()->name }}
+                          @else
+                            @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['PM Only'])->first()->name ))
+                              {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['PM Only'])->first()->name }}
+                            @else
+                              Free
+                            @endif
+                          @endif
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['Twilight'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['Twilight'])->first()->name }}
+                          @else
+                            Free
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->first()->name }}
+                          @else
+                            Free
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->name }}
+                          @else
+                            Family Night
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Thursday')->whereIn('duration', ['Twilight'])->first()->name ))
+                            {{ $scout->classes->where('day', 'Thursday')->whereIn('duration', ['Twilight'])->first()->name }}
+                          @else
+                            Free
+                          @endif
+                        </td>
+                        <td>
+                          @if(!empty( $scout->classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->name ))
+                           {{ $scout->classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->name }}
+                          @else
+                            Campfire
+                          @endif
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
                   <td>
                     <div class="btn-group">
                       <button type="button" class="btn btn-success">Actions</button>
