@@ -26,7 +26,10 @@
                 <option value="16">16</option>
                 <option value="17">17</option>
               </select>
-              <br><input class="btn btn-default" type="submit" value="Submit">
+              <br/>
+              <button type="submit" class="btn btn-default">
+                <i class="fa fa-check"></i> Save
+              </button>
             </form>
           </div>
         </div>

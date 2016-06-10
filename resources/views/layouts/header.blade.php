@@ -45,7 +45,11 @@
   <nav class="navbar navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <a href="../../index2.html" class="navbar-brand"><b>Camp Old Indian</b></a>
+        @if(Request::is('troop'))
+        <a href="#" class="navbar-brand"><b>Camp Old Indian</b></a>
+        @else
+        <a href="../troop" class="navbar-brand"><b>Camp Old Indian</b></a>
+        @endif
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
           <i class="fa fa-bars"></i>
         </button>
