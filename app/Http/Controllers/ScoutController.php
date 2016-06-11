@@ -483,7 +483,7 @@ class ScoutController extends Controller
 		/*END saving only 2 - 5 */
 
 
-		return redirect()->to('scout');
+		return redirect()->to('troop');
 
 	}
 
@@ -559,7 +559,7 @@ class ScoutController extends Controller
 			      	$scout->troop_id = $request->input('troop_id');
 			      }
 			      $scout->save();
-			      return redirect()->to('scout');
+			      return redirect()->to('troop');
 			  }
 
 			}

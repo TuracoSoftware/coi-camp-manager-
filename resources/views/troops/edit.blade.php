@@ -96,6 +96,9 @@
                         <button type="submit" class="btn btn-defualt btn-success">
                           <i class="fa fa-save"></i>  Save
                         </button>
+                        <a href="{{ URL::to('troop') }}" style="float: right;" class="btn btn-danger">
+                          <i class="fa fa-fast-backward"></i> Back
+                        </a>
                       </form>
                     </div>
                 </div>

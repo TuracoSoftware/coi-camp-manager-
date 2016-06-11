@@ -285,6 +285,9 @@
               </div>
 
               <br><input class="btn btn-default" type="submit" value="Submit">
+              <a href="{{ URL::to('troop') }}" style="float: right;" class="btn btn-danger">
+                <i class="fa fa-fast-backward"></i> Back
+              </a>
             </form>
 
             <div class="ampm_classes hidden">

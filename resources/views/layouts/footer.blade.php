@@ -4,5 +4,5 @@
 
   </div>
   <!-- Default to the left -->
-  <strong>Copyright &copy; 2015 <a href="http://www.turaco.com">Turaco Software, LLC</a>.</strong> All rights reserved.
+  <strong>Copyright &copy; 2015 <a href="http://www.turaco.io">Turaco Software, LLC</a>.</strong> All rights reserved.
 </footer>

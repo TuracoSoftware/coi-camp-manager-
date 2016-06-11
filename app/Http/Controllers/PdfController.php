@@ -98,7 +98,7 @@ class PdfController extends Controller
       $troop = Troop::find($id);
       $scouts = $troop->scouts;
 
-      $view =  \View::make('pdf.troop_roster', compact('troop', 'scouts'))->render(); 		// make a view compatible with domPDF
+      $view =  \View::make('pdf.all_scouts_troop_schedule', compact('troop', 'scouts'))->render(); 		// make a view compatible with domPDF
       $pdf = \App::make('dompdf.wrapper');	// create a pdf
       $pdf->loadHTML($view);								// load the HTML into the pdf
 
