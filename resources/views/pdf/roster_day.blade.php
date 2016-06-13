@@ -10,7 +10,6 @@
       }
       .page-break {
         page: rooster;
-        page-break-after: always;
       }
     </style>
   </head>
@@ -28,6 +27,13 @@
               <th>Name</th>
               <th>Troop</th>
               <th>Council</th>
+              @if(!empty($reqs[$i]))
+                @foreach($reqs[$i] as $v)
+                  <th>
+                   {{ $v }}
+                  </th>
+                @endforeach
+              @endif
             </tr>
           </thead>
           @foreach($total[$i] as $key => $scout)
@@ -41,6 +47,13 @@
               <td>
                 {{ $scout->troop->council }}
               </td>
+              @if(!empty($reqs[$i]))
+                @foreach($reqs[$i] as $v)
+                  <td>
+
+                 </td>
+                @endforeach
+              @endif
             </tr>
           @endforeach
         </table>
