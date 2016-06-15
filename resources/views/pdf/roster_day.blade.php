@@ -10,6 +10,7 @@
       }
       .page-break {
         page: rooster;
+        page-break-after: always;
       }
     </style>
   </head>

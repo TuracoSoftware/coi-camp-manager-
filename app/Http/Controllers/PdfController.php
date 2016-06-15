@@ -63,7 +63,7 @@ class PdfController extends Controller
 			// foreach loop is used to cycle through all sclasses that were determined to be offered on a given day
 			foreach($sclasses as $class) {
 				$total[$count] = $this->get_scout_per_class($class,$week);  // looping through each class getting the scout from it
-        $reqs[$count] = $this->getReqs($class->name, $count);
+        $reqs[$count] = $this->getReqs($class->name);
 				$count++;
 			}
 
