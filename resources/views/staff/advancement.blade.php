@@ -30,7 +30,14 @@
                     <tr>
                       <td>{{ $scout->firstname }} {{ $scout->lastname }}</td>
                       @foreach($requirements as $key=>$val)
-                        <td><input name=<?php echo "scout".strval($scout->id)."req".strval($val->id)?> type="checkbox" value=1></td>
+                      <td>
+                      <div class="checkbox">
+                        <label>
+                          <input name="name" type="checkbox">
+                        </label>
+                      </div>
+                    </td>
+                        <!--<td><input name=<?php //echo "scout".strval($scout->id)."req".strval($val->id)?> type="checkbox" value=1></td>-->
                       @endforeach
                     </tr>
                     @endforeach

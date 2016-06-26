@@ -261,6 +261,8 @@ class StaffController extends Controller
   }
 
   public function input(Request $request) {
+    print $request->input("name");
+    /*
     $reqs = Requirement::where('meritB_id', $request->input('meritB'))->get();
     for($i = 0; $i<100; $i++) {
       for($j = 0; $j<100; $j++) {
@@ -293,7 +295,7 @@ class StaffController extends Controller
           }
         }
       }
-    }
+    }*/
   }
 
   public function schedule($id, $week) {

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MakingMeritBadgeStarted extends Migration
+class FinalMakeMeritBadgeStarted extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class MakingMeritBadgeStarted extends Migration
      */
     public function up()
     {
-      Schema::create('merit_badge_startedV2', function (Blueprint $table) {
+      Schema::create('merit_badge_started', function (Blueprint $table) {
         $table->increments('id');
         $table->integer('scout_id')->unsigned();
         $table->integer('meritbadge_id')->unsigned();
