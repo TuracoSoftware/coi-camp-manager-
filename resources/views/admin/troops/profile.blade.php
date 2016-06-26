@@ -116,7 +116,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>2:000pm-5:00pm</td>
+                      <td>2:00pm-5:00pm</td>
                       <td>
                         @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->name ))
                           {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->name }}

@@ -6,9 +6,9 @@
     <h2 class="page-header">Staff Schedule Editing</h2>
   </section>
   <section class="content">
-    <div class="nave-tabs-custom">
-        <div class="tab-content">
-          <div class ="tab-pane active">
+    <div class="panel panel-default">
+      <div class="panel-heading"></div>
+      <div class="panel-body">
               <form action="{{ url('staff/'.$staff->id.'/schedule/update')}}" method="post">
                 {!! csrf_field() !!}
                     <table class="table table-hover">
@@ -275,9 +275,8 @@
                     </table>
                     <input class="btn btn-default" type="submit" value="Submit">
                   </form>
-                  </div>
-          </div>
-        </div>
+                </div>
+              </div>
       </section>
     </section>
     <!-- jQuery 2.1.4 -->

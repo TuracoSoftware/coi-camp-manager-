@@ -59,6 +59,9 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::resource('staff', 'StaffController');
     Route::get('staff/roster', 'StaffController@roster');
+    Route::get('staff/classes/{week}', 'StaffController@classes');
+    Route::get('staff/roster/{class_id}/{week}', 'StaffController@advancement');
+    Route::post('staff/advancement/input', 'StaffController@input');
 
     Route::resource('director', 'DirectorController');
     Route::get('staff/{id}/{week}/schedule','StaffController@schedule');

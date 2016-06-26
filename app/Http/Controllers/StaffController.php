@@ -12,11 +12,15 @@ use App\Staff;
 use Validator;
 use App\Scout;
 use App\Sclass;
+use App\MeritBadge;
+use App\Requirement;
+use App\Requirement_started;
+use App\MeritBadgeStarted;
 
 class StaffController extends Controller
 {
   public function __construct() {
-     $this->middleware('auth');
+    $this->middleware('auth');
   }
 
   public function index() {
@@ -50,9 +54,6 @@ class StaffController extends Controller
     } else {
       return view('welcome');
     }
-    /*$staff = Staff::all();
-    return view('admin.staff.index')
-              ->with('staff', $staff);*/
   }
 
   public function create() {
@@ -116,32 +117,6 @@ class StaffController extends Controller
   }
   public function update($id, Request $request)
   {
-    /*$editables = array(
-      'name',
-      'email',
-      'new_password',
-      'type'
-    );
-    $user = User::find($id);
-    if(Auth::user()->type == 'admin' ){
-      $validator = Validator::make($request->all());
-
-      if($validator->fails()) {
-        return redirect()->back()->withErrors($validator->messages());
-      } else {
-        foreach($editables as $key=>$value) {
-          if($value == 'new_password') {
-            if($request->input($value) == $request->input('confirm_password')) {
-              $user->password = $request->input(bcrypt($value));
-            }
-          } else if(!($value==NULL)) {
-            $user->$value = $request->input($value);
-          }
-        }
-        $user->save();
-        return view('admin.staff.staff');
-        }
-    }*/
     $staff = Staff::find($id);
     $user = $staff->user;
     $rules = array();
@@ -210,6 +185,115 @@ class StaffController extends Controller
         ->with('week', $id)
         ->with('classes', $classes)
         ->with('scouts', $staff);
+  }
+
+  public function classes($week) {
+    $user = User::find(Auth::user()->id);
+    $staffs = Staff::all();
+    $staff = NULL;
+    foreach($staffs as $key=>$value) {
+      if($value->user_id = $user->id) {
+        $staff = Staff::find($value->id);
+      }
+    }
+    $classes = NULL;
+    if($week == 1) {
+      $classes = $staff->classes1;
+    } elseif($week == 2) {
+      $classes = $staff->classes2;
+    } elseif($week == 3) {
+      $classes = $staff->classes3;
+    } elseif($week == 4) {
+      $classes = $staff->classes4;
+    } elseif($week == 5) {
+      $classes = $staff->classes5;
+    } elseif($week == 6) {
+      $classes = $staff->classes6;
+    } elseif($week == 7) {
+      $classes = $staff->classes7;
+    }
+
+    return view('staff.classes')
+            ->with('classes', $classes)
+            ->with('week', $week);
+  }
+
+  public function advancement($class_id, $week) {
+    $scouts_all = Scout::all();
+    $classss = Sclass::find($class_id);
+    $scouts = NULL;
+    foreach($scouts_all as $key=>$scout) {
+      if($scout->troop['week_attending_camp'] == $week) {
+        $scout_classes = $scout->classes;
+        foreach($scout_classes as $key=>$class) {
+          if($class->id == $class_id) {
+            $scouts[] = $scout;
+          }
+        }
+      }
+    }
+    $meritB = NULL;
+    $meritBs = MeritBadge::all();
+    $class_name = substr(strtoupper($classss->name), 0,3);
+    foreach($meritBs as $key=>$val) {
+      if($class_name == substr(strtoupper($val->name), 0,3))
+      {
+        $meritB = $val;
+        break;
+      }
+    }
+
+    $requirements_all = Requirement::all();
+    $requirements = NULL;
+    foreach($requirements_all as $key=>$val) {
+      if($val->meritB_id == $meritB->id)
+      {
+        $requirements[] = $val;
+      }
+    }
+    array_unique($scouts);
+    return view('staff.advancement')
+            ->with('scouts', $scouts)
+            ->with('week', $week)
+            ->with('class', $classss)
+            ->with('meritB', $meritB)
+            ->with('requirements', $requirements);
+  }
+
+  public function input(Request $request) {
+    $reqs = Requirement::where('meritB_id', $request->input('meritB'))->get();
+    for($i = 0; $i<100; $i++) {
+      for($j = 0; $j<100; $j++) {
+        if($request->input('scout'.strval($i).'req'.strval($j))) {
+          $req_pulled = Requirement::find($j);
+          if(MeritBadgeStarted::where('scout_id', $i)->get() == "[]") {
+            $meritB_started = new MeritBadgeStarted;
+            $meritB_started->scout_id = $i;
+            $meritB_started->meritbadge_id = $request->input('meritB');
+            $meritB_started->save();
+            foreach($reqs as $key=>$req) {
+              $req_s = new Requirement_started;
+              $req_s->meritB_id = $meritB_started->id;
+              $req_s->title_req = $req->title_req;
+              if($req->title_req == $req_pulled->title_req) {
+                $req_s->test_if_complete = 1;
+              } else {
+                $req_s->test_if_complete = 0;
+              }
+              $req_s->save();
+            }
+          } else {
+            $meritB = MeritBadgeStarted::where('scout_id', $i)->get();
+            $reqs_s = Requirement_started::where('meritbadge_id', $meritB[0]->id);
+            foreach($reqs_s as $key=>$req_S) {
+              if($req_s->title_req == $req_pulled->title_req && $val->test_if_complete == 0) {
+                $req_s->test_if_complete = 1;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   public function schedule($id, $week) {

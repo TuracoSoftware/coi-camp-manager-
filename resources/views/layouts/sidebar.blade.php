@@ -88,12 +88,18 @@
       </li>
       @endif
     </ul>
+
+
+
+
+
+
     @elseif(Auth::user()->type == 'staff')
     <ul class="sidebar-menu">
       <li class="header">Functions</li>
 
-      <li {!! Request::is('administrator/staff') ? ' class="active"' : '' !!}>
-        <a href="{{ URL::to('//adminsistrator/stafff') }}"><i class="fa fa-users"></i> <span>Home</span></a>
+      <li {!! Request::is('staff/classes') ? ' class="active"' : '' !!}>
+        <a href="{{ URL::to('staff/classes') }}"><i class="fa fa-users"></i> <span>Home</span></a>
       </li>
 
       <li {!! Request::is('troop') ? ' class="active"' : '' !!}>
@@ -118,6 +124,13 @@
       </li>
       @endif
     </ul>
+
+
+
+
+
+
+
     @elseif(Auth::user()->type == 'director')
     <ul class="sidebar-menu">
       <li class="header">Functions</li>

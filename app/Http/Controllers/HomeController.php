@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Troop;
 use App\Scout;
+use Carbon\Carbon;
 
 
 class HomeController extends Controller
@@ -29,7 +30,23 @@ class HomeController extends Controller
         } elseif (Auth::user()->type == 'director') {
             return redirect()->to('/director');
         } elseif (Auth::user()->type == 'staff') {
-            return redirect()->to('/staff');
+          $mytime = Carbon::now();
+          if(substr($mytime->toDateTimeString(), 5,2) == '06' && intval(substr($mytime->toDateTimeString(),8,2))-19 <= 0) {
+            return redirect()->to('/staff/classes/1');
+          } elseif (substr($mytime->toDateTimeString(), 5,2) == '06' && intval(substr($mytime->toDateTimeString(),8,2))-26 <= 0){
+            return redirect()->to('/staff/classes/2');
+          } elseif (substr($mytime->toDateTimeString(), 5,2) == '06' && intval(substr($mytime->toDateTimeString(),8,2))-30 <= 0 ||
+                    substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-3 <= 0){
+            return redirect()->to('/staff/classes/3');
+          }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-10 <= 0){
+            return redirect()->to('/staff/classes/4');
+          }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-17 <= 0){
+            return redirect()->to('/staff/classes/5');
+          }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-24 <= 0){
+            return redirect()->to('/staff/classes/6');
+          }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-31 <= 0){
+            return redirect()->to('/staff/classes/7');
+          }
         } else {
             return redirect()->to('/troop');
         }
