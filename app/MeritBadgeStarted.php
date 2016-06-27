@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MeritBadgeStarted extends Model
 {
-  protected $table = 'merit_badge_startedV2';
+  protected $table = 'merit_badge_started';
 
   public function meritbadge() {
     return $this->belongsTo('App\MeritBadge', 'meritbadge_id');

@@ -3,6 +3,7 @@
 @section('content')
 <section class="content-wrapper">
   <section class="content-header">
+    <h2>Week {{ $week }}</h2>
   </section>
   <br>
   <section class="content">
@@ -25,6 +26,7 @@
               <td>Actions</td>
             </tr>
           </thead>
+          <tbody>
           <tr>
             <td>9:00am-12:00pm</td>
             <td>
@@ -36,9 +38,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
             <td>
@@ -50,9 +60,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Tuesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
             <td>
@@ -64,9 +82,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Wednesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
             <td>
@@ -78,9 +104,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Thursday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Thursday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Thursday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Thursday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
             <td>
@@ -92,9 +126,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Friday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Friday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Friday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Friday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
           </tr>
@@ -111,14 +153,30 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->name ))
-                <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}">
-                  <i class="fa fa-users"></i> Roster
-                </a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success">Actions</button>
+                  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                    <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Monday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                  </ul>
+                </div>
               @else
                 @if(!empty( $classes->where('day', 'Monday')->whereIn('duration', ['PM Only'])->first()->name ))
-                  <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Monday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}">
-                    <i class="fa fa-users"></i> Roster
-                  </a>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success">Actions</button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Monday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                      <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Monday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                    </ul>
+                  </div>
                 @endif
               @endif
             </td>
@@ -135,14 +193,30 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Tuesday')->whereIn('duration', ['AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @else
                 @if(!empty( $classes->where('day', 'Tuesday')->whereIn('duration', ['PM Only'])->first()->name ))
-                <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}">
-                  <i class="fa fa-users"></i> Roster
-                </a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success">Actions</button>
+                  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                    <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                  </ul>
+                </div>
                 @endif
               @endif
             </td>
@@ -159,14 +233,30 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Wednesday')->whereIn('duration', ['AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @else
                 @if(!empty( $classes->where('day', 'Wednesday')->whereIn('duration', ['PM Only'])->first()->name ))
-                <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}">
-                  <i class="fa fa-users"></i> Roster
-                </a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success">Actions</button>
+                  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                    <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                  </ul>
+                </div>
                 @endif
               @endif
             </td>
@@ -183,14 +273,30 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Thursday')->whereIn('duration', ['AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Thursday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Thursday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Thursday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @else
                 @if(!empty( $classes->where('day', 'Thursday')->whereIn('duration', ['PM Only'])->first()->name ))
-                <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Thursday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}">
-                  <i class="fa fa-users"></i> Roster
-                </a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success">Actions</button>
+                  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Thursday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                    <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Thursday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                  </ul>
+                </div>
                 @endif
               @endif
             </td>
@@ -207,14 +313,30 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Friday')->whereIn('duration', ['AM & PM'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Friday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Friday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Friday')->whereIn('duration', ['AM & PM'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @else
                 @if(!empty( $classes->where('day', 'Friday')->whereIn('duration', ['PM Only'])->first()->name ))
-                <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Friday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}">
-                  <i class="fa fa-users"></i> Roster
-                </a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success">Actions</button>
+                  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Friday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                    <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Friday')->whereIn('duration', ['PM Only'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                  </ul>
+                </div>
                 @endif
               @endif
             </td>
@@ -230,9 +352,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Monday')->whereIn('duration', ['Twilight'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Monday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Monday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Monday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
             <td>
@@ -244,9 +374,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Tuesday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
             <td>
@@ -258,9 +396,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Wednesday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
             <td>
@@ -272,9 +418,17 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Thursday')->whereIn('duration', ['Twilight'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Thursday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Thursday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Thursday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
             <td>
@@ -286,20 +440,27 @@
             </td>
             <td>
               @if(!empty( $classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->name ))
-              <a class="btn btn-small btn-info" href="{{ URL::to('staff/roster/'.$classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}">
-                <i class="fa fa-users"></i> Roster
-              </a>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success">Actions</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ URL::to('staff/roster/'.$classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Roster</i></a></li>
+                  <li><a href="{{ URL::to('staff/advancement/'.$classes->where('day', 'Friday')->whereIn('duration', ['Twilight'])->first()->id.'/'.$week) }}" target="_blank"><i class="fa fa-print"> Advancement</i></a></li>
+                </ul>
+              </div>
               @endif
             </td>
           </tr>
+        </tbody>
         </table>
       </div>
     </div>
   </section>
 </section>
-<!-- Scripts Required for DataTable -->
 
-<!-- jQuery 2.1.4 -->
 <script src="{{ asset ("../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
 <!-- DataTables -->
 <script src="{{ asset ("../resources/assets/admin/plugins/datatables/jquery.dataTables.min.js") }}"></script>

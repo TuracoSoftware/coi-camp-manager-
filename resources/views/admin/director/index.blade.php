@@ -35,8 +35,6 @@
                             <td>
                               <a class="btn btn-small btn-info" href="{{ URL::to('administrator/director/' . $value->id . '/edit') }}">
                                 <i class="fa fa-edit"></i> Edit</a>
-                              <!--<a type="button" class="btn btn-small btn-danger" href="#" onclick="open_modal('Are you sure?', '{{ url('administrator/director/'.$value->id) }}', true, 'DELETE')">
-                                <i class="fa fa-trash"></i> Delete</a>-->
                             </td>
                           </tr>
                         @endforeach

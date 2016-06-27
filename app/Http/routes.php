@@ -56,11 +56,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('scout_print_view/{id}', 'PdfController@scout_print');
     Route::get('roster_print_view/{sclass_id}/{week}', 'PdfController@roster_print');
     Route::get('troop/{id}/roster_print', 'PdfController@troop_print');
+    Route::get('scout_advancement_print/{id}', 'PdfController@scout_advancement');
 
     Route::resource('staff', 'StaffController');
     Route::get('staff/roster', 'StaffController@roster');
     Route::get('staff/classes/{week}', 'StaffController@classes');
-    Route::get('staff/roster/{class_id}/{week}', 'StaffController@advancement');
+    Route::get('staff/roster/{class_id}/{week}', 'StaffController@class_roster');
+    Route::get('staff/advancement/{class_id}/{week}', 'StaffController@advancement');
     Route::post('staff/advancement/input', 'StaffController@input');
 
     Route::resource('director', 'DirectorController');

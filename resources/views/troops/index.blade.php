@@ -64,13 +64,14 @@
                     <div class="user-block">
                       <span class="username">
                         <a href="#">{{ $scout->lastname }}, {{ $scout->firstname }} - <strong>{{ $scout->age }} Years Old</strong></a>
-                        <a href="#" onclick="open_modal('Are you sure?', '{{ url('scout/'.$scout->id) }}', true, 'DELETE')" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
                       </span>
                       <span class="description">
                         <p>Scout proflie created at {{ $scout->created_at }}</p>
                         <a href="{{ URL::to('scout/' . $scout->id . '/schedule') }}"><i class="fa fa-edit"></i><span> Edit Schedule</span></a> |
                         <a href="{{ URL::to('scout_print_view/'.$scout->id) }}" target="_blank"><i class="fa fa-print"></i><span> Print Schedule</span></a> |
-                        <a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"></i><span> Edit Scout</span></a>
+                        <a href="{{ URL::to('scout_advancement_print/'.$scout->id) }}" target="_blank"><i class="fa fa-print"></i><span> Print Advancement</span></a> |
+                        <a href="{{ URL::to('scout/' . $scout->id . '/edit') }}"><i class="fa fa-user"></i><span> Edit Scout</span></a> |
+                        <a href="#" onclick="open_modal('Are you sure?', '{{ url('scout/'.$scout->id) }}', true, 'DELETE')" class="btn-box-tool"><i class="fa fa-times"></i><span> Delete Scout</span></a>
                       </span>
                     </div>
                     <table class="table table-hover">

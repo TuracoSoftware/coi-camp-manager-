@@ -84,6 +84,7 @@
         <ul class="treeview-menu">
           <li><a href="{{ URL::to('/administrator/users') }}"><i class="fa fa-mortar-board"></i> <span>Users</span></a></li>
           <li><a href="{{ URL::to('/administrator/staff') }}"><i class="fa fa-mortar-board"></i> <span>Staff</span></a></li>
+          <li><a href="{{ URL::to('/administrator/director') }}"><i class="fa fa-mortar-board"></i> <span>Directors</span></a></li>
         </ul>
       </li>
       @endif
@@ -97,10 +98,35 @@
     @elseif(Auth::user()->type == 'staff')
     <ul class="sidebar-menu">
       <li class="header">Functions</li>
-
-      <li {!! Request::is('staff/classes') ? ' class="active"' : '' !!}>
-        <a href="{{ URL::to('staff/classes') }}"><i class="fa fa-users"></i> <span>Home</span></a>
+      @if(Request::is('/staff/classes/1') || Request::is('/staff/classes/2') || Request::is('/staff/classes/3') ||
+      Request::is('/staff/classes/4') || Request::is('/staff/classes/5') ||
+      Request::is('/staff/classes/6') || Request::is('/staff/classes/7'))
+      <li class="treeview active">
+        <a href="#"><i class="fa fa-gears"></i> <span>Classes</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+          <li><a href="{{ URL::to('/staff/classes/1') }}"><i class="fa fa-mortar-board"></i> <span>Week 1</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/2') }}"><i class="fa fa-mortar-board"></i> <span>Week 2</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/3') }}"><i class="fa fa-mortar-board"></i> <span>Week 3</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/4') }}"><i class="fa fa-mortar-board"></i> <span>Week 4</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/5') }}"><i class="fa fa-mortar-board"></i> <span>Week 5</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/6') }}"><i class="fa fa-mortar-board"></i> <span>Week 6</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/7') }}"><i class="fa fa-mortar-board"></i> <span>Week 7</span></a></li>
+        </ul>
       </li>
+      @else
+      <li class="treeview active">
+        <a href="#"><i class="fa fa-gears"></i> <span>Classes</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+          <li><a href="{{ URL::to('/staff/classes/1') }}"><i class="fa fa-mortar-board"></i> <span>Week 1</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/2') }}"><i class="fa fa-mortar-board"></i> <span>Week 2</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/3') }}"><i class="fa fa-mortar-board"></i> <span>Week 3</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/4') }}"><i class="fa fa-mortar-board"></i> <span>Week 4</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/5') }}"><i class="fa fa-mortar-board"></i> <span>Week 5</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/6') }}"><i class="fa fa-mortar-board"></i> <span>Week 6</span></a></li>
+          <li><a href="{{ URL::to('/staff/classes/7') }}"><i class="fa fa-mortar-board"></i> <span>Week 7</span></a></li>
+        </ul>
+      </li>
+      @endif
 
       <li {!! Request::is('troop') ? ' class="active"' : '' !!}>
         <a href="{{ URL::to('/troop') }}"><i class="fa fa-users"></i> <span>All Troops</span></a>
@@ -140,7 +166,7 @@
       </li>
 
       @if(Request::is('administrator/week/1') || Request::is('administrator/week/2') || Request::is('administrator/week/3') ||
-      Request::is('administrator/week/4') || Request::is('administrator/week/5') || Request::is('administrator/week/5') ||
+      Request::is('administrator/week/4') || Request::is('administrator/week/5') ||
       Request::is('administrator/week/6') || Request::is('administrator/week/7'))
       <li class="treeview active">
         <a href="#"><i class="fa fa-calendar-check-o"></i> <span>Registration</span> <i class="fa fa-angle-left pull-right"></i></a>

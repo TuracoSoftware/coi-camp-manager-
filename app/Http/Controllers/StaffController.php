@@ -16,6 +16,7 @@ use App\MeritBadge;
 use App\Requirement;
 use App\Requirement_started;
 use App\MeritBadgeStarted;
+use Carbon\Carbon;
 
 class StaffController extends Controller
 {
@@ -218,6 +219,26 @@ class StaffController extends Controller
             ->with('week', $week);
   }
 
+  public function class_roster($class_id, $week) {
+    $scouts_all = Scout::all();
+    $classss = Sclass::find($class_id);
+    $scouts = NULL;
+    foreach($scouts_all as $key=>$scout) {
+      if($scout->troop['week_attending_camp'] == $week) {
+        $scout_classes = $scout->classes;
+        foreach($scout_classes as $key=>$class) {
+          if($class->id == $class_id) {
+            $scouts[] = $scout;
+          }
+        }
+      }
+    }
+    return view('staff.class_roster')
+            ->with('scouts', $scouts)
+            ->with('week', $week)
+            ->with('class', $classss);
+  }
+
   public function advancement($class_id, $week) {
     $scouts_all = Scout::all();
     $classss = Sclass::find($class_id);
@@ -243,60 +264,71 @@ class StaffController extends Controller
       }
     }
 
-    $requirements_all = Requirement::all();
-    $requirements = NULL;
-    foreach($requirements_all as $key=>$val) {
-      if($val->meritB_id == $meritB->id)
-      {
-        $requirements[] = $val;
+    $reqs_s = NULL;
+    foreach($scouts as $key=>$scout) {
+      if(MeritBadgeStarted::where('meritbadge_id', $meritB->id)->where('scout_id', $scout->id)->get() == "[]") {
+        $meritB_started = new MeritBadgeStarted;
+        $meritB_started->scout_id = $scout->id;
+        $meritB_started->meritbadge_id = $request->input('meritB');
+        $meritB_started->save();
+        foreach($reqs as $key=>$req) {
+          $req_s = new Requirement_started;
+          $req_s->meritB_id = $meritB_started->id;
+          $req_s->title = $req->title_req;
+          $req_s->test_if_complete = 0;
+          $req_s->save();
+        }
       }
+      $meritB_s = MeritBadgeStarted::where('meritbadge_id', $meritB->id)->where('scout_id', $scout->id)->get();
+      $reqs_s[] = Requirement_started::where('meritB_id', $meritB_s[0]->id)->get();
     }
+
+    $req = Requirement::where('meritB_id', $meritB->id);
     array_unique($scouts);
     return view('staff.advancement')
             ->with('scouts', $scouts)
             ->with('week', $week)
             ->with('class', $classss)
             ->with('meritB', $meritB)
-            ->with('requirements', $requirements);
+            ->with('reqs_s', $reqs_s)
+            ->with('req', $req);
   }
 
   public function input(Request $request) {
-    print $request->input("name");
-    /*
     $reqs = Requirement::where('meritB_id', $request->input('meritB'))->get();
-    for($i = 0; $i<100; $i++) {
-      for($j = 0; $j<100; $j++) {
-        if($request->input('scout'.strval($i).'req'.strval($j))) {
-          $req_pulled = Requirement::find($j);
-          if(MeritBadgeStarted::where('scout_id', $i)->get() == "[]") {
-            $meritB_started = new MeritBadgeStarted;
-            $meritB_started->scout_id = $i;
-            $meritB_started->meritbadge_id = $request->input('meritB');
-            $meritB_started->save();
-            foreach($reqs as $key=>$req) {
-              $req_s = new Requirement_started;
-              $req_s->meritB_id = $meritB_started->id;
-              $req_s->title_req = $req->title_req;
-              if($req->title_req == $req_pulled->title_req) {
-                $req_s->test_if_complete = 1;
-              } else {
-                $req_s->test_if_complete = 0;
-              }
-              $req_s->save();
-            }
-          } else {
-            $meritB = MeritBadgeStarted::where('scout_id', $i)->get();
-            $reqs_s = Requirement_started::where('meritbadge_id', $meritB[0]->id);
-            foreach($reqs_s as $key=>$req_S) {
-              if($req_s->title_req == $req_pulled->title_req && $val->test_if_complete == 0) {
-                $req_s->test_if_complete = 1;
-              }
-            }
-          }
+    $scouts = array();
+    for($i = 0; $i < intval($request->input('number_of_scouts')); $i++) {
+        $scouts[] = Scout::find(intval($request->input(strval($i))));
+    }
+    foreach($scouts as $key=>$scout) {
+      $meritB_s = MeritBadgeStarted::where('scout_id', $scout->id)->where('meritbadge_id', $request->input('meritB'))->get();
+      $reqs_s = Requirement_Started::where('meritB_id', $meritB_s[0]->id)->get();
+      foreach($reqs_s as $key=>$req_s) {
+        if($req_s->test_if_complete == 0 && $request->input('scout'.strval($scout->id).'req'.strval($req_s->id)) == 'on') {
+          $req_s->test_if_complete = 1;
+        } elseif($req_s->test_if_complete == 1 && $request->input('scout'.strval($scout->id).'req'.strval($req_s->id)) == '') {
+          $req_s->test_if_complete = 0;
         }
+        $req_s->save();
       }
-    }*/
-  }
+    }
+    $mytime = Carbon::now();
+    if(substr($mytime->toDateTimeString(), 5,2) == '06' && intval(substr($mytime->toDateTimeString(),8,2))-19 <= 0) {
+      return redirect()->to('/staff/classes/1');
+    } elseif (substr($mytime->toDateTimeString(), 5,2) == '06' && intval(substr($mytime->toDateTimeString(),8,2))-26 <= 0){
+      return redirect()->to('/staff/classes/2');
+    } elseif (substr($mytime->toDateTimeString(), 5,2) == '06' && intval(substr($mytime->toDateTimeString(),8,2))-30 <= 0 ||
+              substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-3 <= 0){
+      return redirect()->to('/staff/classes/3');
+    }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-10 <= 0){
+      return redirect()->to('/staff/classes/4');
+    }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-17 <= 0){
+      return redirect()->to('/staff/classes/5');
+    }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-24 <= 0){
+      return redirect()->to('/staff/classes/6');
+    }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-31 <= 0){
+      return redirect()->to('/staff/classes/7');
+    }  }
 
   public function schedule($id, $week) {
     $staff = Staff::find($id);

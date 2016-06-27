@@ -1,16 +1,12 @@
 @extends('layouts.index')
 
 @section('content')
-<div class="container">
-    <br>
-    <div class="row col-md-offset-1">
-        <div class="col-md-10 col-md-offset-1">
+<section class="content-wrapper">
+  <section class="content">
             <div class="panel panel-default">
-                <div class="panel-heading">User Registration</div>
-
+                <div class="panel-heading">New User</div>
                   <div class="panel-body">
                     <div class="form">
-
                       <form action="{{ url('administrator/users') }}"  method="POST">
                         {!! csrf_field() !!}
 
@@ -30,6 +26,7 @@
                         <select name="type" class="form-control" id="type">
                           <option value="NULL">None</option>
                           <option value="admin">Admin</option>
+                          <option value="director">Director</option>
                           <option value="staff">Staff</option>
                         </select>
                         <br>
@@ -41,6 +38,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+</section>
+</section>
 @endsection

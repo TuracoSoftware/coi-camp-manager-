@@ -10,7 +10,7 @@
             </section>
             <br>
             @endif
-
+            <section class="content">
             <div class="panel panel-default">
                 <div class="panel-heading">All Users</div>
                 <div class="panel-body">
@@ -43,6 +43,7 @@
                     </table>
                 </div>
             </div>
+          </section>
   </section>
   <!-- Scripts Required for DataTable -->
 

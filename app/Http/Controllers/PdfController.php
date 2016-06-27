@@ -121,6 +121,26 @@ class PdfController extends Controller
      	return $pdf->stream('invoice');
     }
 
+    public function scout_advancement($id) {
+      if(MeritBadgeStarted::where('scout_id', $id)->get() != "[]") {
+        $meritBs_s = MeritBadgeStarted::where('scout_id', $id)->get();
+        $reqs_s = NULL;
+        $meritBs = NULL;
+        $scout = Scout::find($id);
+        foreach($meritBs_s as $key=>$meritB_s) {
+          $reqs_s[] = Requirement_started::where('meritB_id', $meritB_s->id)->get();
+          $meritBs[] = MeritBadge::find($meritB_s->meritBadge_id);
+        }
+        $view =  \View::make('pdf.scout_advancement', compact('reqs_s', 'scout', 'meritBs_s', 'meritBs'))->render(); 		// make a view compatible with domPDF
+        $pdf = \App::make('dompdf.wrapper');	// create a pdf
+        $pdf->loadHTML($view);								// load the HTML into the pdf
+
+       	return $pdf->stream('invoice');
+      } else {
+        print "coming soon";
+      }
+    }
+
     public function getReqs($badge){
       $requirement = NULL;
 

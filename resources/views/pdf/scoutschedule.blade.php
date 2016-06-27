@@ -9,7 +9,8 @@
   </head>
   <body>
 
-                <h1>{{ $scout->lastname }}, {{ $scout->firstname }}</h1><br>
+                <h1>{{ $scout->lastname }}, {{ $scout->firstname }}</h1>
+                <br>
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <strong>{{ $scout->age }} Years Old</strong> -  @if(!empty($scout->troop)) Troop {{ $scout->troop->troop }} @endif
@@ -27,9 +28,7 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>
-                          9:00am-12:00pm
-                        </td>
+                        <td>9:00am-12:00pm</td>
                         <td>
                           @if(!empty( $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name ))
                             {{ $scout->classes->where('day', 'Monday')->whereIn('duration', ['AM Only', 'AM & PM'])->first()->name }}
