@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Scout;
 use App\Troop;
 use App\Sclass;
+use App\MeritBadgeStarted;
+use App\Requirement_started;
+use App\MeritBadge;
+
 
 class PdfController extends Controller
 {
