@@ -37,5 +37,5 @@
       </div>
     </div>
   </section>
-</sectino>
+</section>
 @endsection

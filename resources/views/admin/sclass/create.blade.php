@@ -3,7 +3,6 @@
 @section('content')
 <div class="content-wrapper">
   <div class="content-header">
-    <h2>New Class</h2>
   </div>
   <div class="content">
             <div class="panel panel-default">

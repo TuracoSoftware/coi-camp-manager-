@@ -4,15 +4,9 @@
   <section class="content-wrapper">
 
     <section class="content-header">
-
-      <h2 class="page-header">All Merit Badges</h2>
-
-      <a class="btn btn-small btn-info" href="{{ URL::to('administrator/meritbadge/create') }}"
-        <i class="fa fa-plus-square"></i> New MeritBadge
-      </a>
-
     </section>
     <br>
+  <section class="content">
     <div class="panel panel-default">
         <div class="panel-heading">All Merit Badges</div>
 
@@ -41,8 +35,8 @@
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu"role="menu">
-                      <li><a href="{{URL::to('meritbadge/' . $meritbadge->id . '/edit')}}">
-                        <i class="fa fa-pencil-square-o"></i>Edit Merit Badge</a>
+                      <li><a href="#">
+                        <i class="fa fa-pencil-square-o"></i>Coming Soon</a>
                       </li>
                     </ul>
                   </div>
@@ -54,7 +48,7 @@
         </div>
       </div>
   </section>
-
+</section>
     <!-- Scripts Required for DataTable -->
 
     <!-- jQuery 2.1.4 -->

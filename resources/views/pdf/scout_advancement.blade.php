@@ -22,7 +22,6 @@
           {{ $scout->lastname }}, {{ $scout->firstname}}: {{ meritBs[$key]->name }}
         </div>
       </div>
-
       <div class="panel-body">
         <table border="1" class="table">
           <thead>

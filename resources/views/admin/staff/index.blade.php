@@ -8,8 +8,8 @@
                 <i class="fa fa-plus-square-o"></i> Create Staff Member
               </a>
             </section>
-            <br>
             @endif
+          <section class="content">
             <div class="panel panel-default">
                 <div class="panel-heading">All Staff</div>
 
@@ -68,6 +68,7 @@
                     </table>
                 </div>
             </div>
+          </section>
   </section>
 
   <!-- Scripts Required for DataTable -->

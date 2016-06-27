@@ -264,13 +264,16 @@ class StaffController extends Controller
       }
     }
 
-    $reqs_s = NULL;
+    array_unique($scouts);
+
+    $reqs_s = array();
     foreach($scouts as $key=>$scout) {
-      if(MeritBadgeStarted::where('meritbadge_id', $meritB->id)->where('scout_id', $scout->id)->get() == "[]") {
+      if(empty(MeritBadgeStarted::where('meritbadge_id', $meritB->id)->where('scout_id', $scout->id)->get())) {
         $meritB_started = new MeritBadgeStarted;
         $meritB_started->scout_id = $scout->id;
-        $meritB_started->meritbadge_id = $request->input('meritB');
+        $meritB_started->meritbadge_id = $meritB->id;
         $meritB_started->save();
+        $reqs = Requirement::where('meritB_id', $meritB->id)->get();
         foreach($reqs as $key=>$req) {
           $req_s = new Requirement_started;
           $req_s->meritB_id = $meritB_started->id;
@@ -280,11 +283,21 @@ class StaffController extends Controller
         }
       }
       $meritB_s = MeritBadgeStarted::where('meritbadge_id', $meritB->id)->where('scout_id', $scout->id)->get();
-      $reqs_s[] = Requirement_started::where('meritB_id', $meritB_s[0]->id)->get();
+      if(Requirement_started::where('meritB_id', $meritB_s[0]->id)->get() == "[]") {
+        $reqs = Requirement::where('meritB_id', $meritB->id)->get();
+        foreach($reqs as $key=>$req) {
+          $req_s = new Requirement_started;
+          $req_s->meritB_id = $meritB_s[0]->id;
+          $req_s->title = $req->title_req;
+          $req_s->test_if_complete = 0;
+          $req_s->save();
+        }
+      }
+      array_push($reqs_s, Requirement_started::where('meritB_id', $meritB_s[0]->id)->get());
     }
 
     $req = Requirement::where('meritB_id', $meritB->id);
-    array_unique($scouts);
+
     return view('staff.advancement')
             ->with('scouts', $scouts)
             ->with('week', $week)

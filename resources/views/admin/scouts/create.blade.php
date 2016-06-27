@@ -3,7 +3,6 @@
 @section('content')
 <section class="content-wrapper">
   <section class="content-header">
-  <h2>Register a Scout</h2>
   </section>
   <section class="content">
     <div class="panel panel-default">

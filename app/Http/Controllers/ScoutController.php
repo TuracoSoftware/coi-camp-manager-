@@ -128,7 +128,7 @@ class ScoutController extends Controller
 				$troop_id = Auth::user()->troop->id;
 			}
 
-		if($scout->troop_id == $troop_id || Auth::user()->type == 'admin' ) // if troop's user is me or im the admin
+		if($scout->troop_id == $troop_id || Auth::user()->type == 'admin' || Auth::user()->type == 'director')
 
 			/* This initilize's all the scout's class periods
 			* TODO: Make these assignable in a database. This will make these more dynamic and in the future
@@ -493,7 +493,7 @@ class ScoutController extends Controller
 
 		$troop_id = NULL;
 		if(Auth::user()) {
-			if(Auth::user()->type == 'admin'){
+			if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
 				if($scout){
 					$troop_id = $scout->troop_id;
 				}
@@ -504,7 +504,7 @@ class ScoutController extends Controller
 
 		if($scout) //if scout exists
 
-		if($scout->troop_id == $troop_id || Auth::user()->type == 'admin' ) // if troop's user is me or im the admin
+		if($scout->troop_id == $troop_id || Auth::user()->type == 'admin' || Auth::user()->type == 'director') // if troop's user is me or im the admin
 
 			if(Auth::user()->type == 'admin'){
 

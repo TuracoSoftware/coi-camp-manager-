@@ -2,15 +2,13 @@
 
 @section('content')
 <section class="content-wrapper">
-            @if(true)
             <section class="content-header">
               <a class="btn btn-small btn-info" href="{{ URL::to('administrator/director/create') }}">
                 <i class="fa fa-plus-square-o"></i> Create Director
               </a>
             </section>
-            <div class="content">
-            <br>
-            @endif
+            <section class="content">
+            
             <div class="panel panel-default">
                 <div class="panel-heading">All Directors</div>
 
@@ -42,7 +40,7 @@
                     </table>
                 </div>
             </div>
-          </div>
+          </section>
   </section>
 
   <!-- Scripts Required for DataTable -->

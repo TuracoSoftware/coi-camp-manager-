@@ -4,13 +4,12 @@
 
 <section class="content-wrapper">
   <section class="content-header">
-    <h3>Classes</h3>
           @if(Auth::user()->type == 'admin')
               <a class="btn btn-small btn-info" href="{{ URL::to('sclass/create') }}">
                 <i class="fa fa-plus-square-o"></i> New Class
               </a>
             @endif
-          </section><br>
+          </section>
 
             <div class="content">
             <div class="panel panel-default">

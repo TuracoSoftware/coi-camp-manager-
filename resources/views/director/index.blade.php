@@ -2,39 +2,36 @@
 
 @section('content')
 <section class="content-wrapper">
-            <section class="content-header">
-              <h2>Directors</h2>
-            </section>
-            <br>
-            <div class="content">
-            <div class="panel panel-defualt">
-                <div class="panel-heading">All Directors</div>
-                <div class="panel-body">
-                    <table id="director_table" class="table table-hover">
-                      <thead>
-                        <tr>
-                          <td>Name</td>
-                          <td>Email</td>
-                          <td>Description</td>
-                          <td>Department</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($director as $key=>$value)
-                          <tr>
-                            <td> {{ $value->user->name }} </td>
-                            <td> {{ $value->user->email }} </td>
-                            <td> {{ $value->description }} </td>
-                            <td> {{ $value->department }} </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                </div>
-            </div>
-          </div>
+  <section class="content-header">
   </section>
-
+  <section class="content">
+    <div class="panel panel-defualt">
+      <div class="panel-heading">All Directors</div>
+      <div class="panel-body">
+        <table id="director_table" class="table table-hover">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Email</td>
+              <td>Description</td>
+              <td>Department</td>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($director as $key=>$value)
+              <tr>
+                <td> {{ $value->user->name }} </td>
+                <td> {{ $value->user->email }} </td>
+                <td> {{ $value->description }} </td>
+                <td> {{ $value->department }} </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</section>
   <!-- Scripts Required for DataTable -->
 
   <!-- jQuery 2.1.4 -->

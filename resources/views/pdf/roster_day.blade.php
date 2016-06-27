@@ -16,28 +16,28 @@
   </head>
   <body>
     @for($i = 0; $i < count($total);$i++)
-    <div class="page-break">
-      <div class="panel-heading">
-        {{ $sclasses[$i]->name }} -  Week {{ $week }}
-        <div><span>Department: {{ $sclasses[$i]->department }}</span></div>
-      </div>
-      <div class="panel-body">
-        <table border="1" class="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Troop</th>
-              <th>Council</th>
-              @if(!empty($reqs[$i]))
-                @foreach($reqs[$i] as $v)
-                  <th>
-                   {{ $v }}
-                  </th>
-                @endforeach
-              @endif
-            </tr>
-          </thead>
-          @foreach($total[$i] as $key => $scout)
+      <div class="page-break">
+        <div class="panel-heading">
+          {{ $sclasses[$i]->name }} -  Week {{ $week }}
+          <div><span>Department: {{ $sclasses[$i]->department }}</span></div>
+        </div>
+        <div class="panel-body">
+          <table border="1" class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Troop</th>
+                <th>Council</th>
+                @if(!empty($reqs[$i]))
+                  @foreach($reqs[$i] as $v)
+                    <th>
+                      {{ $v }}
+                    </th>
+                  @endforeach
+                @endif
+              </tr>
+            </thead>
+            @foreach($total[$i] as $key => $scout)
             <tr>
               <td>
                 {{ $scout->firstname }} {{ $scout->lastname }}
@@ -48,24 +48,22 @@
               <td>
                 {{ $scout->troop->council }}
               </td>
-              @if(!empty($reqs[$i]))
-                @foreach($reqs[$i] as $v)
-                  <td>
+                @if(!empty($reqs[$i]))
+                  @foreach($reqs[$i] as $v)
+                    <td>
 
-                 </td>
-                @endforeach
-              @endif
-            </tr>
-          @endforeach
-        </table>
-      </div>
-      <span>Number of Scouts: {{ $sclasses[$i]->count_scouts_week($week) }}</span>
-      <div>
+                    </td>
+                  @endforeach
+                @endif
+              </tr>
+            @endforeach
+          </table>
+        </div>
+        <span>Number of Scouts: {{ $sclasses[$i]->count_scouts_week($week) }}</span>
         <p>Director's Signature:_______________________________________________________</p>
         <br>
         <p>Staff Member's Signature:_______________________________________________________</p>
-    </div>
-  </div>
+      </div>
     @endfor
   </body>
 </html>

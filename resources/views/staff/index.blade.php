@@ -3,10 +3,8 @@
 @section('content')
 <section class="content-wrapper">
   <section class="content-header">
-    <h2>Staff</h2>
   </section>
-
-  <br>
+  <section class="content">
   <div class="panel panel-default">
     <div class="panel-heading">All Staff</div>
     <div class="panel-body">
@@ -32,6 +30,7 @@
       </table>
     </div>
   </div>
+</section>
 </section>
 <!-- Scripts Required for DataTable -->
 

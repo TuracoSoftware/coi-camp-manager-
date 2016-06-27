@@ -86,9 +86,9 @@ class TroopController extends Controller
 
       if($troop) //if troop exists
 
-        if($troop->user == Auth::user() || Auth::user()->type == 'admin' ) // if troop's user is me or im the admin
+        if($troop->user == Auth::user() || Auth::user()->type == 'admin' || Auth::user()->type == 'director') // if troop's user is me or im the admin
 
-          if(Auth::user()->type == 'admin'){
+          if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
             return view('admin.troops.edit')
                     ->with('id', $troop->id)
                     ->with('firstname', $troop->scout_master_first_name)
@@ -124,7 +124,7 @@ class TroopController extends Controller
       $troop = Troop::find($id);
 
       if( $troop ){
-        if($troop->user == Auth::user() || Auth::user()->type == 'admin' ){ // if troop's user is me or im the admin
+        if($troop->user == Auth::user() || Auth::user()->type == 'admin' || Auth::user()->type == 'director'){ // if troop's user is me or im the admin
 
           $validator = Validator::make($request->all(), $rules);
 
@@ -161,7 +161,7 @@ class TroopController extends Controller
 
           $troop_id = $current_user->troop->id;
 
-          if(Auth::user()->type == 'admin'){
+          if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
             return redirect('administrator/troop/'.$troop_id.'/edit');
           }else{
             return redirect('troop/'.$troop_id.'/edit');
@@ -169,7 +169,7 @@ class TroopController extends Controller
 
         }else{
 
-          if(Auth::user()->type == 'admin'){
+          if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
             return view('admin.troops.create');
           }else{
             return view('troops.create');
@@ -236,7 +236,7 @@ class TroopController extends Controller
 
           $troop_id = $current_user->troop->id;
 
-          if($troop_id == $troop->id || Auth::user()->type == 'admin'){
+          if($troop_id == $troop->id || Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
 
             try {
               $troop->user_id = NULL;
