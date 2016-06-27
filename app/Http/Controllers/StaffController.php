@@ -268,7 +268,7 @@ class StaffController extends Controller
 
     $reqs_s = array();
     foreach($scouts as $key=>$scout) {
-      if(empty(MeritBadgeStarted::where('meritbadge_id', $meritB->id)->where('scout_id', $scout->id)->get())) {
+      if(MeritBadgeStarted::where('meritbadge_id', $meritB->id)->where('scout_id', $scout->id)->get() == "[]") {
         $meritB_started = new MeritBadgeStarted;
         $meritB_started->scout_id = $scout->id;
         $meritB_started->meritbadge_id = $meritB->id;

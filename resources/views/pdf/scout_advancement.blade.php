@@ -8,18 +8,15 @@
         size: A4 landscape;
         margin: 5cm;
       }
-      .page-break {
-        page: rooster;
-        page-break-after: always;
-      }
+
     </style>
   </head>
   <body>
     <?php $i=0; ?>
-    @foreach($meritBs_s as $key=>$meritB_s)
+    @foreach($meritBs_s as $meritB_s)
       <div class="page-break">
         <div class="panel-heading">
-          {{ $scout->lastname }}, {{ $scout->firstname}}: {{ meritBs[$key]->name }}
+          {{ $scout->lastname }}, {{ $scout->firstname}}: {{ $meritB_s->name }}
         </div>
       </div>
       <div class="panel-body">

@@ -55,10 +55,10 @@
 <script>
   $(function () {
     $('#scout_table').DataTable({
-      "paging": true,
+      "paging": false,
       "lengthChange": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": false
     });
