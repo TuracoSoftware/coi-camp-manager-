@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -25,13 +22,13 @@ class StaffController extends Controller
   }
 
   public function index() {
-    $users = User::where('type', 'staff')->get();
-    $staff = Staff::all();
+    $users = User::where('type', 'staff')->get(); // gets all users that are staff
+    $staff = Staff::all(); // gets all the staff
     $used = False;
     $unused = array();
     $count = 0;
-    foreach($users as $key=>$user) {
-      foreach($staff as $key=>$sMem) {
+    foreach($users as $key=>$user) {        // compares the two to see if there
+      foreach($staff as $key=>$sMem) {      // is a staff without a user
         if($sMem->user_id == $user->id) {
           $used = True;
           break;
@@ -59,8 +56,8 @@ class StaffController extends Controller
 
   public function create() {
     $current_user = Auth::user();
-    if ( $current_user ){
-      if(Auth::user()->type == 'admin'){
+    if($current_user) {
+      if(Auth::user()->type == 'admin') {
         return view('admin.staff.create');
       }
     }
@@ -69,11 +66,9 @@ class StaffController extends Controller
   public function store(Request $request) {
     $rules = array();
     $current_user = Auth::user();
-		//check if user is logged in
 		$validator = Validator::make($request->all(), $rules);
-
 		if($validator->fails()) {
-		  	return redirect()->back()->withErrors($validator->messages());
+		  return redirect()->back()->withErrors($validator->messages());
 		} else {
       $users = User::all();
       $test_unique = true;
@@ -103,21 +98,20 @@ class StaffController extends Controller
         $staff->description = $request->input('description');
         $staff->department = $request->input('department');
         $staff->user_id = $user_id_contact;
-
     		$staff->save();
       }
     }
 
     $staff = Staff::all();
     return view('admin.staff.index')
-              ->with('staff', $staff);
+                ->with('staff', $staff);
   }
 
   public function edit($id) {
     return view('admin.staff.edit')->with('id', $id);
   }
-  public function update($id, Request $request)
-  {
+
+  public function update($id, Request $request) {
     $staff = Staff::find($id);
     $user = $staff->user;
     $rules = array();
@@ -125,32 +119,32 @@ class StaffController extends Controller
     if($validator->fails()) {
       return redirect()->back()->withErrors($validator->messages());
     } else {
-        if($request->input('name')) {
-          $user->name = $request->input('name');
+      if($request->input('name')) {
+        $user->name = $request->input('name');
+      }
+      if($request->input('email')) {
+        $user->email = $request->input('email');
+      }
+      if($request->input('new_password')) {
+        if($request->input('new_password') == $request->input('confirm_password')) {
+          $user->password = $request->input(bcrypt('new_password'));
         }
-        if($request->input('email')) {
-          $user->email = $request->input('email');
-        }
-        if($request->input('new_password')) {
-          if($request->input('new_password') == $request->input('confirm_password')) {
-            $user->password = $request->input(bcrypt('new_password'));
-          }
-        }
-        if($request->input('type')) {
-          $user->type = $request->input('type');
-        }
-        $user->save();
+      }
+      if($request->input('type')) {
+        $user->type = $request->input('type');
+      }
+      $user->save();
 
-        if($request->input('description')) {
-          $staff->description = $request->input('description');
-        }
-        if($request->input('department')) {
-          $staff->department = $request->input('department');
-        }
-        $staff->save();
+      if($request->input('description')) {
+        $staff->description = $request->input('description');
+      }
+      if($request->input('department')) {
+        $staff->department = $request->input('department');
+      }
+      $staff->save();
 
-        $staff = Staff::all();
-        return view('admin.staff.index')
+      $staff = Staff::all();
+      return view('admin.staff.index')
                   ->with('staff', $staff);
     }
   }
@@ -158,34 +152,34 @@ class StaffController extends Controller
   public function destroy($id) {
     $staff = Staff::find($id);
     $user = User::find($staff->user_id);
-    if(Auth::user()->type == 'admin'){
+    if(Auth::user()->type == 'admin') {
       try {
         $staff->user_id = NULL;
         $staff->save();
         $user->delete();
         $staff->delete();
       } catch ( \Illuminate\Database\QueryException $e) {
-          var_dump($e->errorInfo );
+        var_dump($e->errorInfo );
       }
       $staff = Staff::all();
       return view('admin.staff.index')
-                ->with('staff', $staff);
-    }else{
+                  ->with('staff', $staff);
+    } else {
       $staff = Staff::all();
       return view('admin.staff.index')
-                ->with('staff', $staff);
+                  ->with('staff', $staff);
     }
   }
 
-  public function roster($id){
+  public function roster($id) {
     if(Auth::user()->type == 'staff') {
       $staff = Staff::find(Auth::user()->id);
     }
 
     return view('staff.roster')
-        ->with('week', $id)
-        ->with('classes', $classes)
-        ->with('scouts', $staff);
+          ->with('week', $id)
+          ->with('classes', $classes)
+          ->with('scouts', $staff);
   }
 
   public function classes($week) {
@@ -215,10 +209,11 @@ class StaffController extends Controller
     }
 
     return view('staff.classes')
-            ->with('classes', $classes)
-            ->with('week', $week);
+                ->with('classes', $classes)
+                ->with('week', $week);
   }
 
+  // this function finds all the classes the staff member is asgined for that week
   public function class_roster($class_id, $week) {
     $scouts_all = Scout::all();
     $classss = Sclass::find($class_id);
@@ -234,11 +229,13 @@ class StaffController extends Controller
       }
     }
     return view('staff.class_roster')
-            ->with('scouts', $scouts)
-            ->with('week', $week)
-            ->with('class', $classss);
+                ->with('scouts', $scouts)
+                ->with('week', $week)
+                ->with('class', $classss);
   }
 
+  // this class finds all the scouts that are taking the class and makes all
+  // started badges and requirements for each scout
   public function advancement($class_id, $week) {
     $scouts_all = Scout::all();
     $classss = Sclass::find($class_id);
@@ -265,7 +262,6 @@ class StaffController extends Controller
     }
 
     array_unique($scouts);
-
     $reqs_s = array();
     foreach($scouts as $key=>$scout) {
       if(MeritBadgeStarted::where('meritbadge_id', $meritB->id)->where('scout_id', $scout->id)->get() == "[]") {
@@ -295,18 +291,19 @@ class StaffController extends Controller
       }
       array_push($reqs_s, Requirement_started::where('meritB_id', $meritB_s[0]->id)->get());
     }
-
     $req = Requirement::where('meritB_id', $meritB->id);
 
     return view('staff.advancement')
-            ->with('scouts', $scouts)
-            ->with('week', $week)
-            ->with('class', $classss)
-            ->with('meritB', $meritB)
-            ->with('reqs_s', $reqs_s)
-            ->with('req', $req);
+                ->with('scouts', $scouts)
+                ->with('week', $week)
+                ->with('class', $classss)
+                ->with('meritB', $meritB)
+                ->with('reqs_s', $reqs_s)
+                ->with('req', $req);
   }
 
+  // this method takes the input from the staff from each scouts advancement in each
+  // merit badge and records each requirement started and if it is complete or not
   public function input(Request $request) {
     $reqs = Requirement::where('meritB_id', $request->input('meritB'))->get();
     $scouts = array();
@@ -331,18 +328,24 @@ class StaffController extends Controller
     } elseif (substr($mytime->toDateTimeString(), 5,2) == '06' && intval(substr($mytime->toDateTimeString(),8,2))-26 <= 0){
       return redirect()->to('/staff/classes/2');
     } elseif (substr($mytime->toDateTimeString(), 5,2) == '06' && intval(substr($mytime->toDateTimeString(),8,2))-30 <= 0 ||
-              substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-3 <= 0){
+              substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-3 <= 0) {
       return redirect()->to('/staff/classes/3');
-    }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-10 <= 0){
+    } elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-10 <= 0) {
       return redirect()->to('/staff/classes/4');
-    }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-17 <= 0){
+    } elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-17 <= 0) {
       return redirect()->to('/staff/classes/5');
-    }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-24 <= 0){
+    } elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-24 <= 0) {
       return redirect()->to('/staff/classes/6');
-    }elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-31 <= 0){
+    } elseif (substr($mytime->toDateTimeString(), 5,2) == '07' && intval(substr($mytime->toDateTimeString(),8,2))-31 <= 0) {
       return redirect()->to('/staff/classes/7');
-    }  }
+    } else {
+      return redirect()->to('/staff/classes/1');
+    }
+  }
 
+  // this method and update_schedule method creates the schedules for the staff over
+  // and stores them for all 7 weeks.
+  // see the Scout Controller for a smaller version and for only 1 week
   public function schedule($id, $week) {
     $staff = Staff::find($id);
 
@@ -386,12 +389,6 @@ class StaffController extends Controller
 					$fr912 = $sclass->name;
 				}
 
-				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-				* if a class is all day a staff gets registered all day.
-				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-				* are loaded dynamically from value a user sets so that in the future other camps can add their
-				* own constraints.
-				*/
 				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
 					if( $sclass->duration == 'AM & PM' )
 						$mo25 = $sclass->name;
@@ -461,12 +458,6 @@ class StaffController extends Controller
   					$fr912 = $sclass->name;
   				}
 
-  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-  				* if a class is all day a staff gets registered all day.
-  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-  				* are loaded dynamically from value a user sets so that in the future other camps can add their
-  				* own constraints.
-  				*/
   				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
   					if( $sclass->duration == 'AM & PM' )
   						$mo25 = $sclass->name;
@@ -536,12 +527,6 @@ class StaffController extends Controller
   					$fr912 = $sclass->name;
   				}
 
-  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-  				* if a class is all day a staff gets registered all day.
-  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-  				* are loaded dynamically from value a user sets so that in the future other camps can add their
-  				* own constraints.
-  				*/
   				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
   					if( $sclass->duration == 'AM & PM' )
   						$mo25 = $sclass->name;
@@ -611,12 +596,6 @@ class StaffController extends Controller
   					$fr912 = $sclass->name;
   				}
 
-  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-  				* if a class is all day a staff gets registered all day.
-  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-  				* are loaded dynamically from value a user sets so that in the future other camps can add their
-  				* own constraints.
-  				*/
   				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
   					if( $sclass->duration == 'AM & PM' )
   						$mo25 = $sclass->name;
@@ -686,12 +665,6 @@ class StaffController extends Controller
   					$fr912 = $sclass->name;
   				}
 
-  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-  				* if a class is all day a staff gets registered all day.
-  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-  				* are loaded dynamically from value a user sets so that in the future other camps can add their
-  				* own constraints.
-  				*/
   				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
   					if( $sclass->duration == 'AM & PM' )
   						$mo25 = $sclass->name;
@@ -761,12 +734,6 @@ class StaffController extends Controller
   					$fr912 = $sclass->name;
   				}
 
-  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-  				* if a class is all day a staff gets registered all day.
-  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-  				* are loaded dynamically from value a user sets so that in the future other camps can add their
-  				* own constraints.
-  				*/
   				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
   					if( $sclass->duration == 'AM & PM' )
   						$mo25 = $sclass->name;
@@ -836,12 +803,6 @@ class StaffController extends Controller
   					$fr912 = $sclass->name;
   				}
 
-  				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-  				* if a class is all day a staff gets registered all day.
-  				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-  				* are loaded dynamically from value a user sets so that in the future other camps can add their
-  				* own constraints.
-  				*/
   				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
   					if( $sclass->duration == 'AM & PM' )
   						$mo25 = $sclass->name;
@@ -958,8 +919,7 @@ class StaffController extends Controller
     return redirect()->to('home');
   }
 
-  public function update_schedule($id, Request $request){
-
+  public function update_schedule($id, Request $request) {
 		$staff = Staff::find($id);
     $week = $request->input('week');
 

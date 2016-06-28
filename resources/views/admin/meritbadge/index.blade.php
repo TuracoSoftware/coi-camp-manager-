@@ -1,32 +1,29 @@
 @extends('layouts.index')
 
 @section('content')
-  <section class="content-wrapper">
-
-    <section class="content-header">
-    </section>
-    <br>
+<section class="content-wrapper">
+  <section class="content-header">
+  </section>
+  <br>
   <section class="content">
     <div class="panel panel-default">
-        <div class="panel-heading">All Merit Badges</div>
-
+      <div class="panel-heading">All Merit Badges</div>
       <div class="panel-body">
-          <table id="meritbadge_table" class="table table-hover">
-            <thead>
-              <tr>
-                <th>Picture</th>
-                <th>Merit Badge Name</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($meritbadges as $key=>$meritbadge)
+        <table id="meritbadge_table" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Picture</th>
+              <th>Merit Badge Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($meritbadges as $key=>$meritbadge)
               <tr>
                 <td>
                   <img src="{{ asset("../resources/assets/img/{$meritbadge->path_name}.jpg") }}" alt="" width="50" hight="50"/>
                 </td>
                 <td>{{$meritbadge->name}}</td>
-
                 <td>
                   <div class="btn-group">
                     <button type="button" class="btn btn-success">Actions</button>
@@ -42,11 +39,11 @@
                   </div>
                 </td>
               </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
+            @endforeach
+          </tbody>
+        </table>
       </div>
+    </div>
   </section>
 </section>
     <!-- Scripts Required for DataTable -->

@@ -1,44 +1,39 @@
 @extends('layouts.index')
 
 @section('content')
-
 <section class="content-wrapper">
   <section class="content-header">
-
     <h2 class="page-header">Week {{ $week }}</h2>
-
   </section>
-
   <section class="content">
     <div class="panel panel-default">
-        <div class="panel-heading">{{ $class->name }}'s Scouts</div>
-
-        <div class="panel-body">
-            <table id="scout_table" class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th>Last Name</th>
-                  <th>First Name</th>
-                  <th>Troop</th>
-                  <th>Council</th>
-                  <th>Age</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($scouts as $key => $scout)
-                <tr>
-                  <td>{{ $scout->lastname }}</td>
-                  <td>{{ $scout->firstname }}</td>
-                  <td>{{ $scout->troop->troop }}</td>
-                  <td>{{ $scout->troop->council }}</td>
-                  <td>{{ $scout->age }}</td>
-                </tr>
-                @endforeach
-                </tbody>
-              </table>
-            </div>
-        </div>
-      </section>
+      <div class="panel-heading">{{ $class->name }}'s Scouts</div>
+      <div class="panel-body">
+        <table id="scout_table" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Troop</th>
+              <th>Council</th>
+              <th>Age</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($scouts as $key => $scout)
+              <tr>
+                <td>{{ $scout->lastname }}</td>
+                <td>{{ $scout->firstname }}</td>
+                <td>{{ $scout->troop->troop }}</td>
+                <td>{{ $scout->troop->council }}</td>
+                <td>{{ $scout->age }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 </section>
 <!-- Scripts Required for DataTable -->
 

@@ -14,7 +14,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
-
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -25,9 +24,7 @@ class User extends Authenticatable
     ];
 
     public function troop() {
-
         return $this->hasOne('App\Troop');
-
     }
 
     public function staff() {

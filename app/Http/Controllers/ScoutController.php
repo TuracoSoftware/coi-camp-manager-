@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Scout;
 use App\Sclass;
@@ -19,101 +17,67 @@ class ScoutController extends Controller
 	}
 
 	public function index() {
-
-		if(Auth::user()->type == 'admin'){
-			$scout = Scout::all();
-
+		if(Auth::user()->type == 'admin') {
+			$scout = Scout::all(); // gets all scouts
 			return view('admin.scouts.index')
 		      ->with('scouts',$scout);
-
-		}else{
+		} else {
 			if(Auth::user()->troop)
-		  		$scout = Scout::where('troop_id', Auth::user()->troop->id)
-		                    	->get();
-		    else
-		    	$scout = [];
+		  	$scout = Scout::where('troop_id', Auth::user()->troop->id)->get(); // gets all scouts inside of the troop
+		  else
+		  	$scout = [];
 
 			return view('scouts.index')
-		    	  ->with('scouts',$scout);
-
+		    	  			->with('scouts',$scout);
 		}
-
-
 	}
-	// Find the scouts in a requested week and return the view
-	// TODO: Maybe move this method to its own class since its basically controlling the whole week views
+
 	public function week($id){
-
 		if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
-
 			//Get the ID's of the troops for indexing the correct scouts
 			$troops = Troop::where('week_attending_camp', $id)->get()->lists('id');
-
 			//Get the troops that week for another table on the admin.scouts.index page
 			$troop = Troop::where('week_attending_camp', $id)->get();
-
 			//Get list of classes for the class stat views
 			$classes = Sclass::all();
-
-			//Finally, get the scous from the database
+			//Finally, get the scouts from the database
 			$scout = Scout::whereIn('troop_id', $troops)->get();
-
 			return view('admin.scouts.index')
-					->with('week', $id)
-					->with('troops', $troop)
-					->with('classes', $classes)
-		      ->with('scouts',$scout);
-
-		}else{
-
-			if(Auth::user()->troop){
-
+									->with('week', $id)
+									->with('troops', $troop)
+									->with('classes', $classes)
+		      				->with('scouts',$scout);
+		} else {
+			if(Auth::user()->troop) {
 				$troops = Troop::where('week_attending_camp', $id)->get()->lists('id');
-
-		  		$scout = Scout::where('troop_id', Auth::user()->troop->id)
-		                    	->whereIn('troop_id', $troops)
-		                    	->get();
-		    }else
-
-		    	$scout = [];
-
+		  	$scout = Scout::where('troop_id', Auth::user()->troop->id)->whereIn('troop_id', $troops)->get();
+		  } else
+		    $scout = [];
 			return view('scouts.index')
-		    	  ->with('scouts',$scout);
-
+		    	  			->with('scouts',$scout);
 		}
-
 	}
 
-	/* Search and return scout by name
-	* TODO: This may be removed as it's function is more easily done with JQuery's table
-	*/
 	public function search_by_name(Request $request){
-
 		$name = $request->input('name');
-
-		if(Auth::user()->type == 'admin'){
+		if(Auth::user()->type == 'admin') {
 			$scout = Scout::where('firstname', 'LIKE', '%'.$name.'%')->orWhere('lastname', 'LIKE', '%'.$name.'%')->get();
 			return view('admin.scouts.index')
-		      ->with('scouts',$scout);
-		}else{
+		      				->with('scouts',$scout);
+		} else {
 			if(Auth::user()->troop){
-		  		$scout = Scout::where('troop_id', Auth::user()->troop->id)
-		  						->where(function($query) use ($name){
-	  									$query->where('firstname', 'LIKE', '%'.$name.'%')
-	                    				->orWhere('lastname', 'LIKE', '%'.$name.'%');
-		  						})->get();
-		    }else{
-		    	$scout = [];
-		    	return redirect()->to('scout');
-		    }
-		    return view('scouts.index')
-		      ->with('scouts',$scout);
-
+		  	$scout = Scout::where('troop_id', Auth::user()->troop->id)
+		  					->where(function($query) use ($name){
+	  						$query->where('firstname', 'LIKE', '%'.$name.'%')
+	            	->orWhere('lastname', 'LIKE', '%'.$name.'%');})->get();
+		  } else {
+		    $scout = [];
+		    return redirect()->to('scout');
+		  }
+		  return view('scouts.index')
+		      				->with('scouts',$scout);
 		}
-
 		return redirect()->to('scout');
-
-
 	}
 
 	// This method controls the actual registration
@@ -130,10 +94,6 @@ class ScoutController extends Controller
 
 		if($scout->troop_id == $troop_id || Auth::user()->type == 'admin' || Auth::user()->type == 'director')
 
-			/* This initilize's all the scout's class periods
-			* TODO: Make these assignable in a database. This will make these more dynamic and in the future
-			* allow other camps to adapt it to thier own schedules
-			*/
 			$mo912 = NULL;
 			$tu912 = NULL;
 			$we912 = NULL;
@@ -183,12 +143,6 @@ class ScoutController extends Controller
 					$fr912 = $sclass->name;
 				}
 
-				/* If the duration is PM only or AM & PM set to sclass. Validate and make sure that
-				* if a class is all day a scout gets registered all day.
-				* TODO: The previous two functions should be updated so class contraints such as AM, AM & PM
-				* are loaded dynamically from value a user sets so that in the future other camps can add their
-				* own constraints.
-				*/
 				if($sclass->day == 'Monday' && ($sclass->duration == 'PM Only' || $sclass->duration == 'AM & PM')){
 					if( $sclass->duration == 'AM & PM' )
 						$mo25 = $sclass->name;
@@ -236,14 +190,8 @@ class ScoutController extends Controller
 				if($sclass->day == 'Friday' && $sclass->duration == 'Twilight'){
 					$fr79 = $sclass->name;
 				}
-
-
 			}
 
-			/* pull the scout classes from the database
-			* TODO: Rather than relying on a "WherIn" function there should a a duration table or something similar
-			* as mention earlier
-			*/
 			$sclasses_mo912 = Sclass::where('day', 'Monday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
 			$sclasses_tu912 = Sclass::where('day', 'Tuesday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
 			$sclasses_we912 = Sclass::where('day', 'Wednesday')->whereIn('duration', ['AM Only','AM & PM'])->where('min_age', '<=', $scout->age)->orderBy('name', 'asc')->get();
@@ -311,8 +259,6 @@ class ScoutController extends Controller
 				if(!$scout->classExists($val->id) )
 					if($val->count_scouts_week($week) >= $val->size) unset($sclasses_fr79[$key]);
 
-
-
 			// Classes prepared and ready to be sent to the form
 			$context = array(
 				'mo912' => $mo912,
@@ -350,17 +296,14 @@ class ScoutController extends Controller
 				'sclasses_we79' => $sclasses_we79,
 				'sclasses_th79' => $sclasses_th79,
 				'sclasses_fr79' => $sclasses_fr79,
-
 			);
 
 			if(Auth::user()->type == 'admin'){
-
 				return view('admin.scouts.schedule', $context)
 		          ->with('id', $scout->id)
 		          ->with('scout', $scout);
 
 			}else{
-
 			  	return view('scouts.schedule', $context)
 			          ->with('id', $scout->id)
 			          ->with('scout', $scout);
@@ -481,102 +424,83 @@ class ScoutController extends Controller
 			$scout->classes()->attach($fr79);
 		}
 		/*END saving only 2 - 5 */
-
-
 		return redirect()->to('troop');
-
 	}
 
 	public function edit($id){
-
 		$scout = Scout::find($id);
-
 		$troop_id = NULL;
 		if(Auth::user()) {
-			if(Auth::user()->type == 'admin' || Auth::user()->type == 'director'){
-				if($scout){
+			if(Auth::user()->type == 'admin' || Auth::user()->type == 'director') {
+				if($scout) {
 					$troop_id = $scout->troop_id;
 				}
-			}else
+			} else
 				$troop_id = Auth::user()->troop->id;
 		}
 
-
 		if($scout) //if scout exists
-
-		if($scout->troop_id == $troop_id || Auth::user()->type == 'admin' || Auth::user()->type == 'director') // if troop's user is me or im the admin
-
-			if(Auth::user()->type == 'admin'){
-
-				return view('admin.scouts.edit')
-		          ->with('id', $scout->id)
-		          ->with('firstname', $scout->firstname)
-		          ->with('lastname', $scout->lastname)
-		          ->with('age', $scout->age)
-		          ->with('troop_id', $scout->troop_id);
-			}else{
-
+			if($scout->troop_id == $troop_id || Auth::user()->type == 'admin' || Auth::user()->type == 'director')
+				if(Auth::user()->type == 'admin'){
+					return view('admin.scouts.edit')
+		          				->with('id', $scout->id)
+		          				->with('firstname', $scout->firstname)
+		          				->with('lastname', $scout->lastname)
+		          				->with('age', $scout->age)
+		          				->with('troop_id', $scout->troop_id);
+				} else {
 			  	return view('scouts.edit')
-			          ->with('id', $scout->id)
-			          ->with('firstname', $scout->firstname)
-			          ->with('lastname', $scout->lastname)
-			          ->with('age', $scout->age)
-			          ->with('troop_id', $scout->troop_id);
+			          			->with('id', $scout->id)
+			          			->with('firstname', $scout->firstname)
+			          			->with('lastname', $scout->lastname)
+			          			->with('age', $scout->age)
+			          			->with('troop_id', $scout->troop_id);
 			}
-
 		return redirect()->to('scout');
-
 	}
 
-	public function update($id, Request $request)
-    {
+	public function update($id, Request $request) {
 		$rules = array(
-		'firstname'    =>   'required'
+			'firstname'=>'required'
 		);
-
 		$scout = Scout::find($id);
-
-      	$auth_user_troop_id = '';
+    $auth_user_troop_id = '';
 		if(Auth::user()->type != 'admin')
 			$auth_user_troop_id = Auth::user()->troop->id;
 		else
 			$auth_user_troop_id = $scout->troop_id;
 
-		if( $scout ){
-			if($scout->troop_id == $auth_user_troop_id || Auth::user()->type == 'admin' ){ // if troop's user is me or im the admin
-
+		if($scout) {
+			if($scout->troop_id == $auth_user_troop_id || Auth::user()->type == 'admin') {
 			  $validator = Validator::make($request->all(), $rules);
-
 			  if($validator->fails()) {
 			    return redirect()->back()->withErrors($validator->messages());
 			  } else {
-			      $scout->firstname = $request->input('firstname');
-			      $scout->lastname = $request->input('lastname');
-			      $scout->age = $request->input('age');
-			      if(!empty($scout->troop_id)){
-			      	$scout->troop_id = $scout->troop_id;
-			      }else{
-			      	$scout->troop_id = $request->input('troop_id');
-			      }
-			      $scout->save();
-			      return redirect()->to('troop');
+			    $scout->firstname = $request->input('firstname');
+			    $scout->lastname = $request->input('lastname');
+			    $scout->age = $request->input('age');
+			    if(!empty($scout->troop_id)) {
+			    	$scout->troop_id = $scout->troop_id;
+			    } else {
+			    	$scout->troop_id = $request->input('troop_id');
+			    }
+			    $scout->save();
+			    return redirect()->to('troop');
 			  }
-
 			}
 		}
-
-    }
+  }
 
 	public function create() {
     $current_user = Auth::user();
 		$troops = Troop::all();
 		$maxPos = NULL;
 		$max = NULL;
-		for ($i = 0; $i < count($troops)-1; $i++) {
+		for($i = 0; $i < count($troops)-1; $i++) {
 			$max = $troops[$i]->troop;
 			$maxPos = $i;
-			for ($j = $i+1; $j < count($troops); $j++) {
-				if ($max < $troops[$j]->troop) {
+			for($j = $i+1; $j < count($troops); $j++) {
+				if($max < $troops[$j]->troop) {
 					$max = $troops[$j]->troop;
 					$maxPos = $j;
 					$temp = $troops[$i];
@@ -585,15 +509,14 @@ class ScoutController extends Controller
 				}
 			}
 		}
-
     //check if user is logged in
-    if ($current_user) {
-  		if (Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff') {
+    if($current_user) {
+  		if(Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff') {
 				return view('admin.scouts.create')
-								->with('troops', $troops);
+										->with('troops', $troops);
     	} else {
-					if ($current_user->troop)
-    				return view('scouts.create');
+				if($current_user->troop)
+    			return view('scouts.create');
     	}
     }
     return redirect()->to('login');
@@ -601,62 +524,46 @@ class ScoutController extends Controller
 
   public function store(Request $request) {
 		$rules = array(
-		'firstname'    =>   'required'
+				'firstname'=>'required'
 		);
-
 		$current_user = Auth::user();
-
-		//check if user is logged in
-
-
 		$validator = Validator::make($request->all(), $rules);
-
 		if($validator->fails()) {
-		  	return redirect()->back()->withErrors($validator->messages());
+			return redirect()->back()->withErrors($validator->messages());
 		} else {
-		    $scout = new Scout;
-
-		    $scout->firstname = $request->input('firstname');
-		    $scout->lastname = $request->input('lastname');
-		    $scout->age = $request->input('age');
-		    if(Auth::user()->type != 'admin')
-		    	$scout->troop_id = Auth::user()->troop->id;
-				if(Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff')
-					$scout->troop_id = $request->input('troop');
-		    $scout->save();
-				return redirect()->to('scout/create');
+		  $scout = new Scout;
+		  $scout->firstname = $request->input('firstname');
+		  $scout->lastname = $request->input('lastname');
+		  $scout->age = $request->input('age');
+		  if(Auth::user()->type != 'admin')
+		  	$scout->troop_id = Auth::user()->troop->id;
+			if(Auth::user()->type == 'admin' || Auth::user()->type == 'director' || Auth::user()->type == 'staff')
+				$scout->troop_id = $request->input('troop');
+		  $scout->save();
+			return redirect()->to('scout/create');
 		}
+  }
 
-    }
-
-
-    public function destroy($id) {
-
-      $current_user = Auth::user();
-      //check if user is logged in
-      if ( $current_user ){
-
-          $scout = Scout::find($id);
-          if($scout)
-          if(Auth::user()->troop()->id = $scout->troop_id || Auth::user()->type == 'admin'){
-
-
-          	foreach ($scout->classes as $sclass){
-				$scout->classes()->detach($sclass->id);
-			}
-
-            try {
-              $scout->delete();
-            } catch ( \Illuminate\Database\QueryException $e) {
-                var_dump($e->errorInfo );
-            }
-            return 'success';
-          }else{
-            return redirect()->to('scout');
+  public function destroy($id) {
+    $current_user = Auth::user();
+    //check if user is logged in
+    if($current_user) {
+      $scout = Scout::find($id);
+      if($scout)
+        if(Auth::user()->troop()->id = $scout->troop_id || Auth::user()->type == 'admin') {
+          foreach ($scout->classes as $sclass) {
+						$scout->classes()->detach($sclass->id);
+					}
+          try {
+            $scout->delete();
+          } catch ( \Illuminate\Database\QueryException $e) {
+            var_dump($e->errorInfo );
           }
-
-      }
-      return view('login');
+            return 'success';
+        } else {
+            return redirect()->to('scout');
+        }
     }
-
+    return view('login');
+  }
 }

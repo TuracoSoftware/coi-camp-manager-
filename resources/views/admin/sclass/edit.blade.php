@@ -1,23 +1,22 @@
 @extends('layouts.index')
 
 @section('content')
-<div class="content-wrapper">
-  <div class="content">
-            <div class="panel panel-default">
-        <div class="panel-heading">Class Editing</div>
-
-        <div class="panel-body">
-          <div class="form">
-            <form action="{{ url('sclass/'.$id) }}" method="POST">
-              {!! csrf_field() !!}
-              <input name="_method" type="hidden" value="PUT">
-              <label for="name">Class name:</label>
+<section class="content-wrapper">
+  <section class="content">
+    <div class="panel panel-default">
+      <div class="panel-heading">Class Editing</div>
+      <div class="panel-body">
+        <div class="form">
+          <form action="{{ url('sclass/'.$id) }}" method="POST">
+          {!! csrf_field() !!}
+            <input name="_method" type="hidden" value="PUT">
+            <label for="name">Class name:</label>
               <input name="name" type="text" class="form-control" id="name" value="{{ $name }}">
               @if($errors->first('name'))
                 <span class="error">{{$errors->first('name')}}</span>
               @endif
-              <br>
-              <label for="department">Department:</label>
+            <br>
+            <label for="department">Department:</label>
               <select name="department" class="form-control" id="department">
                 @if($department == 'Aquatics')
                   <option value="1" selected>Aquatics</option>
@@ -65,17 +64,17 @@
                   <option value="9">High Adventure</option>
                 @endif
               </select>
-              <br>
-              <label for="description">Description:</label>
+            <br>
+            <label for="description">Description:</label>
               <input name="description" type="text" class="form-control" id="description" value="{{ $description }}">
               @if($errors->first('description'))
                 <span class="error">{{$errors->first('description')}}</span>
               @endif
-              <br>
-              <label for="fee">Class Fee:</label>
+            <br>
+            <label for="fee">Class Fee:</label>
               <input name="fee" type="text" class ="form-control" id="fee" value="{{ $fee }}">
-              <br>
-              <label for="day">Day:</label>
+            <br>
+            <label for="day">Day:</label>
               <select name="day" class ="form-control" id="day">
                 @if($day == 'Monday')
                   <option value="Monday" selected>Monday</option>
@@ -103,8 +102,8 @@
                   <option value="Friday">Friday</option>
                 @endif
               </select>
-              <br>
-              <label for="duration">Class Duration:</label>
+            <br>
+            <label for="duration">Class Duration:</label>
               <select name="duration" class ="form-control" id ="duration">
                 @if($duration == 'AM Only')
                   <option value="AM Only" selected>AM Only</option>
@@ -128,7 +127,7 @@
                   <option value="Twilight">Twilight</option>
                 @endif
               </select>
-              <label for="min_age">Minimum Age:</label>
+            <label for="min_age">Minimum Age:</label>
               <select name="min_age" class ="form-control" id ="min_age">
                 @if($min_age == '11')
                   <option value="11" selected>11</option>
@@ -169,19 +168,17 @@
               @if($errors->first('min_age'))
                 <span class="error">{{$errors->first('min_age')}}</span>
               @endif
-              <br>
-              <label for="size">Size:</label>
+            <br>
+            <label for="size">Size:</label>
               <input name="size" type="text" class="form-control" id="size" value="{{ $size }}" >
-              <br>
-              <button type="submit" class="btn btn-default">
-                <i class="fa fa-check"></i> Save
-              </button>
-
-            </form>
-          </div>
+            <br>
+            <button type="submit" class="btn btn-default">
+              <i class="fa fa-check"></i> Save
+            </button>
+          </form>
         </div>
       </div>
     </div>
-</div>
-<!-- ~7Div0w2 -->
+  </section>
+</section>
 @endsection

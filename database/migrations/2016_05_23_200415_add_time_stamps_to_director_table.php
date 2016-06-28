@@ -5,25 +5,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddTimeStampsToDirectorTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-      Schema::table('directors', function (Blueprint $table) {
-        $table->timestamps();
-      });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
+  public function up() {
+    Schema::table('directors', function (Blueprint $table) {
+      $table->timestamps();
+    });
+  }
 }
