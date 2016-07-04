@@ -1,7 +1,6 @@
 @extends('layouts.index')
 
 @section('content')
-
 <section class="content-wrapper">
   <section class="content-header">
     <h2 class="page-header">Roster</h2>
@@ -9,32 +8,32 @@
 
   <section class="content">
     <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#all_scouts" data-toggle="tab">All Scouts</a></li>
-          <li><a href="#all_classes" data-toggle="tab">All Classes</a></li>
-          <li><a href="#week1" data-toggle="tab">Week 1</a></li>
-          <li><a href="#week2" data-toggle="tab">Week 2</a></li>
-          <li><a href="#week3" data-toggle="tab">Week 3</a></li>
-          <li><a href="#week4" data-toggle="tab">Week 4</a></li>
-          <li><a href="#week5" data-toggle="tab">Week 5</a></li>
-          <li><a href="#week6" data-toggle="tab">Week 6</a></li>
-          <li><a href="#week7" data-toggle="tab">Week 7</a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="all_scouts">
-            <table id="scout_table" class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th>Troop</th>
-                  <th>Council</th>
-                  <th>Last Name</th>
-                  <th>First Name</th>
-                  <th>Age</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($scouts as $key => $scout)
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#all_scouts" data-toggle="tab">All Scouts</a></li>
+        <li><a href="#all_classes" data-toggle="tab">All Classes</a></li>
+        <li><a href="#week1" data-toggle="tab">Week 1</a></li>
+        <li><a href="#week2" data-toggle="tab">Week 2</a></li>
+        <li><a href="#week3" data-toggle="tab">Week 3</a></li>
+        <li><a href="#week4" data-toggle="tab">Week 4</a></li>
+        <li><a href="#week5" data-toggle="tab">Week 5</a></li>
+        <li><a href="#week6" data-toggle="tab">Week 6</a></li>
+        <li><a href="#week7" data-toggle="tab">Week 7</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="all_scouts">
+          <table id="scout_table" class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Troop</th>
+                <th>Council</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Age</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($scouts as $key => $scout)
                 <tr>
                   <td>{{ $scout->troop->troop }}</td>
                   <td>{{ $scout->troop->council }}</td>
@@ -55,20 +54,20 @@
                     </div>
                   </td>
                 </tr>
-                @endforeach
-                </tbody>
-              </table>
-            </div>
-          <div class="tab-pane" id="all_classes">
-            <table id="classes_table" class="table table-bordered table-hover">
-              <thead>
-                <th>Day</th>
-                <th>Class/Session</th>
-                <th>Number Registred</th>
-                <th>Actions</th>
-              </thead>
-              <tbody>
-                @foreach($classes as $key => $class)
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane" id="all_classes">
+          <table id="classes_table" class="table table-bordered table-hover">
+            <thead>
+              <th>Day</th>
+              <th>Class/Session</th>
+              <th>Number Registred</th>
+              <th>Actions</th>
+            </thead>
+            <tbody>
+              @foreach($classes as $key => $class)
                 <tr>
                   <td>{{ $class->day }}</td>
                   <td>{{ $class->name }}</td>
@@ -84,15 +83,15 @@
                         <li><a href="{{ URL::to('roster_print_view/' . $class->id . '/' . $week) }}"><i class="fa fa-print">Print Roster</i></a></li>
                       </ul>
                     </div>
-                </td>
+                  </td>
                 </tr>
-                @endforeach
-                </tbody>
-                </div>
-            </table>
+              @endforeach
+            </tbody>
           </div>
-        </div>
-      </section>
+        </table>
+      </div>
+    </div>
+  </section>
 </section>
 <!-- Scripts Required for DataTable -->
 
@@ -110,15 +109,6 @@
   $(function () {
     $('#scout_table').DataTable({
       "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
-
-    $('#troop_table').DataTable({
-      "paging":true,
       "lengthChange": true,
       "searching": true,
       "ordering": true,

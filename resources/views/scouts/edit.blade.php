@@ -1,24 +1,22 @@
 @extends('layouts.index')
 
 @section('content')
-<div class="content-wrapper">
-  <div class="content">
-            <div class="panel panel-default">
-        <div class="panel-heading">Scout Editing</div>
-
-        <div class="panel-body">
-          <div class="form">
-            <form action="{{ url('scout/'.$id) }}" method="POST">
-              {!! csrf_field() !!}
-              <input name="_method" type="hidden" value="PUT">
-
-              <label for="scoutfirstname">Scout First Name:</label>
+<section class="content-wrapper">
+  <section class="content">
+    <div class="panel panel-default">
+      <div class="panel-heading">Scout Editing</div>
+      <div class="panel-body">
+        <div class="form">
+          <form action="{{ url('scout/'.$id) }}" method="POST">
+          {!! csrf_field() !!}
+            <input name="_method" type="hidden" value="PUT">
+            <label for="scoutfirstname">Scout First Name:</label>
               <input name="firstname" type="text" class ="form-control" id="scoutfirstname" value="{{ $firstname }}">
-              <br>
-              <label for="scoutmasterlastname">Scout Last Name</label>
+            <br>
+            <label for="scoutmasterlastname">Scout Last Name</label>
               <input name="lastname" type="text" class="form-control" id="scoutlastname" value="{{ $lastname }}">
-              <br>
-              <label for="age">Scout's Age at Start of Week Attending Camp:</label>
+            <br>
+            <label for="age">Scout's Age at Start of Week Attending Camp:</label>
               <select name="age" class ="form-control" id ="age">
                 @if($age == 11)
                   <option value="11" selected>11</option>
@@ -56,15 +54,15 @@
                   <option value="17">17</option>
                 @endif
               </select>
-              <br><input class="btn btn-default" type="submit" value="Submit">
-              <a href="{{ URL::to('troop') }}" style="float: right;" class="btn btn-danger">
-                <i class="fa fa-fast-backward"></i> Back
-              </a>
-            </form>
-          </div>
+            <br>
+            <input class="btn btn-default" type="submit" value="Submit">
+            <a href="{{ URL::to('troop') }}" style="float: right;" class="btn btn-danger">
+              <i class="fa fa-fast-backward"></i> Back
+            </a>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-<!-- ~7Div0w2 -->
+  </section>
+</section>
 @endsection

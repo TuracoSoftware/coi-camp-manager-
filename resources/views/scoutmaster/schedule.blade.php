@@ -6,13 +6,11 @@
     <div class="col-md-10 col-md-offset-1">
       <div class="panel panel-default">
         <div class="panel-heading">Scout Schedule Editing</div>
-
         <div class="panel-body">
           <div class="form">
             <form action="{{ url('scoutmaster/'.$scoutmaster->id.'/schedule') }}" method="POST">
               {!! csrf_field() !!}
               <input name="_method" type="hidden" value="PUT">
-
               <div class="panel panel-default">
                 <div class="panel-heading">
                   {{ $scoutmaster->lastname }}, {{ $scoutmaster->firstname }}
@@ -117,17 +115,16 @@
                   </table>
                 </div>
               </div>
-
-              <br><input class="btn btn-default" type="submit" value="Submit">
+              <br>
+              <input class="btn btn-default" type="submit" value="Submit">
             </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- ~7Div0w2 -->
 @endsection
-
 
 @section('custom_scripts')
   <script src="{{ URL::asset('../resources/assets/js/scouts.js') }}"></script>
